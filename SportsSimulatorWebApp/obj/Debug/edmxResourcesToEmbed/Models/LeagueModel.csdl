@@ -321,6 +321,7 @@
     <FunctionImport Name="spLeagueEntries_Insert">
       <Parameter Name="LeagueId" Mode="In" Type="Int32" />
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
+      <Parameter Name="id" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="spMatchupEntries_GetByMatchup" ReturnType="Collection(SportsSimulatorDBModel.spMatchupEntries_GetByMatchup_Result)">
       <Parameter Name="MatchupId" Mode="In" Type="Int32" />

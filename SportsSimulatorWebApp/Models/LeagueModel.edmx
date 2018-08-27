@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SportsSimulatorDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SportsSimulatorDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="League">
           <Key>
             <PropertyRef Name="id" />
@@ -251,6 +251,7 @@
         <Function Name="spLeagueEntries_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LeagueId" Type="int" Mode="In" />
           <Parameter Name="TeamId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
         <Function Name="spMatchupEntries_GetByMatchup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MatchupId" Type="int" Mode="In" />
@@ -361,8 +362,7 @@
             <End Role="TeamMembers" EntitySet="TeamMembers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SportsSimulatorDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -687,9 +687,10 @@
           <FunctionImport Name="spLeagueEntries_Insert">
             <Parameter Name="LeagueId" Mode="In" Type="Int32" />
             <Parameter Name="TeamId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spMatchupEntries_GetByMatchup" ReturnType="Collection(SportsSimulatorDBModel.spMatchupEntries_GetByMatchup_Result)">
-            <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+          <Parameter Name="MatchupId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spMatchupEntries_Insert">
             <Parameter Name="MatchupId" Mode="In" Type="Int32" />
@@ -698,7 +699,7 @@
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spMatchups_GetByLeague" ReturnType="Collection(SportsSimulatorDBModel.spMatchups_GetByLeague_Result)">
-            <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          <Parameter Name="LeagueId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spMatchups_Insert">
             <Parameter Name="LeagueId" Mode="In" Type="Int32" />
@@ -706,7 +707,7 @@
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spPlayer_GetById" ReturnType="Collection(SportsSimulatorDBModel.spPlayer_GetById_Result)">
-            <Parameter Name="PlayerId" Mode="In" Type="Int32" />
+          <Parameter Name="PlayerId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spPlayers_Insert">
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -716,7 +717,7 @@
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spRounds_GetByLeague" ReturnType="Collection(SportsSimulatorDBModel.spRounds_GetByLeague_Result)">
-            <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          <Parameter Name="LeagueId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spRounds_Insert">
             <Parameter Name="LeagueId" Mode="In" Type="Int32" />
@@ -725,10 +726,10 @@
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spTeam_GetById">
-            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+          <Parameter Name="TeamId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spTeamMembers_GetByTeam" ReturnType="Collection(SportsSimulatorDBModel.spTeamMembers_GetByTeam_Result)">
-            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+          <Parameter Name="TeamId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spTeamMembers_Insert">
             <Parameter Name="TeamId" Mode="In" Type="Int32" />
@@ -736,7 +737,7 @@
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spTeams_GetByLeague" ReturnType="Collection(SportsSimulatorDBModel.spTeams_GetByLeague_Result)">
-            <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          <Parameter Name="LeagueId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spTeams_Insert">
             <Parameter Name="TeamName" Mode="In" Type="String" />

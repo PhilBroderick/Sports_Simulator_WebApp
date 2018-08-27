@@ -18,9 +18,53 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             }
         }
 
-        //public List<LeagueEntry> PopulateLeagueEntries(League league)
-        //{
+        private void PopulateLeagueEntries(League league)
+        {
+            foreach (LeagueEntry entry in league.LeagueEntries)
+            {
+                using (var context = new SportsSimulatorDBEntities())
+                {
+                    System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+                    entry.id = context.spLeagueEntries_Insert(league.id, entry.TeamId, id);
+                }
+            }
+        }
 
+        //private void SaveLeagueRounds(League league, List<Round> rounds)
+        //{
+        //    foreach (Round round in rounds)
+        //    {
+        //        using (var context = new SportsSimulatorDBEntities())
+        //        {
+        //            //TODO - Create Stored procedure
+        //            System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+        //            context.spRounds_Insert(league.id, round.RoundNumber, );
+
+        //            round.id = Convert.ToInt32(id.Value);
+        //        }
+
+        //        foreach (Matchup matchup in round)
+        //        {
+        //            using (var context = new SportsSimulatorDBEntities())
+        //            {
+        //                System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+        //                context.Insert_Matchups(league.id, matchup.MatchupRound, id);
+
+        //                matchup.id = Convert.ToInt32(id.Value);
+        //            }
+        //            foreach (MatchupEntry entry in matchup.MatchupEntries)
+        //            {
+        //                using (var context = new SportsSimulatorDBEntities())
+        //                {
+        //                    //Cannot insert null into ParentMatchupId
+        //                    System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+        //                    context.MatchupEntries_Insert(matchup.id, matchup.id, entry.TeamCompeting.id, id);
+
+        //                    entry.id = Convert.ToInt32(id.Value);
+        //                }
+        //            }
+        //        }
+        //    }
         //}
 
         public List<List<Matchup>> CreateRounds(League league)

@@ -140,7 +140,7 @@ namespace SportsSimulatorWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual int spLeagueEntries_Insert(Nullable<int> leagueId, Nullable<int> teamId)
+        public virtual int spLeagueEntries_Insert(Nullable<int> leagueId, Nullable<int> teamId, ObjectParameter id)
         {
             var leagueIdParameter = leagueId.HasValue ?
                 new ObjectParameter("LeagueId", leagueId) :
@@ -150,7 +150,7 @@ namespace SportsSimulatorWebApp.Models
                 new ObjectParameter("TeamId", teamId) :
                 new ObjectParameter("TeamId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spLeagueEntries_Insert", leagueIdParameter, teamIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spLeagueEntries_Insert", leagueIdParameter, teamIdParameter, id);
         }
     
         public virtual ObjectResult<spMatchupEntries_GetByMatchup_Result> spMatchupEntries_GetByMatchup(Nullable<int> matchupId)

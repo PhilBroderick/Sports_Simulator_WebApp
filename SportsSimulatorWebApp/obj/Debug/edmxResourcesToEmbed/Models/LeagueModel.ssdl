@@ -246,6 +246,7 @@
   <Function Name="spLeagueEntries_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LeagueId" Type="int" Mode="In" />
     <Parameter Name="TeamId" Type="int" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
   <Function Name="spMatchupEntries_GetByMatchup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MatchupId" Type="int" Mode="In" />
