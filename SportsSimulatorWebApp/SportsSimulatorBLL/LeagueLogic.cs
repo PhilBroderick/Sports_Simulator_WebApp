@@ -21,6 +21,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 league.Rounds = AddMatchupsToRounds(output, league);
 
                 RandomiseRounds(league);
+
+                SaveLeagueRounds(league);
             }
         }
 
@@ -41,17 +43,17 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         {
             foreach (Round round in league.Rounds)
             {
-                using (var context = new SportsSimulatorDBEntities())
-                {
-                    //TODO - Create Stored procedure
-                    System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-                    context.spRounds_Insert(league.id, round.RoundNumber, round.MatchupId, id);
-
-                    round.id = Convert.ToInt32(id.Value);
-                }
-
                 foreach (Matchup matchup in round.Matchup)
                 {
+                    using (var context = new SportsSimulatorDBEntities())
+                    {
+                        //TODO - Create Stored procedure
+                        System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+                        context.spRounds_Insert(league.id, round.RoundNumber, matchup.id, id);
+
+                        round.id = Convert.ToInt32(id.Value);
+                    }
+
                     using (var context = new SportsSimulatorDBEntities())
                     {
                         System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
@@ -177,10 +179,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             
             foreach (List<Matchup> mList in matchups)
             {
-                foreach (Matchup m in mList)
-                {
-                    output.Add(new Round { MatchupId = m.id, RoundNumber = m.MatchupRound, LeagueId = league.id });
-                }
+                output.Add(new Round { Matchup = mList });
             }
             return output;
         }
@@ -201,6 +200,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 rounds[k] = rounds[n];
                 rounds[n] = value;
             }
+
+            league.Rounds = rounds;
         }
 
     }
