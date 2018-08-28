@@ -14,10 +14,17 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             if(league.LeagueEntries != null)
             {
-                CreateRounds(league);
+                List<List<Matchup>> output = new List<List<Matchup>>();
+
+                output = CreateRounds(league);
+
+                league.Rounds = AddMatchupsToRounds(output, league);
+
+                RandomiseRounds(league);
             }
         }
 
+        //TODO - Call when hitting 'Add teams' on LeagueEntries controller
         private void PopulateLeagueEntries(League league)
         {
             foreach (LeagueEntry entry in league.LeagueEntries)
@@ -30,46 +37,45 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             }
         }
 
-        //private void SaveLeagueRounds(League league, List<Round> rounds)
-        //{
-        //    foreach (Round round in rounds)
-        //    {
-        //        using (var context = new SportsSimulatorDBEntities())
-        //        {
-        //            //TODO - Create Stored procedure
-        //            System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-        //            context.spRounds_Insert(league.id, round.RoundNumber, );
+        private void SaveLeagueRounds(League league)
+        {
+            foreach (Round round in league.Rounds)
+            {
+                using (var context = new SportsSimulatorDBEntities())
+                {
+                    //TODO - Create Stored procedure
+                    System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+                    context.spRounds_Insert(league.id, round.RoundNumber, round.MatchupId, id);
 
-        //            round.id = Convert.ToInt32(id.Value);
-        //        }
+                    round.id = Convert.ToInt32(id.Value);
+                }
 
-        //        foreach (Matchup matchup in round)
-        //        {
-        //            using (var context = new SportsSimulatorDBEntities())
-        //            {
-        //                System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-        //                context.Insert_Matchups(league.id, matchup.MatchupRound, id);
+                foreach (Matchup matchup in round.Matchup)
+                {
+                    using (var context = new SportsSimulatorDBEntities())
+                    {
+                        System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+                        context.spMatchups_Insert(league.id, round.RoundNumber, id);
 
-        //                matchup.id = Convert.ToInt32(id.Value);
-        //            }
-        //            foreach (MatchupEntry entry in matchup.MatchupEntries)
-        //            {
-        //                using (var context = new SportsSimulatorDBEntities())
-        //                {
-        //                    //Cannot insert null into ParentMatchupId
-        //                    System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-        //                    context.MatchupEntries_Insert(matchup.id, matchup.id, entry.TeamCompeting.id, id);
+                        matchup.id = Convert.ToInt32(id.Value);
+                    }
+                    foreach (MatchupEntry entry in matchup.MatchupEntries)
+                    {
+                        using (var context = new SportsSimulatorDBEntities())
+                        {
+                            //Cannot insert null into ParentMatchupId
+                            System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+                            context.spMatchupEntries_Insert(matchup.id, matchup.id, entry.TeamCompetingId, id);
 
-        //                    entry.id = Convert.ToInt32(id.Value);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+                            entry.id = Convert.ToInt32(id.Value);
+                        }
+                    }
+                }
+            }
+        }
 
         public List<List<Matchup>> CreateRounds(League league)
         {
-            Round rounds = new Round();
             List<List<Matchup>> matchups = new List<List<Matchup>>();
 
             int numberOfRounds = (league.LeagueEntries.Count - 1);
@@ -168,34 +174,34 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         public List<Round> AddMatchupsToRounds(List<List<Matchup>> matchups, League league)
         {
             List<Round> output = new List<Round>();
-
-            matchups = CreateRounds(league);
-
+            
             foreach (List<Matchup> mList in matchups)
             {
                 foreach (Matchup m in mList)
                 {
-                    output.Add(new Round { MatchupId = m.id, RoundNumber = m.MatchupRound });
+                    output.Add(new Round { MatchupId = m.id, RoundNumber = m.MatchupRound, LeagueId = league.id });
                 }
             }
             return output;
         }
 
-        //public void RandomiseRounds(League league)
-        //{
-        //    Random rng = new Random();
-        //    int n = league.Rounds.Count;
-        //    List<Round> rounds = new List<Round>();
-        //    rounds = league.Rounds.ToArray()
+        public void RandomiseRounds(League league)
+        {
+            //Uses Fisher-Yates shuffle
+            Random rng = new Random();
+            int n = league.Rounds.Count;
 
-        //    while(n > 1)
-        //    {
-        //        n--;
-        //        int k = rng.Next(n + 1);
-        //        List<Matchup> value = league.Rounds[k];
-                  
-        //    }
-        //}
+            List<Round> rounds = league.Rounds.ToList();
+
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                Round value = rounds[k];
+                rounds[k] = rounds[n];
+                rounds[n] = value;
+            }
+        }
 
     }
 }

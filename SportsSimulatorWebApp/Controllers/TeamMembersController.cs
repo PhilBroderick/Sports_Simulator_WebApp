@@ -7,119 +7,129 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SportsSimulatorWebApp.Models;
-using SportsSimulatorWebApp.SportsSimulatorBLL;
 
 namespace SportsSimulatorWebApp.Controllers
 {
-    public class TeamsController : Controller
+    public class TeamMembersController : Controller
     {
         private SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
 
-        // GET: Teams
+        // GET: TeamMembers
         public ActionResult Index()
         {
-            return View(db.Teams.ToList());
+            var teamMembers = db.TeamMembers.Include(t => t.Player).Include(t => t.Team);
+            return View(teamMembers.ToList());
         }
 
-        // GET: Teams/Details/5
+        // GET: TeamMembers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            TeamMember teamMember = db.TeamMembers.Find(id);
+            if (teamMember == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(teamMember);
         }
 
+        //GET: TeamMembers/AddTeamMembers/4
         public ActionResult AddTeamMembers(int? id)
         {
+            //TODO - Add multiselectlist to this controller 
             Team team = db.Teams.Find(id);
-            TeamLogic addMembers = new TeamLogic();
+            var players = db.Players;
 
-            //Return a list of players from TeamMembers call
-            return null;
+            return View(players);
         }
-        // GET: Teams/Create
+
+        // GET: TeamMembers/Create
         public ActionResult Create()
         {
+            ViewBag.PlayerId = new SelectList(db.Players, "id", "FirstName");
+            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName");
             return View();
         }
 
-        // POST: Teams/Create
+        // POST: TeamMembers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,TeamName,TeamRating")] Team team)
+        public ActionResult Create([Bind(Include = "id,TeamId,PlayerId")] TeamMember teamMember)
         {
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
+                db.TeamMembers.Add(teamMember);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(team);
+            ViewBag.PlayerId = new SelectList(db.Players, "id", "FirstName", teamMember.PlayerId);
+            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName", teamMember.TeamId);
+            return View(teamMember);
         }
 
-        // GET: Teams/Edit/5
+        // GET: TeamMembers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            TeamMember teamMember = db.TeamMembers.Find(id);
+            if (teamMember == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            ViewBag.PlayerId = new SelectList(db.Players, "id", "FirstName", teamMember.PlayerId);
+            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName", teamMember.TeamId);
+            return View(teamMember);
         }
 
-        // POST: Teams/Edit/5
+        // POST: TeamMembers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,TeamName,TeamRating")] Team team)
+        public ActionResult Edit([Bind(Include = "id,TeamId,PlayerId")] TeamMember teamMember)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
+                db.Entry(teamMember).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(team);
+            ViewBag.PlayerId = new SelectList(db.Players, "id", "FirstName", teamMember.PlayerId);
+            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName", teamMember.TeamId);
+            return View(teamMember);
         }
 
-        // GET: Teams/Delete/5
+        // GET: TeamMembers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
-            if (team == null)
+            TeamMember teamMember = db.TeamMembers.Find(id);
+            if (teamMember == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(teamMember);
         }
 
-        // POST: Teams/Delete/5
+        // POST: TeamMembers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Teams.Find(id);
-            db.Teams.Remove(team);
+            TeamMember teamMember = db.TeamMembers.Find(id);
+            db.TeamMembers.Remove(teamMember);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
