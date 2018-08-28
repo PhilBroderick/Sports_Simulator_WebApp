@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d47cf12fde504155b6a3af8b1b02ac33" Name="Diagram1">
-        <EntityTypeShape EntityType="SportsSimulatorDBModel.League" Width="1.5" PointX="3.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportsSimulatorDBModel.League" Width="1.5" PointX="5.625" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.LeagueEntry" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.MatchupEntry" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.Matchup" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />

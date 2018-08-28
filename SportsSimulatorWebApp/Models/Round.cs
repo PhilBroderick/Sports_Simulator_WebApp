@@ -20,6 +20,6 @@ namespace SportsSimulatorWebApp.Models
         public int MatchupId { get; set; }
     
         public virtual League League { get; set; }
-        public virtual Matchup Matchup { get; set; }
+        public virtual ICollection<Matchup> Matchup { get; set; }
     }
 }
