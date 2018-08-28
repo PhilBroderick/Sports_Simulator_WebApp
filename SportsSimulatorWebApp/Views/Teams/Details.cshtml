@@ -26,6 +26,17 @@
             @Html.DisplayFor(model => model.TeamRating)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.TeamMembers)
+        </dt>
+
+        <dd>
+            @foreach(var item in Model.TeamMembers)
+            {
+                @Html.DisplayFor(model => item.Player.FirstName + item.Player.LastName)
+            }
+        </dd>
+
     </dl>
 </div>
 <p>

@@ -1,34 +1,28 @@
 ﻿@model SportsSimulatorWebApp.Models.TeamMember
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Add Members to Team";
 }
 
-<h2>Details</h2>
+<h2>Add Members to Team</h2>
 
 <div>
     <h4>TeamMember</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Player.FirstName)
+            @Html.DisplayNameFor(model => model.Team)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Player.FirstName)
+            @Html.DisplayFor(model => model.Team)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Team.TeamName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Team.TeamName)
-        </dd>
 
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a class="btn btn-default" href="@Url.Action("Details","Teams", new { id = Model.TeamId })">Return to Team &raquo;</a>
 </p>
+

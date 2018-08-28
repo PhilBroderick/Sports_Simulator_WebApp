@@ -266,13 +266,22 @@ namespace SportsSimulatorWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeam_GetById", teamIdParameter);
         }
     
-        public virtual ObjectResult<spTeamMembers_GetByTeam_Result> spTeamMembers_GetByTeam(Nullable<int> teamId)
+        public virtual ObjectResult<TeamMember> spTeamMembers_GetByTeam(Nullable<int> teamId)
         {
             var teamIdParameter = teamId.HasValue ?
                 new ObjectParameter("TeamId", teamId) :
                 new ObjectParameter("TeamId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spTeamMembers_GetByTeam_Result>("spTeamMembers_GetByTeam", teamIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TeamMember>("spTeamMembers_GetByTeam", teamIdParameter);
+        }
+    
+        public virtual ObjectResult<TeamMember> spTeamMembers_GetByTeam(Nullable<int> teamId, MergeOption mergeOption)
+        {
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("TeamId", teamId) :
+                new ObjectParameter("TeamId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TeamMember>("spTeamMembers_GetByTeam", mergeOption, teamIdParameter);
         }
     
         public virtual int spTeamMembers_Insert(Nullable<int> teamId, Nullable<int> playerId, ObjectParameter id)

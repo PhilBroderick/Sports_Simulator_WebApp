@@ -728,7 +728,7 @@
           <FunctionImport Name="spTeam_GetById">
           <Parameter Name="TeamId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="spTeamMembers_GetByTeam" ReturnType="Collection(SportsSimulatorDBModel.spTeamMembers_GetByTeam_Result)">
+          <FunctionImport Name="spTeamMembers_GetByTeam" EntitySet="TeamMembers" ReturnType="Collection(SportsSimulatorDBModel.TeamMember)">
           <Parameter Name="TeamId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spTeamMembers_Insert">
@@ -961,15 +961,6 @@
           <FunctionImportMapping FunctionImportName="spRounds_Insert" FunctionName="SportsSimulatorDBModel.Store.spRounds_Insert" />
           <FunctionImportMapping FunctionImportName="spTeam_GetById" FunctionName="SportsSimulatorDBModel.Store.spTeam_GetById" />
           <FunctionImportMapping FunctionImportName="spTeamMembers_GetByTeam" FunctionName="SportsSimulatorDBModel.Store.spTeamMembers_GetByTeam">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spTeamMembers_GetByTeam_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="PlayerRating" ColumnName="PlayerRating" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spTeamMembers_Insert" FunctionName="SportsSimulatorDBModel.Store.spTeamMembers_Insert" />
           <FunctionImportMapping FunctionImportName="spTeams_GetByLeague" FunctionName="SportsSimulatorDBModel.Store.spTeams_GetByLeague">
