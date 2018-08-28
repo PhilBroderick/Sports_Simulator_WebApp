@@ -159,6 +159,7 @@
     <Compile Include="Controllers\LeagueEntriesController.cs" />
     <Compile Include="Controllers\LeaguesController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
+    <Compile Include="Controllers\TeamMembersController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -309,6 +310,11 @@
     <Content Include="Views\LeagueEntries\Details.cshtml" />
     <Content Include="Views\LeagueEntries\Edit.cshtml" />
     <Content Include="Views\LeagueEntries\Index.cshtml" />
+    <Content Include="Views\TeamMembers\Create.cshtml" />
+    <Content Include="Views\TeamMembers\Delete.cshtml" />
+    <Content Include="Views\TeamMembers\Details.cshtml" />
+    <Content Include="Views\TeamMembers\Edit.cshtml" />
+    <Content Include="Views\TeamMembers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
