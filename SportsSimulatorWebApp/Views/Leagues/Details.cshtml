@@ -26,6 +26,14 @@
             @Html.DisplayFor(model => model.Active)
         </dd>
 
+        <dd>
+            @Html.DisplayNameFor(model => model.LeagueEntries)
+            @foreach(var item in Model.LeagueEntries)
+            {
+                @Html.DisplayFor(model => item.Team.TeamName)
+            }
+        </dd>
+
     </dl>
 </div>
 <p>

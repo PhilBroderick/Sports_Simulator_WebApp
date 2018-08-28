@@ -44,6 +44,14 @@ namespace SportsSimulatorWebApp.Controllers
             return View();
         }
 
+        //GET:LeagueEntries/Create/5
+        public ActionResult Create(int? id)
+        {
+            ViewBag.LeagueId = db.Leagues.Find(id);
+            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName");
+            return View();
+        }
+
         // POST: LeagueEntries/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

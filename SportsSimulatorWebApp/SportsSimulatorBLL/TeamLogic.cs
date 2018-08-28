@@ -40,19 +40,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
         }
 
-        //public List<Team> PopulateTeamDetails(List<Team> enteredTeams, int LeagueId)
-        //{
-        //    List<Team> teams = enteredTeams;
-
-        //    foreach (Team t in teams)
-        //    {
-        //        using (var context = new SportsSimulatorDBEntities())
-        //        {
-        //            t.Players = context.getTeamMembersDetails(t.id).ToList();
-        //        }
-        //    }
-
-        //    return teams;
-        //}
+        public void PopulateTeamDetails(Team team)
+        {
+          using (var context = new SportsSimulatorDBEntities())
+          {
+            team.TeamMembers = context.spTeamMembers_GetByTeam(team.id).ToList();
+          }
+        }
     }
 }

@@ -24,11 +24,17 @@ namespace SportsSimulatorWebApp.Controllers
         // GET: Teams/Details/5
         public ActionResult Details(int? id)
         {
+            TeamLogic t = new TeamLogic();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Team team = db.Teams.Find(id);
+
+            //TODO - Might not have to be called
+            t.PopulateTeamDetails(team);
+
             if (team == null)
             {
                 return HttpNotFound();
