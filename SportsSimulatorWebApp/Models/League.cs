@@ -18,7 +18,6 @@ namespace SportsSimulatorWebApp.Models
         public League()
         {
             this.LeagueEntries = new HashSet<LeagueEntry>();
-            this.Matchups = new HashSet<Matchup>();
             this.Rounds = new HashSet<Round>();
         }
     
@@ -28,8 +27,6 @@ namespace SportsSimulatorWebApp.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueEntry> LeagueEntries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Matchup> Matchups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Round> Rounds { get; set; }
     }

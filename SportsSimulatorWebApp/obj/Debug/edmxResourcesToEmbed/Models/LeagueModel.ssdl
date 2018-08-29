@@ -22,7 +22,6 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MatchupId" Type="int" Nullable="false" />
-    <Property Name="ParentMatchupId" Type="int" Nullable="false" />
     <Property Name="TeamCompetingId" Type="int" Nullable="false" />
     <Property Name="Score" Type="float" />
   </EntityType>
@@ -32,8 +31,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="WinnerId" Type="int" />
-    <Property Name="MatchupRound" Type="int" Nullable="false" />
-    <Property Name="LeagueId" Type="int" Nullable="false" />
+    <Property Name="RoundId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Players">
     <Key>
@@ -52,7 +50,6 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="LeagueId" Type="int" Nullable="false" />
     <Property Name="RoundNumber" Type="int" />
-    <Property Name="MatchupId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -116,18 +113,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MatchupEntries_ParentMatchup">
-    <End Role="Matchups" Type="Self.Matchups" Multiplicity="1" />
-    <End Role="MatchupEntries" Type="Self.MatchupEntries" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Matchups">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="MatchupEntries">
-        <PropertyRef Name="ParentMatchupId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_MatchupEntries_TeamCompeting">
     <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
     <End Role="MatchupEntries" Type="Self.MatchupEntries" Multiplicity="*" />
@@ -140,15 +125,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Matchups_League">
-    <End Role="League" Type="Self.League" Multiplicity="1" />
+  <Association Name="FK_Matchups_Round">
+    <End Role="Rounds" Type="Self.Rounds" Multiplicity="1" />
     <End Role="Matchups" Type="Self.Matchups" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="League">
+      <Principal Role="Rounds">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Matchups">
-        <PropertyRef Name="LeagueId" />
+        <PropertyRef Name="RoundId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -173,18 +158,6 @@
       </Principal>
       <Dependent Role="Rounds">
         <PropertyRef Name="LeagueId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Rounds_Matchups">
-    <End Role="Matchups" Type="Self.Matchups" Multiplicity="1" />
-    <End Role="Rounds" Type="Self.Rounds" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Matchups">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Rounds">
-        <PropertyRef Name="MatchupId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -253,7 +226,6 @@
   </Function>
   <Function Name="spMatchupEntries_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MatchupId" Type="int" Mode="In" />
-    <Parameter Name="ParentMatchupId" Type="int" Mode="In" />
     <Parameter Name="TeamCompetingId" Type="int" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
@@ -261,8 +233,7 @@
     <Parameter Name="LeagueId" Type="int" Mode="In" />
   </Function>
   <Function Name="spMatchups_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="LeagueId" Type="int" Mode="In" />
-    <Parameter Name="MatchupRound" Type="int" Mode="In" />
+    <Parameter Name="RoundId" Type="int" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
   <Function Name="spPlayer_GetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -281,7 +252,6 @@
   <Function Name="spRounds_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LeagueId" Type="int" Mode="In" />
     <Parameter Name="RoundNumber" Type="int" Mode="In" />
-    <Parameter Name="MatchupId" Type="int" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
   <Function Name="spTeam_GetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -324,16 +294,12 @@
       <End Role="Matchups" EntitySet="Matchups" />
       <End Role="MatchupEntries" EntitySet="MatchupEntries" />
     </AssociationSet>
-    <AssociationSet Name="FK_MatchupEntries_ParentMatchup" Association="Self.FK_MatchupEntries_ParentMatchup">
-      <End Role="Matchups" EntitySet="Matchups" />
-      <End Role="MatchupEntries" EntitySet="MatchupEntries" />
-    </AssociationSet>
     <AssociationSet Name="FK_MatchupEntries_TeamCompeting" Association="Self.FK_MatchupEntries_TeamCompeting">
       <End Role="Teams" EntitySet="Teams" />
       <End Role="MatchupEntries" EntitySet="MatchupEntries" />
     </AssociationSet>
-    <AssociationSet Name="FK_Matchups_League" Association="Self.FK_Matchups_League">
-      <End Role="League" EntitySet="League" />
+    <AssociationSet Name="FK_Matchups_Round" Association="Self.FK_Matchups_Round">
+      <End Role="Rounds" EntitySet="Rounds" />
       <End Role="Matchups" EntitySet="Matchups" />
     </AssociationSet>
     <AssociationSet Name="FK_Matchups_Team" Association="Self.FK_Matchups_Team">
@@ -342,10 +308,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_Rounds_League" Association="Self.FK_Rounds_League">
       <End Role="League" EntitySet="League" />
-      <End Role="Rounds" EntitySet="Rounds" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Rounds_Matchups" Association="Self.FK_Rounds_Matchups">
-      <End Role="Matchups" EntitySet="Matchups" />
       <End Role="Rounds" EntitySet="Rounds" />
     </AssociationSet>
     <AssociationSet Name="FK_TeamMembers_Players" Association="Self.FK_TeamMembers_Players">

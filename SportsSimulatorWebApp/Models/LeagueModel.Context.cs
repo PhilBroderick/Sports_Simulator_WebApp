@@ -29,13 +29,13 @@ namespace SportsSimulatorWebApp.Models
     
         public virtual DbSet<League> Leagues { get; set; }
         public virtual DbSet<LeagueEntry> LeagueEntries { get; set; }
-        public virtual DbSet<MatchupEntry> MatchupEntries { get; set; }
-        public virtual DbSet<Matchup> Matchups { get; set; }
         public virtual DbSet<Player> Players { get; set; }
-        public virtual DbSet<Round> Rounds { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TeamMember> TeamMembers { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<MatchupEntry> MatchupEntries { get; set; }
+        public virtual DbSet<Matchup> Matchups { get; set; }
+        public virtual DbSet<Round> Rounds { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -162,21 +162,17 @@ namespace SportsSimulatorWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spMatchupEntries_GetByMatchup_Result>("spMatchupEntries_GetByMatchup", matchupIdParameter);
         }
     
-        public virtual int spMatchupEntries_Insert(Nullable<int> matchupId, Nullable<int> parentMatchupId, Nullable<int> teamCompetingId, ObjectParameter id)
+        public virtual int spMatchupEntries_Insert(Nullable<int> matchupId, Nullable<int> teamCompetingId, ObjectParameter id)
         {
             var matchupIdParameter = matchupId.HasValue ?
                 new ObjectParameter("MatchupId", matchupId) :
                 new ObjectParameter("MatchupId", typeof(int));
     
-            var parentMatchupIdParameter = parentMatchupId.HasValue ?
-                new ObjectParameter("ParentMatchupId", parentMatchupId) :
-                new ObjectParameter("ParentMatchupId", typeof(int));
-    
             var teamCompetingIdParameter = teamCompetingId.HasValue ?
                 new ObjectParameter("TeamCompetingId", teamCompetingId) :
                 new ObjectParameter("TeamCompetingId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchupEntries_Insert", matchupIdParameter, parentMatchupIdParameter, teamCompetingIdParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchupEntries_Insert", matchupIdParameter, teamCompetingIdParameter, id);
         }
     
         public virtual ObjectResult<spMatchups_GetByLeague_Result> spMatchups_GetByLeague(Nullable<int> leagueId)
@@ -188,17 +184,13 @@ namespace SportsSimulatorWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spMatchups_GetByLeague_Result>("spMatchups_GetByLeague", leagueIdParameter);
         }
     
-        public virtual int spMatchups_Insert(Nullable<int> leagueId, Nullable<int> matchupRound, ObjectParameter id)
+        public virtual int spMatchups_Insert(Nullable<int> roundId, ObjectParameter id)
         {
-            var leagueIdParameter = leagueId.HasValue ?
-                new ObjectParameter("LeagueId", leagueId) :
-                new ObjectParameter("LeagueId", typeof(int));
+            var roundIdParameter = roundId.HasValue ?
+                new ObjectParameter("RoundId", roundId) :
+                new ObjectParameter("RoundId", typeof(int));
     
-            var matchupRoundParameter = matchupRound.HasValue ?
-                new ObjectParameter("MatchupRound", matchupRound) :
-                new ObjectParameter("MatchupRound", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchups_Insert", leagueIdParameter, matchupRoundParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchups_Insert", roundIdParameter, id);
         }
     
         public virtual ObjectResult<spPlayer_GetById_Result> spPlayer_GetById(Nullable<int> playerId)
@@ -240,7 +232,7 @@ namespace SportsSimulatorWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spRounds_GetByLeague_Result>("spRounds_GetByLeague", leagueIdParameter);
         }
     
-        public virtual int spRounds_Insert(Nullable<int> leagueId, Nullable<int> roundNumber, Nullable<int> matchupId, ObjectParameter id)
+        public virtual int spRounds_Insert(Nullable<int> leagueId, Nullable<int> roundNumber, ObjectParameter id)
         {
             var leagueIdParameter = leagueId.HasValue ?
                 new ObjectParameter("LeagueId", leagueId) :
@@ -250,11 +242,7 @@ namespace SportsSimulatorWebApp.Models
                 new ObjectParameter("RoundNumber", roundNumber) :
                 new ObjectParameter("RoundNumber", typeof(int));
     
-            var matchupIdParameter = matchupId.HasValue ?
-                new ObjectParameter("MatchupId", matchupId) :
-                new ObjectParameter("MatchupId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spRounds_Insert", leagueIdParameter, roundNumberParameter, matchupIdParameter, id);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spRounds_Insert", leagueIdParameter, roundNumberParameter, id);
         }
     
         public virtual int spTeam_GetById(Nullable<int> teamId)
