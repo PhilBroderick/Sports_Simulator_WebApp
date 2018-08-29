@@ -98,7 +98,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     int teamIdx = roundNumber % numberOfTeams;
 
                     Matchup firstMatchup = new Matchup();
-                    //TODO - Make TeamId field required
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = league.LeagueEntries.First().TeamId });
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[teamIdx].TeamId });
                     //firstMatchup.MatchupRound = roundNumber + 1;
@@ -124,7 +123,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     int teamIdx = roundNumber % numberOfTeams;
 
                     Matchup firstMatchup = new Matchup();
-                    //TODO - Make TeamId field required
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = league.LeagueEntries.First().TeamId });
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[teamIdx].TeamId });
                     //firstMatchup.MatchupRound = roundNumber + 1;
