@@ -26,9 +26,12 @@
             @Html.DisplayFor(model => model.Active)
         </dd>
 
-        <dd>
+        <dt>
             @Html.DisplayNameFor(model => model.LeagueEntries)
-            @foreach(var item in Model.LeagueEntries)
+        </dt>
+
+        <dd>
+            @foreach (var item in Model.LeagueEntries)
             {
                 @Html.DisplayFor(model => item.Team.TeamName)
             }
@@ -41,6 +44,7 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 <p>
-    <h2>@Html.ActionLink("Add Teams to League", "Create", "LeaugeEntries", new { @id = Model.id }, null)</h2>
-    <h2>@Html.ActionLink("Create Matchups", "CreateMatchups", "Leagues", new { @id = Model.id }, null)</h2>
+    <a class="btn btn-default" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.id })">Add Teams to League &raquo;</a>
+    
+    <a class="btn btn-default" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.id })">Create Matchups &raquo;</a>
 </p>

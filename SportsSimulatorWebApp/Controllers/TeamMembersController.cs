@@ -38,10 +38,10 @@ namespace SportsSimulatorWebApp.Controllers
         }
 
         //GET: TeamMembers/AddTeamMembers/4
-        public ActionResult AddTeamMembers(int teamId)
+        public ActionResult AddTeamMembers(int id)
         {
             //TODO - Add multiselectlist to this controller - button needs added to save selected players and add them to TeamMembers table
-            Team team = db.Teams.Find(teamId);
+            Team team = db.Teams.Find(id);
             List<Player> players = db.Players.ToList();
             TeamPlayerViewModel tpViewModel = new TeamPlayerViewModel();
 

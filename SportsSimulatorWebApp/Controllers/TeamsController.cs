@@ -31,10 +31,7 @@ namespace SportsSimulatorWebApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Team team = db.Teams.Find(id);
-
-            //TODO - Might not have to be called
-            t.PopulateTeamDetails(team);
-
+            
             if (team == null)
             {
                 return HttpNotFound();

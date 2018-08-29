@@ -45,7 +45,7 @@ namespace SportsSimulatorWebApp.Controllers
         }
 
         //GET:LeagueEntries/Create/5
-        public ActionResult Create(int id)
+        public ActionResult CreateLeagueEntries(int id)
         {
             ViewBag.LeagueId = db.Leagues.Find(id);
             ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName");
