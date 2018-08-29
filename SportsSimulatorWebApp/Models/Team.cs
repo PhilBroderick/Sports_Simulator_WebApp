@@ -18,9 +18,9 @@ namespace SportsSimulatorWebApp.Models
         public Team()
         {
             this.LeagueEntries = new HashSet<LeagueEntry>();
+            this.TeamMembers = new HashSet<TeamMember>();
             this.MatchupEntries = new HashSet<MatchupEntry>();
             this.Matchups = new HashSet<Matchup>();
-            this.TeamMembers = new HashSet<TeamMember>();
         }
     
         public int id { get; set; }
@@ -30,10 +30,10 @@ namespace SportsSimulatorWebApp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueEntry> LeagueEntries { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TeamMember> TeamMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MatchupEntry> MatchupEntries { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matchup> Matchups { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TeamMember> TeamMembers { get; set; }
     }
 }

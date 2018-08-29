@@ -18,22 +18,15 @@ namespace SportsSimulatorWebApp.Models
         public Matchup()
         {
             this.MatchupEntries = new HashSet<MatchupEntry>();
-            this.MatchupEntries1 = new HashSet<MatchupEntry>();
-            this.Rounds = new HashSet<Round>();
         }
     
         public int id { get; set; }
         public Nullable<int> WinnerId { get; set; }
-        public int MatchupRound { get; set; }
-        public int LeagueId { get; set; }
+        public int RoundId { get; set; }
     
-        public virtual League League { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MatchupEntry> MatchupEntries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MatchupEntry> MatchupEntries1 { get; set; }
         public virtual Team Team { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Round> Rounds { get; set; }
+        public virtual Round Round { get; set; }
     }
 }

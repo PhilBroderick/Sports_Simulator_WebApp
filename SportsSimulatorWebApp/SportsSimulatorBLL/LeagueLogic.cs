@@ -43,31 +43,33 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         {
             foreach (Round round in league.Rounds)
             {
-                foreach (Matchup matchup in round.Matchup)
+                using (var context = new SportsSimulatorDBEntities())
+                {
+                    System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+                    context.spRounds_Insert(league.id, round.RoundNumber, id);
+
+                    round.id = Convert.ToInt32(id.Value);
+                }
+
+                foreach (Matchup matchup in round.Matchups)
                 {
                     using (var context = new SportsSimulatorDBEntities())
                     {
                         //TODO - maybe round number doesn't need passed into matchups - therefore this can run before rounds then matchupId will be populated
                         System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-                        context.spMatchups_Insert(league.id, round.RoundNumber, id);
+                        context.spMatchups_Insert(round.id , id);
 
                         matchup.id = Convert.ToInt32(id.Value);
                     }
 
-                    using (var context = new SportsSimulatorDBEntities())
-                    {
-                        System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-                        context.spRounds_Insert(league.id, round.RoundNumber, matchup.id, id);
-
-                        round.id = Convert.ToInt32(id.Value);
-                    }
+                    
                     foreach (MatchupEntry entry in matchup.MatchupEntries)
                     {
                         using (var context = new SportsSimulatorDBEntities())
                         {
                             //Cannot insert null into ParentMatchupId
                             System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-                            context.spMatchupEntries_Insert(matchup.id, matchup.id, entry.TeamCompetingId, id);
+                            context.spMatchupEntries_Insert(matchup.id, entry.TeamCompetingId, id);
 
                             entry.id = Convert.ToInt32(id.Value);
                         }
@@ -177,7 +179,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             
             foreach (List<Matchup> mList in matchups)
             {
-                output.Add(new Round { Matchup = mList });
+                output.Add(new Round { Matchups = mList });
             }
             return output;
         }
@@ -203,10 +205,10 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             foreach(Round round in rounds)
             {
                 round.RoundNumber = roundNumber;
-                foreach(Matchup matchup in round.Matchup)
-                {
-                    matchup.MatchupRound = round.id;
-                }
+                //foreach(Matchup matchup in round.Matchups)
+                //{
+                //    matchup.MatchupRound = round.id;
+                //}
                 roundNumber += 1;
             }
             

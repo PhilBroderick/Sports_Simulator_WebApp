@@ -14,12 +14,18 @@ namespace SportsSimulatorWebApp.Models
     
     public partial class Round
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Round()
+        {
+            this.Matchups = new HashSet<Matchup>();
+        }
+    
         public int id { get; set; }
         public int LeagueId { get; set; }
         public Nullable<int> RoundNumber { get; set; }
-        public int MatchupId { get; set; }
     
         public virtual League League { get; set; }
-        public virtual List<Matchup> Matchup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Matchup> Matchups { get; set; }
     }
 }

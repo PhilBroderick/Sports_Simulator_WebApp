@@ -19,27 +19,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MatchupEntries">
-      <EntityTypeMapping TypeName="SportsSimulatorDBModel.MatchupEntry">
-        <MappingFragment StoreEntitySet="MatchupEntries">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
-          <ScalarProperty Name="ParentMatchupId" ColumnName="ParentMatchupId" />
-          <ScalarProperty Name="TeamCompetingId" ColumnName="TeamCompetingId" />
-          <ScalarProperty Name="Score" ColumnName="Score" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Matchups">
-      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Matchup">
-        <MappingFragment StoreEntitySet="Matchups">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
-          <ScalarProperty Name="MatchupRound" ColumnName="MatchupRound" />
-          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Players">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Player">
         <MappingFragment StoreEntitySet="Players">
@@ -48,16 +27,6 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="PlayerRating" ColumnName="PlayerRating" />
           <ScalarProperty Name="Position" ColumnName="Position" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Rounds">
-      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Round">
-        <MappingFragment StoreEntitySet="Rounds">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
-          <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
-          <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -174,5 +143,33 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spTeams_Insert" FunctionName="SportsSimulatorDBModel.Store.spTeams_Insert" />
+    <EntitySetMapping Name="MatchupEntries">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.MatchupEntry">
+        <MappingFragment StoreEntitySet="MatchupEntries">
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="TeamCompetingId" ColumnName="TeamCompetingId" />
+          <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matchups">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Matchup">
+        <MappingFragment StoreEntitySet="Matchups">
+          <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+          <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rounds">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Round">
+        <MappingFragment StoreEntitySet="Rounds">
+          <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
+          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
