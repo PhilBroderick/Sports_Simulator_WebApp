@@ -47,19 +47,19 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 {
                     using (var context = new SportsSimulatorDBEntities())
                     {
-                        //TODO - Create Stored procedure
+                        //TODO - maybe round number doesn't need passed into matchups - therefore this can run before rounds then matchupId will be populated
                         System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-                        context.spRounds_Insert(league.id, round.RoundNumber, matchup.id, id);
+                        context.spMatchups_Insert(league.id, round.RoundNumber, id);
 
-                        round.id = Convert.ToInt32(id.Value);
+                        matchup.id = Convert.ToInt32(id.Value);
                     }
 
                     using (var context = new SportsSimulatorDBEntities())
                     {
                         System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-                        context.spMatchups_Insert(league.id, round.RoundNumber, id);
+                        context.spRounds_Insert(league.id, round.RoundNumber, matchup.id, id);
 
-                        matchup.id = Convert.ToInt32(id.Value);
+                        round.id = Convert.ToInt32(id.Value);
                     }
                     foreach (MatchupEntry entry in matchup.MatchupEntries)
                     {
