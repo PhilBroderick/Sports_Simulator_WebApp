@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SportsSimulatorWebApp.Models;
+using SportsSimulatorWebApp.SportsSimulatorBLL;
 
 namespace SportsSimulatorWebApp.Controllers
 {
@@ -37,14 +38,29 @@ namespace SportsSimulatorWebApp.Controllers
         }
 
         //GET: TeamMembers/AddTeamMembers/4
-        public ActionResult AddTeamMembers(int? id)
+        public ActionResult AddTeamMembers(int teamId)
         {
-            //TODO - Add multiselectlist to this controller - look at viewmodels to pass list of players in
-            Team team = db.Teams.Find(id);
+            //TODO - Add multiselectlist to this controller - button needs added to save selected players and add them to TeamMembers table
+            Team team = db.Teams.Find(teamId);
             List<Player> players = db.Players.ToList();
-            TeamMember teamMember = new TeamMember();
+            TeamPlayerViewModel tpViewModel = new TeamPlayerViewModel();
 
-            return View(teamMember);
+            tpViewModel.Team = team;
+            tpViewModel.Players = players;
+
+            return View(tpViewModel);
+        }
+
+        public ActionResult AddSelectedPlayersToTeam(int teamId)
+        {
+            //TODO - Test this function - will need to pass the list of selected players to this method
+            TeamLogic tL = new TeamLogic();
+            Team t = db.Teams.Find(teamId);
+            List<Player> players = new List<Player>();
+
+            tL.AddPlayerToTeamList(players, t);
+
+            return RedirectToAction("Details", "Teams", new { Id = teamId });
         }
 
         // GET: TeamMembers/Create

@@ -14,7 +14,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
         public void CreateTeamRating(Team team)
         {
-            //Call when on TeamMember Page and adding player to team.
+            //TODO - Call when on TeamMember Page and adding player to team.
             int playerCount = team.TeamMembers.Count;
             decimal teamRating = 0;
 
@@ -29,15 +29,16 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
         }
 
-        public void AddPlayerToTeamList(Player player, Team team)
+        public void AddPlayerToTeamList(List<Player> players, Team team)
         {
-            using (var context = new SportsSimulatorDBEntities())
+            foreach(Player p in players)
             {
-                System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
-                context.spTeamMembers_Insert(team.id, player.id, id);
-
+                using (var context = new SportsSimulatorDBEntities())
+                {
+                    System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
+                    context.spTeamMembers_Insert(team.id, p.id, id);
+                }
             }
-
         }
 
         public void PopulateTeamDetails(Team team)
