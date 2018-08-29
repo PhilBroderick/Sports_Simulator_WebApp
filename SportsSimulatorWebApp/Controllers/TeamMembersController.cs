@@ -37,14 +37,17 @@ namespace SportsSimulatorWebApp.Controllers
         }
 
         //GET: TeamMembers/AddTeamMembers/4
-        public ActionResult AddTeamMembers(int? id)
+        public ActionResult AddTeamMembers(int teamId)
         {
             //TODO - Add multiselectlist to this controller - look at viewmodels to pass list of players in
-            Team team = db.Teams.Find(id);
+            Team team = db.Teams.Find(teamId);
             List<Player> players = db.Players.ToList();
-            TeamMember teamMember = new TeamMember();
+            TeamPlayerViewModel tpViewModel = new TeamPlayerViewModel();
 
-            return View(teamMember);
+            tpViewModel.Team = team;
+            tpViewModel.Players = players;
+
+            return View(tpViewModel);
         }
 
         // GET: TeamMembers/Create
