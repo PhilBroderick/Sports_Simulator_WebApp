@@ -40,15 +40,47 @@ namespace SportsSimulatorWebApp.Controllers
         //GET: TeamMembers/AddTeamMembers/4
         public ActionResult AddTeamMembers(int id)
         {
-            //TODO - Add multiselectlist to this controller - button needs added to save selected players and add them to TeamMembers table
+            SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
+
             Team team = db.Teams.Find(id);
             List<Player> players = db.Players.ToList();
-            TeamPlayerViewModel tpViewModel = new TeamPlayerViewModel();
 
-            tpViewModel.Team = team;
-            tpViewModel.Players = players;
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            foreach (var player in players)
+            {
+                var item = new SelectListItem
+                {
+                    Value = player.id.ToString(),
+                    Text = player.FirstName
+                };
+
+                items.Add(item);
+            }
+
+            MultiSelectList playersList = new MultiSelectList(items.OrderBy(i => i.Text), "Value", "Text");
+
+            TeamPlayerViewModel tpViewModel = new TeamPlayerViewModel { PlayerList = playersList, Team = team };
+
+            //TODO - Add multiselectlist to this controller - button needs added to save selected players and add them to TeamMembers table
+
+            //tpViewModel.Team = team;
+            //tpViewModel.Players = players;
 
             return View(tpViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddSelectedPlayersToTeam([Bind(Include ="Name, PlayerId")] TeamPlayerViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                TeamLogic tL = new TeamLogic();
+                tL.AddPlayerToTeamList(model.Players, model.Team);
+            }
+
+            return RedirectToAction("Details", "Teams", new { id = model.Team.id });
         }
 
         public ActionResult AddSelectedPlayersToTeam(int teamId)

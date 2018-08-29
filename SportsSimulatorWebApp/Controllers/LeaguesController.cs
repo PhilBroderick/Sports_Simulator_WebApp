@@ -24,16 +24,26 @@ namespace SportsSimulatorWebApp.Controllers
         // GET: Leagues/Details/5
         public ActionResult Details(int? id)
         {
+            LeagueTeamViewModel ltViewModel = new LeagueTeamViewModel();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             League league = db.Leagues.Find(id);
             if (league == null)
             {
                 return HttpNotFound();
             }
-            return View(league);
+
+            ltViewModel.league = league;
+
+            foreach(LeagueEntry leagueEntry in league.LeagueEntries)
+            {
+                ltViewModel.enteredTeams.Add(leagueEntry.Team);
+            }
+
+            return View(ltViewModel);
         }
         public ActionResult CreateMatchups(int? id)
         {

@@ -1,4 +1,4 @@
-﻿@model SportsSimulatorWebApp.Models.League
+﻿@model SportsSimulatorWebApp.Models.LeagueTeamViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -11,40 +11,42 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.LeagueName)
+            @Html.DisplayNameFor(model => model.league.LeagueName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LeagueName)
+            @Html.DisplayFor(model => model.league.LeagueName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Active)
+            @Html.DisplayNameFor(model => model.league.Active)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Active)
+            @Html.DisplayFor(model => model.league.Active)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LeagueEntries)
+            @Html.DisplayNameFor(model => model.enteredTeams)
         </dt>
 
         <dd>
-            @foreach (var item in Model.LeagueEntries)
+            @foreach (var item in Model.enteredTeams)
             {
-                @Html.DisplayFor(model => item.Team.TeamName)
+                var name = item.TeamName;
+                @Html.DisplayFor(model => name)
+                
             }
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.league.id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 <p>
-    <a class="btn btn-default" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.id })">Add Teams to League &raquo;</a>
+    <a class="btn btn-default" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.league.id })">Add Teams to League &raquo;</a>
     
-    <a class="btn btn-default" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.id })">Create Matchups &raquo;</a>
+    <a class="btn btn-default" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.league.id })">Create Matchups &raquo;</a>
 </p>

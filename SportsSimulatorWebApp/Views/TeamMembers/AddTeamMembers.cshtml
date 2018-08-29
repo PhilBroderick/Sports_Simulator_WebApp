@@ -1,36 +1,32 @@
 ﻿@model SportsSimulatorWebApp.Models.TeamPlayerViewModel
 
-@{
-    ViewBag.Title = "Add Members to Team";
-}
-
-<h2>Add Members to Team</h2>
-
-<div>
-    <h4>TeamMember</h4>
-    <hr />
-    <dl class="dl-horizontal">
+<p>
+    @using (Html.BeginForm("AddTeamMembers", "TeamMembers", new { id = Model.Team.id },
+FormMethod.Post, new { @class = "form-horizontal" }))
+    {
         <dt>
-            @Html.DisplayNameFor(model => model.Team.TeamName)
+            @Html.DisplayNameFor(model => Model.Team.TeamName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Team.TeamName)
         </dd>
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(i => i.PlayerList, new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.ListBoxFor(i => Model.PlayerId, Model.PlayerList,
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(i => i.PlayerList,
+                    "", new { @class = "text-warning" })
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    }
+</p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Players)
-        </dt>
-
-        <dd>
-            @foreach (var item in Model.Players)
-            {
-                @Html.DisplayFor(model => item.FirstName)
-            }
-
-        </dd>
-    </dl>
-</div>
 
 <p>
     <a class="btn btn-default" href="@Url.Action("AddSelectedPlayersToTeam","TeamMembers", new { id = Model.Team.id })">Add Players to Team &raquo;</a>

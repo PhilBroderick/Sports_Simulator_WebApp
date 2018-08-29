@@ -185,6 +185,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LeagueModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LeagueTeamViewModel.cs" />
     <Compile Include="Models\Matchup.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
@@ -316,6 +317,7 @@
     <Content Include="Views\TeamMembers\Details.cshtml" />
     <Content Include="Views\TeamMembers\Edit.cshtml" />
     <Content Include="Views\TeamMembers\Index.cshtml" />
+    <Content Include="Views\TeamMembers\AddTeamMembers - Test.cshtml" />
     <Content Include="Views\TeamMembers\AddTeamMembers.cshtml" />
   </ItemGroup>
   <ItemGroup>
