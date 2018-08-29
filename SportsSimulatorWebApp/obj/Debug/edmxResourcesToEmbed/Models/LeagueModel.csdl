@@ -362,7 +362,7 @@
     <FunctionImport Name="spTeam_GetById">
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="spTeamMembers_GetByTeam" ReturnType="Collection(SportsSimulatorDBModel.spTeamMembers_GetByTeam_Result)">
+    <FunctionImport Name="spTeamMembers_GetByTeam" EntitySet="TeamMembers" ReturnType="Collection(SportsSimulatorDBModel.TeamMember)">
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="spTeamMembers_Insert">
