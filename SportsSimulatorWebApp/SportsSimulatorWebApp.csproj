@@ -164,6 +164,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddPlayersToTeam.cs" />
     <Compile Include="Models\League.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
@@ -299,7 +300,7 @@
     <Content Include="Views\Leagues\Index.cshtml" />
     <Content Include="Views\Teams\Create.cshtml" />
     <Content Include="Views\Teams\Delete.cshtml" />
-    <Content Include="Views\Teams\Details.cshtml" />
+    <Content Include="Views\Teams\Details1.cshtml" />
     <Content Include="Views\Teams\Edit.cshtml" />
     <Content Include="Views\Teams\Index.cshtml" />
     <Content Include="Views\Players\Create.cshtml" />
@@ -317,8 +318,11 @@
     <Content Include="Views\TeamMembers\Details.cshtml" />
     <Content Include="Views\TeamMembers\Edit.cshtml" />
     <Content Include="Views\TeamMembers\Index.cshtml" />
-    <Content Include="Views\TeamMembers\AddTeamMembers - Test.cshtml" />
+    <Content Include="Views\TeamMembers\AddTeamMembers1.cshtml" />
     <Content Include="Views\TeamMembers\AddTeamMembers.cshtml" />
+    <Content Include="Views\LeagueEntries\CreateLeagueEntries.cshtml" />
+    <Content Include="Views\TeamMembers\AddTeamMembers - Test - Copy.cshtml" />
+    <Content Include="Views\Teams\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
