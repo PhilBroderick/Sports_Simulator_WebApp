@@ -4,35 +4,32 @@
     ViewBag.Title = "Details";
 }
 
-<table class="table">
-    <tr>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.TeamName)
-        </th>
-        <th>
-            @Html.DisplayName("Player List")
-        </th>
-
-        <th></th>
-    </tr>
-
-    <tr>
-        <td></td>
-        <td>
-            @Html.DisplayFor(model => model.TeamName)
-        </td>
-        <td>
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamName)
+            </th>
+            <th>
+                @Html.DisplayName("Player List")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.TeamName)
+            </td>
             @{ var modelList = Model.TeamMembers;}
-            <div class="row">
-                @foreach(var item in modelList)
-                {
-                    <div class="col-md-1">@item.Player.FirstName</div>
-                }
-            </div>
-              
-        </td>
-    </tr>
+            @foreach(var player in modelList)
+            {
+                <tr>
+                    <td></td>
+                    <td>@player.Player.FirstName</td>
+                    </tr>
+            }
+        </tr>
+    </tbody>
 </table>
 
 <p>
