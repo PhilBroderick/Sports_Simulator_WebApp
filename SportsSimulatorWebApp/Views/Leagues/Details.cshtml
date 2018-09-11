@@ -6,33 +6,32 @@
 
 <h2>Details</h2>
 
-<table class="table">
-    <tr>
-        <th></th>
-        <th
-            >@Html.DisplayNameFor(model => model.league.LeagueName)
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("League")
         </th>
         <th>
             @Html.DisplayName("Team List")
         </th>
-        <th></th>
     </tr>
-
-    <tr>
-        <td></td>
-        <td>
-            @Html.DisplayFor(model => model.league.LeagueName)
-        </td>
-        <td>
-            @{var teamList = Model.enteredTeams; }
-            <div =class="row">
-                @foreach(var team in teamList)
-                {
-                    <div class="col-md-1">@team.TeamName</div>
-                }
-            </div>
-        </td>
-    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.league.LeagueName)
+            </td>
+                @{var teamList = Model.enteredTeams; }
+                 @foreach(var team in teamList)
+                 {
+                     <tr>
+                         <td></td>
+                         <td>@team.TeamName</td>
+                     </tr>
+                 }
+        </tr>
+    </tbody>
 
 </table>
 <p>
@@ -40,7 +39,7 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 <p>
-    <a class="btn btn-default" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.league.id })">Add Teams to League &raquo;</a>
+    <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.league.id })">Add Teams to League &raquo;</a>
     
-    <a class="btn btn-default" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.league.id })">Create Matchups &raquo;</a>
+    <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.league.id })">Create Matchups &raquo;</a>
 </p>

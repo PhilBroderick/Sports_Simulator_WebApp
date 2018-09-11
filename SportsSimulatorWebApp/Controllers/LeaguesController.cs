@@ -42,6 +42,15 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 ltViewModel.enteredTeams.Add(leagueEntry.Team);
             }
+            
+
+            foreach(Round round in league.Rounds)
+            {
+                foreach(Matchup matchup in round.Matchups)
+                {
+                    RatingSystemLogic rating = new RatingSystemLogic(matchup);
+                }
+            }
 
             return View(ltViewModel);
         }
