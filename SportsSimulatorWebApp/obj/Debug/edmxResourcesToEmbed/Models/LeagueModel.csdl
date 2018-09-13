@@ -62,6 +62,9 @@
     <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMembers_Team" FromRole="Teams" ToRole="TeamMembers" />
     <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="Team" ToRole="MatchupEntry" />
     <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Team" ToRole="Matchup" />
+    <Property Name="Wins" Type="Int32" />
+    <Property Name="Losses" Type="Int32" />
+    <Property Name="Draws" Type="Int32" />
   </EntityType>
   <Association Name="FK_League_LeagueEntries">
     <End Role="League" Type="Self.League" Multiplicity="1" />

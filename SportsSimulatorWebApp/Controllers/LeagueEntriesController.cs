@@ -49,7 +49,7 @@ namespace SportsSimulatorWebApp.Controllers
         {
             ViewBag.LeagueId = db.Leagues.Find(id);
             ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName");
-            return View();
+            return View("Index");
         }
 
         // POST: LeagueEntries/Create

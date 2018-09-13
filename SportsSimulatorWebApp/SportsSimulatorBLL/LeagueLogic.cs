@@ -203,6 +203,5 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             league.Rounds = rounds;
         }
-
     }
 }

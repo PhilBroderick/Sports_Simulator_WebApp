@@ -72,7 +72,7 @@ namespace SportsSimulatorWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddSelectedPlayersToTeam([Bind(Include ="Name, PlayerId")] TeamPlayerViewModel model)
+        public ActionResult AddSelectedPlayersToTeam(int id, [Bind(Include ="Name, PlayerId")] TeamPlayerViewModel model)
         {
             if(ModelState.IsValid)
             {

@@ -53,6 +53,9 @@
     <EntitySetMapping Name="Teams">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
         <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="Draws" ColumnName="Draws" />
+          <ScalarProperty Name="Losses" ColumnName="Losses" />
+          <ScalarProperty Name="Wins" ColumnName="Wins" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="TeamName" ColumnName="TeamName" />
           <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />

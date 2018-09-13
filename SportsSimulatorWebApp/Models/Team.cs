@@ -26,6 +26,9 @@ namespace SportsSimulatorWebApp.Models
         public int id { get; set; }
         public string TeamName { get; set; }
         public decimal TeamRating { get; set; }
+        public Nullable<int> Wins { get; set; }
+        public Nullable<int> Losses { get; set; }
+        public Nullable<int> Draws { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueEntry> LeagueEntries { get; set; }
