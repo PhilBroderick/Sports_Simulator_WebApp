@@ -55,7 +55,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 {
                     using (var context = new SportsSimulatorDBEntities())
                     {
-                        //TODO - maybe round number doesn't need passed into matchups - therefore this can run before rounds then matchupId will be populated
                         System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
                         context.spMatchups_Insert(round.id , id);
 
@@ -67,7 +66,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     {
                         using (var context = new SportsSimulatorDBEntities())
                         {
-                            //Cannot insert null into ParentMatchupId
                             System.Data.Entity.Core.Objects.ObjectParameter id = new System.Data.Entity.Core.Objects.ObjectParameter("id", typeof(Int32));
                             context.spMatchupEntries_Insert(matchup.id, entry.TeamCompetingId, id);
 
@@ -102,7 +100,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     Matchup firstMatchup = new Matchup();
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = league.LeagueEntries.First().TeamId });
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[teamIdx].TeamId });
-                    //firstMatchup.MatchupRound = roundNumber + 1;
                     round.Add(firstMatchup);
 
                     for (var idx = 1; idx < numberOfMatchesInARound; idx++)
@@ -114,7 +111,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
                         nextMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[firstTeamIndex].TeamId });
                         nextMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[secondteamIndex].TeamId });
-                        //nextMatchup.MatchupRound = roundNumber + 1;
                         round.Add(nextMatchup);
                     }
                     matchups.Add(round);
@@ -127,7 +123,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     Matchup firstMatchup = new Matchup();
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = league.LeagueEntries.First().TeamId });
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[teamIdx].TeamId });
-                    //firstMatchup.MatchupRound = roundNumber + 1;
                     round.Add(firstMatchup);
 
                     for (var idx = 1; idx < numberOfMatchesInARound; idx++)
@@ -139,7 +134,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
                         nextMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[firstTeamIndex].TeamId });
                         nextMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[secondteamIndex].TeamId });
-                       // nextMatchup.MatchupRound = roundNumber + 1;
                         round.Add(nextMatchup);
                     }
                     matchups.Add(round);
@@ -153,7 +147,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[teamIdx].TeamId });
                     firstMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = league.LeagueEntries.First().TeamId });
-                   // firstMatchup.MatchupRound = roundNumber + 1;
                     round.Add(firstMatchup);
 
                     for (var idx = 1; idx < numberOfMatchesInARound; idx++)
@@ -165,7 +158,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
                         nextMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[firstTeamIndex].TeamId });
                         nextMatchup.MatchupEntries.Add(new MatchupEntry { TeamCompetingId = teamList[secondteamIndex].TeamId });
-                      //  nextMatchup.MatchupRound = roundNumber + 1;
                         round.Add(nextMatchup);
                     }
                     matchups.Add(round);
@@ -205,16 +197,11 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             foreach(Round round in rounds)
             {
                 round.RoundNumber = roundNumber;
-                //foreach(Matchup matchup in round.Matchups)
-                //{
-                //    matchup.MatchupRound = round.id;
-                //}
                 roundNumber += 1;
             }
             
 
             league.Rounds = rounds;
         }
-
     }
 }
