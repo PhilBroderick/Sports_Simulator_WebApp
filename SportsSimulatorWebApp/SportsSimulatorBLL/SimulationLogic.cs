@@ -10,7 +10,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
     {
         private const double homeAdvantage = 68.0;
 
-        private void SimulateRound(Round round)
+        public void SimulateRound(Round round)
         {
             foreach (Matchup matchup in round.Matchups)
             {
