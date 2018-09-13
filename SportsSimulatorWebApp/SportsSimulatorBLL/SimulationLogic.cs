@@ -8,6 +8,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 {
     public class SimulationLogic
     {
+        private const double homeAdvantage = 68.0;
+
         private void SimulateRound(Round round)
         {
             foreach (Matchup matchup in round.Matchups)
@@ -23,11 +25,20 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 {
                     //Need to simualate the scores
                     matchup.WinnerId = matchup.MatchupEntries.First().TeamCompetingId;
+                    matchup.MatchupEntries.First().Team.Wins += 1;
+                    matchup.MatchupEntries.Last().Team.Losses += 1;
                 }
                 else if(result > expectedResults[1])
                 {
                     //Need to simulate the scores
                     matchup.WinnerId = matchup.MatchupEntries.Last().TeamCompetingId;
+                    matchup.MatchupEntries.Last().Team.Wins += 1;
+                    matchup.MatchupEntries.First().Team.Losses += 1;
+                }
+                else
+                {
+                    matchup.MatchupEntries.First().Team.Draws += 1;
+                    matchup.MatchupEntries.Last().Team.Draws += 1;
                 }
             }
         }
@@ -35,16 +46,16 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         protected List<double> getExpectedOutcome(Matchup matchup)
         {
             //Could be refactored as it is called in the RatingSystemLogic also
-            double ratingTeam1 = Convert.ToDouble(matchup.MatchupEntries.First().Team.TeamRating);
-            double ratingTeam2 = Convert.ToDouble(matchup.MatchupEntries.Last().Team.TeamRating);
+            double ratingTeamHome = Convert.ToDouble(matchup.MatchupEntries.First().Team.TeamRating) + homeAdvantage;
+            double ratingTeamAway = Convert.ToDouble(matchup.MatchupEntries.Last().Team.TeamRating);
 
-            double expectedResultTeam1 = 1 / (1 + (Math.Pow(10, (ratingTeam2 - ratingTeam1) / 400)));
-            double expectedResultTeam2 = 1 / (1 + (Math.Pow(10, (ratingTeam1 - ratingTeam2) / 400)));
+            double expectedResultTeamHome = 1 / (1 + (Math.Pow(10, (ratingTeamAway - ratingTeamHome) / 400)));
+            double expectedResultTeamAway = 1 - expectedResultTeamHome;
 
             List<double> expectedResultList = new List<double>
             {
-                expectedResultTeam1,
-                expectedResultTeam2
+                expectedResultTeamHome,
+                expectedResultTeamAway
             };
 
             return expectedResultList;
