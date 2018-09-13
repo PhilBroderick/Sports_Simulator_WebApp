@@ -66,6 +66,21 @@ namespace SportsSimulatorWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult SimulateRound(int? id)
+        {
+            int roundNumber = 1; // needs to be set as a global variable?
+
+            League league = db.Leagues.Find(id);
+            Round round = db.Rounds.Find(roundNumber);
+
+            SimulationLogic sim = new SimulationLogic();
+
+            sim.SimulateRound(round);
+
+            return RedirectToAction("Index");
+
+        }
+
         // GET: Leagues/Create
         public ActionResult Create()
         {
