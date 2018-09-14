@@ -21,6 +21,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
                 List<double> expectedResults = getExpectedOutcome(matchup);
 
+                List<double> scores = SimulateMatchup(matchup);
+
                 if(result < expectedResults[0])
                 {
                     //Need to simualate the scores
@@ -59,6 +61,37 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             };
 
             return expectedResultList;
+        }
+
+        private List<double> SimulateMatchup(Matchup matchup)
+        {
+            //Random generator for amount of events in the time - could probably be refactored to its own method
+            Random rngEvents = new Random();
+            Random rngTime = new Random();
+
+            TimeSpan start = TimeSpan.FromMinutes(0);
+            TimeSpan end = TimeSpan.FromMinutes(80);
+
+            int maxMinutes = (int)((end - start).TotalMinutes);
+
+            int randNoOfEvents = rngEvents.Next(5, 15); // Might need to be adjusted for the amount of events that occur
+
+            List<TimeSpan> eventTimeList = new List<TimeSpan>();
+
+            for(int i = 0; i <= randNoOfEvents; i ++)
+            {
+                int timeOfEvent = rngTime.Next(maxMinutes);
+                TimeSpan t = start.Add(TimeSpan.FromMinutes(timeOfEvent));
+                eventTimeList.Add(t);
+            }
+
+
+            //Random generator for which event is called per time
+            //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
+            //Determine the rest of the events for the matchup
+            //Return the scores/events of the matchup
+
+            return null;
         }
     }
 }
