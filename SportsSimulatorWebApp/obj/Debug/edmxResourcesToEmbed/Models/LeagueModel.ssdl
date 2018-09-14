@@ -42,8 +42,11 @@
     <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="PlayerRating" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="Position" Type="nvarchar" MaxLength="50" />
+<<<<<<< HEAD
     <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
     <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
+=======
+>>>>>>> eec0b3869a79f044147eea8220ff202be4ee319b
   </EntityType>
   <EntityType Name="Rounds">
     <Key>
@@ -81,8 +84,11 @@
     <Property Name="Wins" Type="int" />
     <Property Name="Losses" Type="int" />
     <Property Name="Draws" Type="int" />
+<<<<<<< HEAD
     <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
     <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
+=======
+>>>>>>> eec0b3869a79f044147eea8220ff202be4ee319b
   </EntityType>
   <Association Name="FK_League_LeagueEntries">
     <End Role="League" Type="Self.League" Multiplicity="1" />

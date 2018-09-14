@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿// T4 code generation is enabled for model 'C:\Users\Phil\source\repos\SportsSimulatorWebApp\Sports_Simulator_WebApp\SportsSimulatorWebApp\Models\LeagueModel.edmx'. 
+=======
+﻿// T4 code generation is enabled for model 'C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\Models\LeagueModel.edmx'. 
+>>>>>>> eec0b3869a79f044147eea8220ff202be4ee319b
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

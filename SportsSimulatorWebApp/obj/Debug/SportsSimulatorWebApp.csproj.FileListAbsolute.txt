@@ -188,6 +188,7 @@ C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csproj.CopyComplete
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.dll
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.pdb
+<<<<<<< HEAD
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\Sports_Simulator_WebApp\SportsSimulatorWebApp\bin\ApplicationInsights.config
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\Sports_Simulator_WebApp\SportsSimulatorWebApp\bin\SportsSimulatorWebApp.dll.config
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\Sports_Simulator_WebApp\SportsSimulatorWebApp\bin\SportsSimulatorWebApp.dll
@@ -283,3 +284,5 @@ C:\Users\Phil\source\repos\SportsSimulatorWebApp\Sports_Simulator_WebApp\SportsS
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\Sports_Simulator_WebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csproj.CopyComplete
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\Sports_Simulator_WebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.dll
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\Sports_Simulator_WebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.pdb
+=======
+>>>>>>> eec0b3869a79f044147eea8220ff202be4ee319b
