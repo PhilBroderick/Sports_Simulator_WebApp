@@ -1,0 +1,97 @@
+﻿using SportsSimulatorWebApp.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace SportsSimulatorWebApp.SportsSimulatorBLL
+{
+    public class SimulationLogic
+    {
+        private const double homeAdvantage = 68.0;
+
+        public void SimulateRound(Round round)
+        {
+            foreach (Matchup matchup in round.Matchups)
+            {
+                Random rng = new Random();
+                double result = 0;
+
+                result = rng.NextDouble();
+
+                List<double> expectedResults = getExpectedOutcome(matchup);
+
+                List<double> scores = SimulateMatchup(matchup);
+
+                if(result < expectedResults[0])
+                {
+                    //Need to simualate the scores
+                    matchup.WinnerId = matchup.MatchupEntries.First().TeamCompetingId;
+                    matchup.MatchupEntries.First().Team.Wins += 1;
+                    matchup.MatchupEntries.Last().Team.Losses += 1;
+                }
+                else if(result > expectedResults[1])
+                {
+                    //Need to simulate the scores
+                    matchup.WinnerId = matchup.MatchupEntries.Last().TeamCompetingId;
+                    matchup.MatchupEntries.Last().Team.Wins += 1;
+                    matchup.MatchupEntries.First().Team.Losses += 1;
+                }
+                else
+                {
+                    matchup.MatchupEntries.First().Team.Draws += 1;
+                    matchup.MatchupEntries.Last().Team.Draws += 1;
+                }
+            }
+        }
+
+        protected List<double> getExpectedOutcome(Matchup matchup)
+        {
+            //Could be refactored as it is called in the RatingSystemLogic also
+            double ratingTeamHome = Convert.ToDouble(matchup.MatchupEntries.First().Team.TeamRating) + homeAdvantage;
+            double ratingTeamAway = Convert.ToDouble(matchup.MatchupEntries.Last().Team.TeamRating);
+
+            double expectedResultTeamHome = 1 / (1 + (Math.Pow(10, (ratingTeamAway - ratingTeamHome) / 400)));
+            double expectedResultTeamAway = 1 - expectedResultTeamHome;
+
+            List<double> expectedResultList = new List<double>
+            {
+                expectedResultTeamHome,
+                expectedResultTeamAway
+            };
+
+            return expectedResultList;
+        }
+
+        private List<double> SimulateMatchup(Matchup matchup)
+        {
+            //Random generator for amount of events in the time - could probably be refactored to its own method
+            Random rngEvents = new Random();
+            Random rngTime = new Random();
+
+            TimeSpan start = TimeSpan.FromMinutes(0);
+            TimeSpan end = TimeSpan.FromMinutes(80);
+
+            int maxMinutes = (int)((end - start).TotalMinutes);
+
+            int randNoOfEvents = rngEvents.Next(5, 15); // Might need to be adjusted for the amount of events that occur
+
+            List<TimeSpan> eventTimeList = new List<TimeSpan>();
+
+            for(int i = 0; i <= randNoOfEvents; i ++)
+            {
+                int timeOfEvent = rngTime.Next(maxMinutes);
+                TimeSpan t = start.Add(TimeSpan.FromMinutes(timeOfEvent));
+                eventTimeList.Add(t);
+            }
+
+
+            //Random generator for which event is called per time
+            //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
+            //Determine the rest of the events for the matchup
+            //Return the scores/events of the matchup
+
+            return null;
+        }
+    }
+}

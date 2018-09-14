@@ -1,0 +1,937 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SportsSimulatorDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="int" />
+        </EntityType>
+        <EntityType Name="LeagueEntries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueId" Type="int" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MatchupEntries">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MatchupId" Type="int" Nullable="false" />
+          <Property Name="TeamCompetingId" Type="int" Nullable="false" />
+          <Property Name="Score" Type="float" />
+        </EntityType>
+        <EntityType Name="Matchups">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WinnerId" Type="int" />
+          <Property Name="RoundId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlayerRating" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Rounds">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueId" Type="int" Nullable="false" />
+          <Property Name="RoundNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TeamMembers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TeamRating" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Wins" Type="int" />
+          <Property Name="Losses" Type="int" />
+          <Property Name="Draws" Type="int" />
+          <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_League_LeagueEntries">
+          <End Role="League" Type="Self.League" Multiplicity="1" />
+          <End Role="LeagueEntries" Type="Self.LeagueEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeagueEntries">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_League_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="LeagueEntries" Type="Self.LeagueEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeagueEntries">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MatchupEntries_Matchup">
+          <End Role="Matchups" Type="Self.Matchups" Multiplicity="1" />
+          <End Role="MatchupEntries" Type="Self.MatchupEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matchups">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MatchupEntries">
+              <PropertyRef Name="MatchupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MatchupEntries_TeamCompeting">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="MatchupEntries" Type="Self.MatchupEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MatchupEntries">
+              <PropertyRef Name="TeamCompetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matchups_Round">
+          <End Role="Rounds" Type="Self.Rounds" Multiplicity="1" />
+          <End Role="Matchups" Type="Self.Matchups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rounds">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Matchups">
+              <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matchups_Team">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="Matchups" Type="Self.Matchups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Matchups">
+              <PropertyRef Name="WinnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rounds_League">
+          <End Role="League" Type="Self.League" Multiplicity="1" />
+          <End Role="Rounds" Type="Self.Rounds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Rounds">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamMembers_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="TeamMembers" Type="Self.TeamMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TeamMembers">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamMembers_Team">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="TeamMembers" Type="Self.TeamMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TeamMembers">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spLeagueEntries_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LeagueId" Type="int" Mode="In" />
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spMatchupEntries_GetByMatchup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MatchupId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spMatchupEntries_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MatchupId" Type="int" Mode="In" />
+          <Parameter Name="TeamCompetingId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spMatchups_GetByLeague" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LeagueId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spMatchups_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoundId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spPlayer_GetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PlayerId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPlayers_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="PlayerRating" Type="decimal" Mode="In" />
+          <Parameter Name="Position" Type="nvarchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spRounds_GetByLeague" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LeagueId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spRounds_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LeagueId" Type="int" Mode="In" />
+          <Parameter Name="RoundNumber" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spTeam_GetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTeamMembers_GetByTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTeamMembers_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+          <Parameter Name="PlayerId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spTeams_GetByLeague" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LeagueId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTeams_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="SportsSimulatorDBModelStoreContainer">
+          <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeagueEntries" EntityType="Self.LeagueEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MatchupEntries" EntityType="Self.MatchupEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matchups" EntityType="Self.Matchups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rounds" EntityType="Self.Rounds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeamMembers" EntityType="Self.TeamMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_League_LeagueEntries" Association="Self.FK_League_LeagueEntries">
+            <End Role="League" EntitySet="League" />
+            <End Role="LeagueEntries" EntitySet="LeagueEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_League_Teams" Association="Self.FK_League_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="LeagueEntries" EntitySet="LeagueEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MatchupEntries_Matchup" Association="Self.FK_MatchupEntries_Matchup">
+            <End Role="Matchups" EntitySet="Matchups" />
+            <End Role="MatchupEntries" EntitySet="MatchupEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MatchupEntries_TeamCompeting" Association="Self.FK_MatchupEntries_TeamCompeting">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="MatchupEntries" EntitySet="MatchupEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matchups_Round" Association="Self.FK_Matchups_Round">
+            <End Role="Rounds" EntitySet="Rounds" />
+            <End Role="Matchups" EntitySet="Matchups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matchups_Team" Association="Self.FK_Matchups_Team">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Matchups" EntitySet="Matchups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rounds_League" Association="Self.FK_Rounds_League">
+            <End Role="League" EntitySet="League" />
+            <End Role="Rounds" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamMembers_Players" Association="Self.FK_TeamMembers_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="TeamMembers" EntitySet="TeamMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamMembers_Team" Association="Self.FK_TeamMembers_Team">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="TeamMembers" EntitySet="TeamMembers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SportsSimulatorDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="League">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Int32" />
+          <NavigationProperty Name="LeagueEntries" Relationship="Self.FK_League_LeagueEntries" FromRole="League" ToRole="LeagueEntries" />
+          <NavigationProperty Name="Rounds" Relationship="SportsSimulatorDBModel.FK_Rounds_League" FromRole="League" ToRole="Round" />
+        </EntityType>
+        <EntityType Name="LeagueEntry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueId" Type="Int32" Nullable="false" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="League" Relationship="Self.FK_League_LeagueEntries" FromRole="LeagueEntries" ToRole="League" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_League_Teams" FromRole="LeagueEntries" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlayerRating" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMembers_Players" FromRole="Players" ToRole="TeamMembers" />
+          <Property Name="AttackRating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DefenseRating" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TeamMember">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamId" Type="Int32" Nullable="false" />
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="Self.FK_TeamMembers_Players" FromRole="TeamMembers" ToRole="Players" />
+          <NavigationProperty Name="Team" Relationship="Self.FK_TeamMembers_Team" FromRole="TeamMembers" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TeamRating" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="LeagueEntries" Relationship="Self.FK_League_Teams" FromRole="Teams" ToRole="LeagueEntries" />
+          <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMembers_Team" FromRole="Teams" ToRole="TeamMembers" />
+          <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="Team" ToRole="MatchupEntry" />
+          <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Team" ToRole="Matchup" />
+          <Property Name="Wins" Type="Int32" />
+          <Property Name="Losses" Type="Int32" />
+          <Property Name="Draws" Type="Int32" />
+          <Property Name="AttackRating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DefenseRating" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_League_LeagueEntries">
+          <End Role="League" Type="Self.League" Multiplicity="1" />
+          <End Role="LeagueEntries" Type="Self.LeagueEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeagueEntries">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_League_Teams">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="LeagueEntries" Type="Self.LeagueEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeagueEntries">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamMembers_Players">
+          <End Role="Players" Type="Self.Player" Multiplicity="1" />
+          <End Role="TeamMembers" Type="Self.TeamMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TeamMembers">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamMembers_Team">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="TeamMembers" Type="Self.TeamMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TeamMembers">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SportsSimulatorDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Leagues" EntityType="Self.League" />
+          <EntitySet Name="LeagueEntries" EntityType="Self.LeagueEntry" />
+          <EntitySet Name="Players" EntityType="Self.Player" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TeamMembers" EntityType="Self.TeamMember" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <AssociationSet Name="FK_League_LeagueEntries" Association="Self.FK_League_LeagueEntries">
+            <End Role="League" EntitySet="Leagues" />
+            <End Role="LeagueEntries" EntitySet="LeagueEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_League_Teams" Association="Self.FK_League_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="LeagueEntries" EntitySet="LeagueEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamMembers_Players" Association="Self.FK_TeamMembers_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="TeamMembers" EntitySet="TeamMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamMembers_Team" Association="Self.FK_TeamMembers_Team">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="TeamMembers" EntitySet="TeamMembers" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(SportsSimulatorDBModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(SportsSimulatorDBModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="spLeagueEntries_Insert">
+            <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spMatchupEntries_GetByMatchup" ReturnType="Collection(SportsSimulatorDBModel.spMatchupEntries_GetByMatchup_Result)">
+          <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spMatchupEntries_Insert">
+            <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+            <Parameter Name="TeamCompetingId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spMatchups_GetByLeague" ReturnType="Collection(SportsSimulatorDBModel.spMatchups_GetByLeague_Result)">
+          <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spMatchups_Insert">
+            <Parameter Name="RoundId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPlayer_GetById" ReturnType="Collection(SportsSimulatorDBModel.spPlayer_GetById_Result)">
+          <Parameter Name="PlayerId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPlayers_Insert">
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="PlayerRating" Mode="In" Type="Decimal" />
+            <Parameter Name="Position" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spRounds_GetByLeague" ReturnType="Collection(SportsSimulatorDBModel.spRounds_GetByLeague_Result)">
+          <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spRounds_Insert">
+            <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+            <Parameter Name="RoundNumber" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeam_GetById">
+          <Parameter Name="TeamId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeamMembers_GetByTeam" EntitySet="TeamMembers" ReturnType="Collection(SportsSimulatorDBModel.TeamMember)">
+          <Parameter Name="TeamId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeamMembers_Insert">
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+            <Parameter Name="PlayerId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_GetByLeague" ReturnType="Collection(SportsSimulatorDBModel.spTeams_GetByLeague_Result)">
+          <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_Insert">
+            <Parameter Name="TeamName" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="MatchupEntries" EntityType="SportsSimulatorDBModel.MatchupEntry" />
+          <AssociationSet Name="FK_MatchupEntries_TeamCompeting" Association="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="MatchupEntry" EntitySet="MatchupEntries" />
+          </AssociationSet>
+          <EntitySet Name="Matchups" EntityType="SportsSimulatorDBModel.Matchup" />
+          <AssociationSet Name="FK_MatchupEntries_Matchup" Association="SportsSimulatorDBModel.FK_MatchupEntries_Matchup">
+            <End Role="Matchup" EntitySet="Matchups" />
+            <End Role="MatchupEntry" EntitySet="MatchupEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matchups_Team" Association="SportsSimulatorDBModel.FK_Matchups_Team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Matchup" EntitySet="Matchups" />
+          </AssociationSet>
+          <EntitySet Name="Rounds" EntityType="SportsSimulatorDBModel.Round" />
+          <AssociationSet Name="FK_Rounds_League" Association="SportsSimulatorDBModel.FK_Rounds_League">
+            <End Role="League" EntitySet="Leagues" />
+            <End Role="Round" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matchups_Round" Association="SportsSimulatorDBModel.FK_Matchups_Round">
+            <End Role="Round" EntitySet="Rounds" />
+            <End Role="Matchup" EntitySet="Matchups" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spMatchupEntries_GetByMatchup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="MatchupId" Nullable="false" />
+          <Property Type="Int32" Name="ParentMatchupId" Nullable="false" />
+          <Property Type="Int32" Name="TeamCompetingId" Nullable="false" />
+          <Property Type="Double" Name="Score" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spMatchups_GetByLeague_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="WinnerId" Nullable="true" />
+          <Property Type="Int32" Name="MatchupRound" Nullable="false" />
+          <Property Type="Int32" Name="LeagueId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spPlayer_GetById_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="PlayerRating" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="Position" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spRounds_GetByLeague_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="LeagueId" Nullable="false" />
+          <Property Type="Int32" Name="RoundNumber" Nullable="true" />
+          <Property Type="Int32" Name="MatchupId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spTeamMembers_GetByTeam_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="PlayerRating" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="Position" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spTeams_GetByLeague_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="TeamName" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="TeamRating" Nullable="false" Precision="18" Scale="0" />
+        </ComplexType>
+        <EntityType Name="MatchupEntry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MatchupId" Type="Int32" Nullable="false" />
+          <Property Name="TeamCompetingId" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Double" />
+          <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="MatchupEntry" ToRole="Team" />
+          <NavigationProperty Name="Matchup" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_Matchup" FromRole="MatchupEntry" ToRole="Matchup" />
+        </EntityType>
+        <Association Name="FK_MatchupEntries_TeamCompeting">
+          <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="SportsSimulatorDBModel.MatchupEntry" Role="MatchupEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MatchupEntry">
+              <PropertyRef Name="TeamCompetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Matchup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WinnerId" Type="Int32" />
+          <Property Name="RoundId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_Matchup" FromRole="Matchup" ToRole="MatchupEntry" />
+          <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Matchup" ToRole="Team" />
+          <NavigationProperty Name="Round" Relationship="SportsSimulatorDBModel.FK_Matchups_Round" FromRole="Matchup" ToRole="Round" />
+        </EntityType>
+        <Association Name="FK_MatchupEntries_Matchup">
+          <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="1" />
+          <End Type="SportsSimulatorDBModel.MatchupEntry" Role="MatchupEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matchup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MatchupEntry">
+              <PropertyRef Name="MatchupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matchups_Team">
+          <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="0..1" />
+          <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Matchup">
+              <PropertyRef Name="WinnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Round">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueId" Type="Int32" Nullable="false" />
+          <Property Name="RoundNumber" Type="Int32" />
+          <NavigationProperty Name="League" Relationship="SportsSimulatorDBModel.FK_Rounds_League" FromRole="Round" ToRole="League" />
+          <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Round" FromRole="Round" ToRole="Matchup" />
+        </EntityType>
+        <Association Name="FK_Rounds_League">
+          <End Type="SportsSimulatorDBModel.League" Role="League" Multiplicity="1" />
+          <End Type="SportsSimulatorDBModel.Round" Role="Round" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="League">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Round">
+              <PropertyRef Name="LeagueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matchups_Round">
+          <End Type="SportsSimulatorDBModel.Round" Role="Round" Multiplicity="1" />
+          <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Round">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Matchup">
+              <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SportsSimulatorDBModelStoreContainer" CdmEntityContainer="SportsSimulatorDBEntities">
+          <EntitySetMapping Name="Leagues">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.League">
+              <MappingFragment StoreEntitySet="League">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeagueEntries">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.LeagueEntry">
+              <MappingFragment StoreEntitySet="LeagueEntries">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.Player">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+                <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PlayerRating" ColumnName="PlayerRating" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeamMembers">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.TeamMember">
+              <MappingFragment StoreEntitySet="TeamMembers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+                <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
+                <ScalarProperty Name="Draws" ColumnName="Draws" />
+                <ScalarProperty Name="Losses" ColumnName="Losses" />
+                <ScalarProperty Name="Wins" ColumnName="Wins" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SportsSimulatorDBModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SportsSimulatorDBModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SportsSimulatorDBModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SportsSimulatorDBModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SportsSimulatorDBModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SportsSimulatorDBModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SportsSimulatorDBModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="spLeagueEntries_Insert" FunctionName="SportsSimulatorDBModel.Store.spLeagueEntries_Insert" />
+          <FunctionImportMapping FunctionImportName="spMatchupEntries_GetByMatchup" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_GetByMatchup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spMatchupEntries_GetByMatchup_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+                <ScalarProperty Name="ParentMatchupId" ColumnName="ParentMatchupId" />
+                <ScalarProperty Name="TeamCompetingId" ColumnName="TeamCompetingId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMatchupEntries_Insert" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_Insert" />
+          <FunctionImportMapping FunctionImportName="spMatchups_GetByLeague" FunctionName="SportsSimulatorDBModel.Store.spMatchups_GetByLeague">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spMatchups_GetByLeague_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
+                <ScalarProperty Name="MatchupRound" ColumnName="MatchupRound" />
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spMatchups_Insert" FunctionName="SportsSimulatorDBModel.Store.spMatchups_Insert" />
+          <FunctionImportMapping FunctionImportName="spPlayer_GetById" FunctionName="SportsSimulatorDBModel.Store.spPlayer_GetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spPlayer_GetById_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PlayerRating" ColumnName="PlayerRating" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spPlayers_Insert" FunctionName="SportsSimulatorDBModel.Store.spPlayers_Insert" />
+          <FunctionImportMapping FunctionImportName="spRounds_GetByLeague" FunctionName="SportsSimulatorDBModel.Store.spRounds_GetByLeague">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spRounds_GetByLeague_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+                <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
+                <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spRounds_Insert" FunctionName="SportsSimulatorDBModel.Store.spRounds_Insert" />
+          <FunctionImportMapping FunctionImportName="spTeam_GetById" FunctionName="SportsSimulatorDBModel.Store.spTeam_GetById" />
+          <FunctionImportMapping FunctionImportName="spTeamMembers_GetByTeam" FunctionName="SportsSimulatorDBModel.Store.spTeamMembers_GetByTeam">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spTeamMembers_Insert" FunctionName="SportsSimulatorDBModel.Store.spTeamMembers_Insert" />
+          <FunctionImportMapping FunctionImportName="spTeams_GetByLeague" FunctionName="SportsSimulatorDBModel.Store.spTeams_GetByLeague">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spTeams_GetByLeague_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spTeams_Insert" FunctionName="SportsSimulatorDBModel.Store.spTeams_Insert" />
+          <EntitySetMapping Name="MatchupEntries">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.MatchupEntry">
+              <MappingFragment StoreEntitySet="MatchupEntries">
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="TeamCompetingId" ColumnName="TeamCompetingId" />
+                <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matchups">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.Matchup">
+              <MappingFragment StoreEntitySet="Matchups">
+                <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+                <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rounds">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.Round">
+              <MappingFragment StoreEntitySet="Rounds">
+                <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
+                <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

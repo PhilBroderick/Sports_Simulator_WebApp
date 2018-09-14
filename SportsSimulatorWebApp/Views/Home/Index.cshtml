@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Sports Simulator</h1>
+    <p class="lead">Create leagues, add teams, and simulate games/season to see who wins.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Leagues", "Index", "Leagues")</h2>
+        <p>View all active, archived leagues.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Create","Leagues")">Create New &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Teams", "Index", "Teams")</h2>
+        <p>View all teams that are stored on the database.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Create","Teams")">Create New &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>@Html.ActionLink("Players", "Index", "Players")</h2>
+        <p>View all the created players or add new players.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Create","Players")">Create New &raquo;</a></p>
+    </div>
+</div>

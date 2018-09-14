@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SportsSimulatorDBModelStoreContainer" CdmEntityContainer="SportsSimulatorDBEntities">
+    <EntitySetMapping Name="Leagues">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.League">
+        <MappingFragment StoreEntitySet="League">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeagueEntries">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.LeagueEntry">
+        <MappingFragment StoreEntitySet="LeagueEntries">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Player">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+          <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="PlayerRating" ColumnName="PlayerRating" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeamMembers">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.TeamMember">
+        <MappingFragment StoreEntitySet="TeamMembers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+          <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
+          <ScalarProperty Name="Draws" ColumnName="Draws" />
+          <ScalarProperty Name="Losses" ColumnName="Losses" />
+          <ScalarProperty Name="Wins" ColumnName="Wins" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+          <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SportsSimulatorDBModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SportsSimulatorDBModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SportsSimulatorDBModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SportsSimulatorDBModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SportsSimulatorDBModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SportsSimulatorDBModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SportsSimulatorDBModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SportsSimulatorDBModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SportsSimulatorDBModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="spLeagueEntries_Insert" FunctionName="SportsSimulatorDBModel.Store.spLeagueEntries_Insert" />
+    <FunctionImportMapping FunctionImportName="spMatchupEntries_GetByMatchup" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_GetByMatchup">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spMatchupEntries_GetByMatchup_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+          <ScalarProperty Name="ParentMatchupId" ColumnName="ParentMatchupId" />
+          <ScalarProperty Name="TeamCompetingId" ColumnName="TeamCompetingId" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spMatchupEntries_Insert" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_Insert" />
+    <FunctionImportMapping FunctionImportName="spMatchups_GetByLeague" FunctionName="SportsSimulatorDBModel.Store.spMatchups_GetByLeague">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spMatchups_GetByLeague_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
+          <ScalarProperty Name="MatchupRound" ColumnName="MatchupRound" />
+          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spMatchups_Insert" FunctionName="SportsSimulatorDBModel.Store.spMatchups_Insert" />
+    <FunctionImportMapping FunctionImportName="spPlayer_GetById" FunctionName="SportsSimulatorDBModel.Store.spPlayer_GetById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spPlayer_GetById_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="PlayerRating" ColumnName="PlayerRating" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spPlayers_Insert" FunctionName="SportsSimulatorDBModel.Store.spPlayers_Insert" />
+    <FunctionImportMapping FunctionImportName="spRounds_GetByLeague" FunctionName="SportsSimulatorDBModel.Store.spRounds_GetByLeague">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spRounds_GetByLeague_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+          <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
+          <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spRounds_Insert" FunctionName="SportsSimulatorDBModel.Store.spRounds_Insert" />
+    <FunctionImportMapping FunctionImportName="spTeam_GetById" FunctionName="SportsSimulatorDBModel.Store.spTeam_GetById" />
+    <FunctionImportMapping FunctionImportName="spTeamMembers_GetByTeam" FunctionName="SportsSimulatorDBModel.Store.spTeamMembers_GetByTeam" />
+    <FunctionImportMapping FunctionImportName="spTeamMembers_Insert" FunctionName="SportsSimulatorDBModel.Store.spTeamMembers_Insert" />
+    <FunctionImportMapping FunctionImportName="spTeams_GetByLeague" FunctionName="SportsSimulatorDBModel.Store.spTeams_GetByLeague">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spTeams_GetByLeague_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+          <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spTeams_Insert" FunctionName="SportsSimulatorDBModel.Store.spTeams_Insert" />
+    <EntitySetMapping Name="MatchupEntries">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.MatchupEntry">
+        <MappingFragment StoreEntitySet="MatchupEntries">
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="TeamCompetingId" ColumnName="TeamCompetingId" />
+          <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matchups">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Matchup">
+        <MappingFragment StoreEntitySet="Matchups">
+          <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+          <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rounds">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Round">
+        <MappingFragment StoreEntitySet="Rounds">
+          <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
+          <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
