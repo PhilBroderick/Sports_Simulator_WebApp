@@ -47,6 +47,8 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PlayerRating" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Rounds">
           <Key>
@@ -84,6 +86,8 @@
           <Property Name="Wins" Type="int" />
           <Property Name="Losses" Type="int" />
           <Property Name="Draws" Type="int" />
+          <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <Association Name="FK_League_LeagueEntries">
           <End Role="League" Type="Self.League" Multiplicity="1" />
@@ -361,6 +365,8 @@
           <Property Name="PlayerRating" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMembers_Players" FromRole="Players" ToRole="TeamMembers" />
+          <Property Name="AttackRating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DefenseRating" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -396,6 +402,8 @@
           <Property Name="Wins" Type="Int32" />
           <Property Name="Losses" Type="Int32" />
           <Property Name="Draws" Type="Int32" />
+          <Property Name="AttackRating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DefenseRating" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <Association Name="FK_League_LeagueEntries">
           <End Role="League" Type="Self.League" Multiplicity="1" />
@@ -746,6 +754,8 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Player">
               <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+                <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -777,6 +787,8 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+                <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
                 <ScalarProperty Name="Draws" ColumnName="Draws" />
                 <ScalarProperty Name="Losses" ColumnName="Losses" />
                 <ScalarProperty Name="Wins" ColumnName="Wins" />

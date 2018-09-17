@@ -22,6 +22,8 @@
     <EntitySetMapping Name="Players">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Player">
         <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+          <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -53,6 +55,8 @@
     <EntitySetMapping Name="Teams">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
         <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+          <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
           <ScalarProperty Name="Draws" ColumnName="Draws" />
           <ScalarProperty Name="Losses" ColumnName="Losses" />
           <ScalarProperty Name="Wins" ColumnName="Wins" />

@@ -1,4 +1,5 @@
 ﻿using SportsSimulatorWebApp.Models;
+using SportsSimulatorWebApp.SportsSimulatorBLL.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,8 +86,19 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 eventTimeList.Add(t);
             }
 
+            List<Team> teams = new List<Team>();
+
+            foreach(MatchupEntry me in matchup.MatchupEntries)
+            {
+                teams.Add(me.Team);
+            }
 
             //Random generator for which event is called per time
+            for(int i = 0; i < eventTimeList.Count; i ++)
+            {
+                EventGenerator eg = new EventGenerator(matchup);
+            }
+            
             //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
             //Determine the rest of the events for the matchup
             //Return the scores/events of the matchup
