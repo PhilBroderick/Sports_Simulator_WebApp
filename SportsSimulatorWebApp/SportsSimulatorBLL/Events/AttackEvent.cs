@@ -21,9 +21,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         protected override void ExecuteEvent(Matchup matchup)
         {
            if(matchup.MatchupEntries.First().Team.AttackRating > matchup.MatchupEntries.Last().Team.AttackRating)
-            {
+           {
                 matchup.MatchupEntries.First().Score += 5;
-            }
+           }
         }
         
 

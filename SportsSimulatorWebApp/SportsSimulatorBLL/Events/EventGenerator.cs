@@ -12,39 +12,60 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         {
             GenerateEvent(matchup);
         }
-        public enum TeamEvents { Attack, Defend, Scrum, Lineout, Try, Conversion, DropGoal };
+        public enum TeamEvents { Attack, Defend, Scrum, Lineout, Try, DropGoal };
+        public enum SubsequentEvents { Try, Conversion}
 
         static void GenerateEvent(Matchup matchup)
         {
             var random = new Random();
-            //if a try event was previously called, it needs to be a conversion event next
-            var randomEvent = (TeamEvents)random.Next(0, 7); //returns a random event from the TeamEvents enum
+            var randomEvent = (TeamEvents)random.Next(0, 6); //returns a random event from the TeamEvents enum
 
+            bool subsequentAction = false;
+            
             switch (randomEvent)
             {
                 case TeamEvents.Attack:
                     AttackEvent attack = new AttackEvent(matchup);
+                    subsequentAction = true;
                     break;
                 case TeamEvents.Defend:
                     Console.WriteLine("Defend");
                     break;
                 case TeamEvents.Lineout:
-                    Console.WriteLine("Try");
+                    Console.WriteLine("Lineout");
+                    subsequentAction = true;
                     break;
                 case TeamEvents.Scrum:
-                    Console.WriteLine("Attack");
+                    Console.WriteLine("Scrum");
                     break;
                 case TeamEvents.Try:
-                    Console.WriteLine("Defend");
-                    break;
-                case TeamEvents.Conversion:
-                    Console.WriteLine("Try");
+                    TryEvent teamTry = new TryEvent(matchup);
+                    subsequentAction = true;
                     break;
                 case TeamEvents.DropGoal:
-                    Console.WriteLine("Attack");
+                    Console.WriteLine("DropGoal");
                     break;
 
             }
+
+            //if the event requires a subsequent action - such as a try needing a conversion attempt - run this.
+            if(subsequentAction == true)
+            {
+                if(randomEvent == TeamEvents.Try)
+                {
+                    ConversionEvent subSequentConversion = new ConversionEvent(matchup);
+                }
+                else
+                {
+                    TryEvent subSequentTry = new TryEvent(matchup);
+                    ConversionEvent subSequentConversion = new ConversionEvent(matchup);
+                }
+            }
+        }
+
+        static bool RandomiseSubsequentEvent()
+        {
+            return false;
         }
     }
 }
