@@ -20,6 +20,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             //if a try event was previously called, it needs to be a conversion event next
             var randomEvent = (TeamEvents)random.Next(0, 7); //returns a random event from the TeamEvents enum
 
+            bool subsequentAction = false;
+
             switch (randomEvent)
             {
                 case TeamEvents.Attack:
@@ -29,21 +31,34 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     Console.WriteLine("Defend");
                     break;
                 case TeamEvents.Lineout:
-                    Console.WriteLine("Try");
+                    Console.WriteLine("Lineout");
                     break;
                 case TeamEvents.Scrum:
-                    Console.WriteLine("Attack");
+                    Console.WriteLine("Scrum");
                     break;
                 case TeamEvents.Try:
-                    Console.WriteLine("Defend");
+                    TryEvent teamTry = new TryEvent(matchup);
+                    subsequentAction = true;
                     break;
                 case TeamEvents.Conversion:
-                    Console.WriteLine("Try");
+                    Console.WriteLine("Conversion");
                     break;
                 case TeamEvents.DropGoal:
-                    Console.WriteLine("Attack");
+                    Console.WriteLine("DropGoal");
                     break;
 
+            }
+
+            //if the event requires a subsequent action - such as a try needing a conversion attempt - run this.
+            if(subsequentAction == true)
+            {
+
+                switch (randomEvent)
+                {
+                    case TeamEvents.Try:
+                        ConversionEvent conversion = new ConversionEvent(matchup);
+                        break;
+                }
             }
         }
     }
