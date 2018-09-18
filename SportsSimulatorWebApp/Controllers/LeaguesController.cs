@@ -52,6 +52,12 @@ namespace SportsSimulatorWebApp.Controllers
                 }
             }
 
+            Round roundOne = league.Rounds.First();
+
+            SimulationLogic sim = new SimulationLogic();
+
+            sim.SimulateRound(roundOne);
+
             return View(ltViewModel);
         }
         public ActionResult CreateMatchups(int? id)

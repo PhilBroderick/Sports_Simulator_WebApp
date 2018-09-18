@@ -85,13 +85,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 TimeSpan t = start.Add(TimeSpan.FromMinutes(timeOfEvent));
                 eventTimeList.Add(t);
             }
-
-            List<Team> teams = new List<Team>();
-
-            foreach(MatchupEntry me in matchup.MatchupEntries)
-            {
-                teams.Add(me.Team);
-            }
+            
+            List<TimeSpan> sortedTimesList = eventTimeList.OrderBy(t => t.TotalMinutes).ToList();
 
             //Random generator for which event is called per time
             for(int i = 0; i < eventTimeList.Count; i ++)
