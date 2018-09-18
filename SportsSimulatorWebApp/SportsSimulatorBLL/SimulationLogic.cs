@@ -66,7 +66,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
         private List<double> SimulateMatchup(Matchup matchup)
         {
-            //Random generator for amount of events in the time
             List<TimeSpan> orderedEventList = GenerateRandomEventTimes();
 
             //Random generator for which event is called per time
@@ -74,12 +73,20 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             {
                 EventGenerator eg = new EventGenerator(matchup);
             }
-            
+
             //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
             //Determine the rest of the events for the matchup
             //Return the scores/events of the matchup
+            double scoreHome = (matchup.MatchupEntries.First().Score).HasValue ? (matchup.MatchupEntries.First().Score).Value : 0;
+            double scoreAway = (matchup.MatchupEntries.Last().Score).HasValue ? (matchup.MatchupEntries.Last().Score).Value : 0;
 
-            return null;
+            List<double> matchupScores = new List<double>
+            {
+                scoreHome,
+                scoreAway
+            };
+
+            return matchupScores;
         }
 
         private List<TimeSpan> GenerateRandomEventTimes()
