@@ -16,7 +16,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         {
             Random rng = new Random();
 
-            var conversionRate = rng.Next(0, 1);
+            var conversionRate = rng.NextDouble();
 
             if (conversionRate <= 0.7) // This can be changed based on the team, or players, conversion rate.
             {

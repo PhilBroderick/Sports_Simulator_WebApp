@@ -29,21 +29,17 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     subsequentAction = true;
                     break;
                 case TeamEvents.Defend:
-                    Console.WriteLine("Defend");
                     break;
                 case TeamEvents.Lineout:
-                    Console.WriteLine("Lineout");
                     subsequentAction = true;
                     break;
                 case TeamEvents.Scrum:
-                    Console.WriteLine("Scrum");
                     break;
                 case TeamEvents.Try:
                     TryEvent teamTry = new TryEvent(matchup);
                     subsequentAction = true;
                     break;
                 case TeamEvents.DropGoal:
-                    Console.WriteLine("DropGoal");
                     break;
 
             }

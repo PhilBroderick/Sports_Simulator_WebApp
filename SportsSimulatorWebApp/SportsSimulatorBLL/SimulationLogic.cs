@@ -66,7 +66,31 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
         private List<double> SimulateMatchup(Matchup matchup)
         {
-            //Random generator for amount of events in the time - could probably be refactored to its own method
+            List<TimeSpan> orderedEventList = GenerateRandomEventTimes();
+
+            //Random generator for which event is called per time
+            for(int i = 0; i < orderedEventList.Count; i ++)
+            {
+                EventGenerator eg = new EventGenerator(matchup);
+            }
+
+            //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
+            //Determine the rest of the events for the matchup
+            //Return the scores/events of the matchup
+            double scoreHome = (matchup.MatchupEntries.First().Score).HasValue ? (matchup.MatchupEntries.First().Score).Value : 0;
+            double scoreAway = (matchup.MatchupEntries.Last().Score).HasValue ? (matchup.MatchupEntries.Last().Score).Value : 0;
+
+            List<double> matchupScores = new List<double>
+            {
+                scoreHome,
+                scoreAway
+            };
+
+            return matchupScores;
+        }
+
+        private List<TimeSpan> GenerateRandomEventTimes()
+        {
             Random rngEvents = new Random();
             Random rngTime = new Random();
 
@@ -79,31 +103,16 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             List<TimeSpan> eventTimeList = new List<TimeSpan>();
 
-            for(int i = 0; i <= randNoOfEvents; i ++)
+            for (int i = 0; i <= randNoOfEvents; i++)
             {
                 int timeOfEvent = rngTime.Next(maxMinutes);
                 TimeSpan t = start.Add(TimeSpan.FromMinutes(timeOfEvent));
                 eventTimeList.Add(t);
             }
 
-            List<Team> teams = new List<Team>();
+            List<TimeSpan> sortedTimesList = eventTimeList.OrderBy(t => t.TotalMinutes).ToList();
 
-            foreach(MatchupEntry me in matchup.MatchupEntries)
-            {
-                teams.Add(me.Team);
-            }
-
-            //Random generator for which event is called per time
-            for(int i = 0; i < eventTimeList.Count; i ++)
-            {
-                EventGenerator eg = new EventGenerator(matchup);
-            }
-            
-            //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
-            //Determine the rest of the events for the matchup
-            //Return the scores/events of the matchup
-
-            return null;
+            return sortedTimesList;
         }
     }
 }

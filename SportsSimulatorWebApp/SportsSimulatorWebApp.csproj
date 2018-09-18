@@ -235,8 +235,10 @@
     <Compile Include="Models\TeamPlayerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SportsSimulatorBLL\Events\AttackEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\ConversionEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\EventGenerator.cs" />
     <Compile Include="SportsSimulatorBLL\Events\EventGeneratorManager.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\TryEvent.cs" />
     <Compile Include="SportsSimulatorBLL\LeagueLogic.cs" />
     <Compile Include="SportsSimulatorBLL\RatingSystemLogic.cs" />
     <Compile Include="SportsSimulatorBLL\SimulationLogic.cs" />
