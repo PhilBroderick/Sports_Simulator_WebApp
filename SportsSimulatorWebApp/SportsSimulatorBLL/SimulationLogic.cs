@@ -66,7 +66,24 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
         private List<double> SimulateMatchup(Matchup matchup)
         {
-            //Random generator for amount of events in the time - could probably be refactored to its own method
+            //Random generator for amount of events in the time
+            List<TimeSpan> orderedEventList = GenerateRandomEventTimes();
+
+            //Random generator for which event is called per time
+            for(int i = 0; i < orderedEventList.Count; i ++)
+            {
+                EventGenerator eg = new EventGenerator(matchup);
+            }
+            
+            //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
+            //Determine the rest of the events for the matchup
+            //Return the scores/events of the matchup
+
+            return null;
+        }
+
+        private List<TimeSpan> GenerateRandomEventTimes()
+        {
             Random rngEvents = new Random();
             Random rngTime = new Random();
 
@@ -79,26 +96,16 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             List<TimeSpan> eventTimeList = new List<TimeSpan>();
 
-            for(int i = 0; i <= randNoOfEvents; i ++)
+            for (int i = 0; i <= randNoOfEvents; i++)
             {
                 int timeOfEvent = rngTime.Next(maxMinutes);
                 TimeSpan t = start.Add(TimeSpan.FromMinutes(timeOfEvent));
                 eventTimeList.Add(t);
             }
-            
+
             List<TimeSpan> sortedTimesList = eventTimeList.OrderBy(t => t.TotalMinutes).ToList();
 
-            //Random generator for which event is called per time
-            for(int i = 0; i < eventTimeList.Count; i ++)
-            {
-                EventGenerator eg = new EventGenerator(matchup);
-            }
-            
-            //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
-            //Determine the rest of the events for the matchup
-            //Return the scores/events of the matchup
-
-            return null;
+            return sortedTimesList;
         }
     }
 }
