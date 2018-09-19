@@ -8,7 +8,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class EventGenerator
     {
-        public EventGenerator(Matchup matchup, List<Team> teamResults)
+        public EventGenerator(Matchup matchup)
         {
             GenerateEvent(matchup);
         }
