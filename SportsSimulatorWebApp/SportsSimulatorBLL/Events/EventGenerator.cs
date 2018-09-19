@@ -8,7 +8,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class EventGenerator
     {
-        public EventGenerator(Matchup matchup)
+        public EventGenerator(Matchup matchup, List<Team> teamResults)
         {
             GenerateEvent(matchup);
         }
@@ -34,6 +34,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     subsequentAction = true;
                     break;
                 case TeamEvents.Scrum:
+                    subsequentAction = true;
                     break;
                 case TeamEvents.Try:
                     TryEvent teamTry = new TryEvent(matchup);
