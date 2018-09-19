@@ -21,8 +21,21 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 result = rng.NextDouble();
 
                 List<double> expectedResults = getExpectedOutcome(matchup);
+                List<Team> teamResults = new List<Team>();
 
-                List<double> scores = SimulateMatchup(matchup);
+
+                if(result < expectedResults[0])
+                {
+                    teamResults.Add(matchup.MatchupEntries.First().Team);
+                    teamResults.Add(matchup.MatchupEntries.Last().Team);
+                }
+                else
+                {
+                    teamResults.Add(matchup.MatchupEntries.Last().Team);
+                    teamResults.Add(matchup.MatchupEntries.First().Team);
+                }
+
+                List<double> scores = SimulateMatchup(matchup, teamResults);
 
                 if(result < expectedResults[0])
                 {
@@ -64,14 +77,14 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             return expectedResultList;
         }
 
-        private List<double> SimulateMatchup(Matchup matchup)
+        private List<double> SimulateMatchup(Matchup matchup, List<Team> teamResults)
         {
             List<TimeSpan> orderedEventList = GenerateRandomEventTimes();
 
             //Random generator for which event is called per time
             for(int i = 0; i < orderedEventList.Count; i ++)
             {
-                EventGenerator eg = new EventGenerator(matchup);
+                EventGenerator eg = new EventGenerator(matchup, teamResults);
             }
 
             //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
