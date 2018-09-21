@@ -52,20 +52,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Teams">
-      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
-        <MappingFragment StoreEntitySet="Teams">
-          <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
-          <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
-          <ScalarProperty Name="Draws" ColumnName="Draws" />
-          <ScalarProperty Name="Losses" ColumnName="Losses" />
-          <ScalarProperty Name="Wins" ColumnName="Wins" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
-          <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SportsSimulatorDBModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SportsSimulatorDBModel.Store.sp_creatediagram" />
     <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SportsSimulatorDBModel.Store.sp_dropdiagram" />
@@ -174,6 +160,22 @@
         <MappingFragment StoreEntitySet="Rounds">
           <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
           <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="Defense" ColumnName="Defense" />
+          <ScalarProperty Name="Offense" ColumnName="Offense" />
+          <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+          <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
+          <ScalarProperty Name="Draws" ColumnName="Draws" />
+          <ScalarProperty Name="Losses" ColumnName="Losses" />
+          <ScalarProperty Name="Wins" ColumnName="Wins" />
+          <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />
+          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

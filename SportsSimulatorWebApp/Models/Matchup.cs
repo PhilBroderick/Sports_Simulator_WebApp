@@ -26,7 +26,7 @@ namespace SportsSimulatorWebApp.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MatchupEntry> MatchupEntries { get; set; }
-        public virtual Team Team { get; set; }
         public virtual Round Round { get; set; }
+        public virtual Team Team { get; set; }
     }
 }

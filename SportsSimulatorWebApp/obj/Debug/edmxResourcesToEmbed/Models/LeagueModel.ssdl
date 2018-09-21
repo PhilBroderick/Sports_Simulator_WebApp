@@ -81,8 +81,10 @@
     <Property Name="Wins" Type="int" />
     <Property Name="Losses" Type="int" />
     <Property Name="Draws" Type="int" />
-    <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="AttackRating" Type="float" />
+    <Property Name="DefenseRating" Type="float" />
+    <Property Name="Offense" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Defense" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <Association Name="FK_League_LeagueEntries">
     <End Role="League" Type="Self.League" Multiplicity="1" />

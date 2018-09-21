@@ -8,9 +8,11 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class AttackEvent : TeamEvent
     {
-        public AttackEvent(Matchup matchup)
+        public bool PlayEvent(Matchup matchup)
         {
-            ExecuteEvent(matchup);
+            bool isSubsequentEvent = ExecuteEvent(matchup);
+
+            return isSubsequentEvent;
         }
         protected override void setEventName()
         {
@@ -18,15 +20,34 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         }
 
         
-        protected override void ExecuteEvent(Matchup matchup)
+        protected override bool ExecuteEvent(Matchup matchup)
         {
-           if(matchup.MatchupEntries.First().Team.AttackRating > matchup.MatchupEntries.Last().Team.DefenseRating)
-           {
-                matchup.MatchupEntries.First().Score += 5;
-           }
-        }
-        
+            // calculates the chance the attacking team has of calling a try event, if they are successful they'll have a chance at a try.
+            Random rng = new Random();
+            var attackChance = rng.NextDouble();
+            bool isSubsequentEvent = false;
 
-        
+            if(attackChance < matchup.MatchupEntries.First().Team.AttackRating)
+            {
+                //var attackDifference = matchup.MatchupEntries.First().Team.Offense - matchup.MatchupEntries.Last().Team.Defense;
+
+                //if(attackDifference > 20)
+                //{
+                //    //They have a chance of scoring, call a try event 
+                //    isSubsequentEvent = true;
+                //}
+                //else if (attackChance < -20)
+                //{
+                //    isSubsequentEvent = true;
+                //}
+                //else
+                //{
+
+                //}
+                isSubsequentEvent = true;
+            }
+
+            return isSubsequentEvent;
+        }
     }
 }
