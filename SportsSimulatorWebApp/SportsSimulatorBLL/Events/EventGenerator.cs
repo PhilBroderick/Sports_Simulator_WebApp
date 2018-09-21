@@ -25,8 +25,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             switch (randomEvent)
             {
                 case TeamEvents.Attack:
-                    AttackEvent attack = new AttackEvent(matchup);
-                    subsequentAction = true;
+                    AttackEvent attack = new AttackEvent();
+                    subsequentAction = attack.PlayEvent(matchup);
                     break;
                 case TeamEvents.Defend:
                     break;

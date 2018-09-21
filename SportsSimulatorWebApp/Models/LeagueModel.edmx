@@ -86,8 +86,10 @@
           <Property Name="Wins" Type="int" />
           <Property Name="Losses" Type="int" />
           <Property Name="Draws" Type="int" />
-          <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="AttackRating" Type="float" />
+          <Property Name="DefenseRating" Type="float" />
+          <Property Name="Offense" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Defense" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <Association Name="FK_League_LeagueEntries">
           <End Role="League" Type="Self.League" Multiplicity="1" />
@@ -353,7 +355,7 @@
           <Property Name="LeagueId" Type="Int32" Nullable="false" />
           <Property Name="TeamId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="League" Relationship="Self.FK_League_LeagueEntries" FromRole="LeagueEntries" ToRole="League" />
-          <NavigationProperty Name="Team" Relationship="Self.FK_League_Teams" FromRole="LeagueEntries" ToRole="Teams" />
+          <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_League_Teams" FromRole="LeagueEntry" ToRole="Team" />
         </EntityType>
         <EntityType Name="Player">
           <Key>
@@ -386,24 +388,7 @@
           <Property Name="TeamId" Type="Int32" Nullable="false" />
           <Property Name="PlayerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Player" Relationship="Self.FK_TeamMembers_Players" FromRole="TeamMembers" ToRole="Players" />
-          <NavigationProperty Name="Team" Relationship="Self.FK_TeamMembers_Team" FromRole="TeamMembers" ToRole="Teams" />
-        </EntityType>
-        <EntityType Name="Team">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TeamRating" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <NavigationProperty Name="LeagueEntries" Relationship="Self.FK_League_Teams" FromRole="Teams" ToRole="LeagueEntries" />
-          <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMembers_Team" FromRole="Teams" ToRole="TeamMembers" />
-          <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="Team" ToRole="MatchupEntry" />
-          <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Team" ToRole="Matchup" />
-          <Property Name="Wins" Type="Int32" />
-          <Property Name="Losses" Type="Int32" />
-          <Property Name="Draws" Type="Int32" />
-          <Property Name="AttackRating" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="DefenseRating" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_TeamMembers_Team" FromRole="TeamMember" ToRole="Team" />
         </EntityType>
         <Association Name="FK_League_LeagueEntries">
           <End Role="League" Type="Self.League" Multiplicity="1" />
@@ -414,18 +399,6 @@
             </Principal>
             <Dependent Role="LeagueEntries">
               <PropertyRef Name="LeagueId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_League_Teams">
-          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
-          <End Role="LeagueEntries" Type="Self.LeagueEntry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teams">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="LeagueEntries">
-              <PropertyRef Name="TeamId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -441,39 +414,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TeamMembers_Team">
-          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
-          <End Role="TeamMembers" Type="Self.TeamMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teams">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TeamMembers">
-              <PropertyRef Name="TeamId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SportsSimulatorDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Leagues" EntityType="Self.League" />
           <EntitySet Name="LeagueEntries" EntityType="Self.LeagueEntry" />
           <EntitySet Name="Players" EntityType="Self.Player" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TeamMembers" EntityType="Self.TeamMember" />
-          <EntitySet Name="Teams" EntityType="Self.Team" />
           <AssociationSet Name="FK_League_LeagueEntries" Association="Self.FK_League_LeagueEntries">
             <End Role="League" EntitySet="Leagues" />
             <End Role="LeagueEntries" EntitySet="LeagueEntries" />
           </AssociationSet>
-          <AssociationSet Name="FK_League_Teams" Association="Self.FK_League_Teams">
-            <End Role="Teams" EntitySet="Teams" />
-            <End Role="LeagueEntries" EntitySet="LeagueEntries" />
-          </AssociationSet>
           <AssociationSet Name="FK_TeamMembers_Players" Association="Self.FK_TeamMembers_Players">
             <End Role="Players" EntitySet="Players" />
-            <End Role="TeamMembers" EntitySet="TeamMembers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TeamMembers_Team" Association="Self.FK_TeamMembers_Team">
-            <End Role="Teams" EntitySet="Teams" />
             <End Role="TeamMembers" EntitySet="TeamMembers" />
           </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
@@ -563,18 +515,10 @@
             <Parameter Name="id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="MatchupEntries" EntityType="SportsSimulatorDBModel.MatchupEntry" />
-          <AssociationSet Name="FK_MatchupEntries_TeamCompeting" Association="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting">
-            <End Role="Team" EntitySet="Teams" />
-            <End Role="MatchupEntry" EntitySet="MatchupEntries" />
-          </AssociationSet>
           <EntitySet Name="Matchups" EntityType="SportsSimulatorDBModel.Matchup" />
           <AssociationSet Name="FK_MatchupEntries_Matchup" Association="SportsSimulatorDBModel.FK_MatchupEntries_Matchup">
             <End Role="Matchup" EntitySet="Matchups" />
             <End Role="MatchupEntry" EntitySet="MatchupEntries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Matchups_Team" Association="SportsSimulatorDBModel.FK_Matchups_Team">
-            <End Role="Team" EntitySet="Teams" />
-            <End Role="Matchup" EntitySet="Matchups" />
           </AssociationSet>
           <EntitySet Name="Rounds" EntityType="SportsSimulatorDBModel.Round" />
           <AssociationSet Name="FK_Rounds_League" Association="SportsSimulatorDBModel.FK_Rounds_League">
@@ -584,6 +528,23 @@
           <AssociationSet Name="FK_Matchups_Round" Association="SportsSimulatorDBModel.FK_Matchups_Round">
             <End Role="Round" EntitySet="Rounds" />
             <End Role="Matchup" EntitySet="Matchups" />
+          </AssociationSet>
+          <EntitySet Name="Teams" EntityType="SportsSimulatorDBModel.Team" />
+          <AssociationSet Name="FK_League_Teams" Association="SportsSimulatorDBModel.FK_League_Teams">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="LeagueEntry" EntitySet="LeagueEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MatchupEntries_TeamCompeting" Association="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="MatchupEntry" EntitySet="MatchupEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matchups_Team" Association="SportsSimulatorDBModel.FK_Matchups_Team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="Matchup" EntitySet="Matchups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamMembers_Team" Association="SportsSimulatorDBModel.FK_TeamMembers_Team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="TeamMember" EntitySet="TeamMembers" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -643,21 +604,9 @@
           <Property Name="MatchupId" Type="Int32" Nullable="false" />
           <Property Name="TeamCompetingId" Type="Int32" Nullable="false" />
           <Property Name="Score" Type="Double" />
-          <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="MatchupEntry" ToRole="Team" />
           <NavigationProperty Name="Matchup" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_Matchup" FromRole="MatchupEntry" ToRole="Matchup" />
+          <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="MatchupEntry" ToRole="Team" />
         </EntityType>
-        <Association Name="FK_MatchupEntries_TeamCompeting">
-          <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />
-          <End Type="SportsSimulatorDBModel.MatchupEntry" Role="MatchupEntry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Team">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="MatchupEntry">
-              <PropertyRef Name="TeamCompetingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Matchup">
           <Key>
             <PropertyRef Name="id" />
@@ -666,8 +615,8 @@
           <Property Name="WinnerId" Type="Int32" />
           <Property Name="RoundId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_Matchup" FromRole="Matchup" ToRole="MatchupEntry" />
-          <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Matchup" ToRole="Team" />
           <NavigationProperty Name="Round" Relationship="SportsSimulatorDBModel.FK_Matchups_Round" FromRole="Matchup" ToRole="Round" />
+          <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Matchup" ToRole="Team" />
         </EntityType>
         <Association Name="FK_MatchupEntries_Matchup">
           <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="1" />
@@ -678,18 +627,6 @@
             </Principal>
             <Dependent Role="MatchupEntry">
               <PropertyRef Name="MatchupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Matchups_Team">
-          <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="0..1" />
-          <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Team">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Matchup">
-              <PropertyRef Name="WinnerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -724,6 +661,73 @@
             </Principal>
             <Dependent Role="Matchup">
               <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TeamRating" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Wins" Type="Int32" />
+          <Property Name="Losses" Type="Int32" />
+          <Property Name="Draws" Type="Int32" />
+          <Property Name="AttackRating" Type="Double" />
+          <Property Name="DefenseRating" Type="Double" />
+          <Property Name="Offense" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Defense" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="LeagueEntries" Relationship="SportsSimulatorDBModel.FK_League_Teams" FromRole="Team" ToRole="LeagueEntry" />
+          <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="Team" ToRole="MatchupEntry" />
+          <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Team" ToRole="Matchup" />
+          <NavigationProperty Name="TeamMembers" Relationship="SportsSimulatorDBModel.FK_TeamMembers_Team" FromRole="Team" ToRole="TeamMember" />
+        </EntityType>
+        <Association Name="FK_League_Teams">
+          <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="SportsSimulatorDBModel.LeagueEntry" Role="LeagueEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeagueEntry">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MatchupEntries_TeamCompeting">
+          <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="SportsSimulatorDBModel.MatchupEntry" Role="MatchupEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MatchupEntry">
+              <PropertyRef Name="TeamCompetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matchups_Team">
+          <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="0..1" />
+          <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Matchup">
+              <PropertyRef Name="WinnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamMembers_Team">
+          <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="SportsSimulatorDBModel.TeamMember" Role="TeamMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TeamMember">
+              <PropertyRef Name="TeamId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -781,20 +785,6 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="TeamId" ColumnName="TeamId" />
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Teams">
-            <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
-              <MappingFragment StoreEntitySet="Teams">
-                <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
-                <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
-                <ScalarProperty Name="Draws" ColumnName="Draws" />
-                <ScalarProperty Name="Losses" ColumnName="Losses" />
-                <ScalarProperty Name="Wins" ColumnName="Wins" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
-                <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -907,6 +897,22 @@
               <MappingFragment StoreEntitySet="Rounds">
                 <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
                 <ScalarProperty Name="LeagueId" ColumnName="LeagueId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="Defense" ColumnName="Defense" />
+                <ScalarProperty Name="Offense" ColumnName="Offense" />
+                <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
+                <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
+                <ScalarProperty Name="Draws" ColumnName="Draws" />
+                <ScalarProperty Name="Losses" ColumnName="Losses" />
+                <ScalarProperty Name="Wins" ColumnName="Wins" />
+                <ScalarProperty Name="TeamRating" ColumnName="TeamRating" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

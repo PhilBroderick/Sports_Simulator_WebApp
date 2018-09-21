@@ -10,19 +10,19 @@
         <EntityTypeShape EntityType="SportsSimulatorDBModel.Player" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.TeamMember" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportsSimulatorDBModel.Team" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_League_LeagueEntries" ManuallyRouted="false" />
-        <AssociationConnector Association="SportsSimulatorDBModel.FK_League_Teams" ManuallyRouted="false" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_TeamMembers_Players" ManuallyRouted="false" />
-        <AssociationConnector Association="SportsSimulatorDBModel.FK_TeamMembers_Team" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.MatchupEntry" Width="1.5" PointX="4.25" PointY="3.25" />
-        <AssociationConnector Association="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.Matchup" Width="1.5" PointX="6" PointY="5.875" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_MatchupEntries_Matchup" />
-        <AssociationConnector Association="SportsSimulatorDBModel.FK_Matchups_Team" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.Round" Width="1.5" PointX="8.25" PointY="6.75" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_Rounds_League" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_Matchups_Round" />
+        <EntityTypeShape EntityType="SportsSimulatorDBModel.Team" Width="1.5" PointX="0.75" PointY="5.375" />
+        <AssociationConnector Association="SportsSimulatorDBModel.FK_League_Teams" />
+        <AssociationConnector Association="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" />
+        <AssociationConnector Association="SportsSimulatorDBModel.FK_Matchups_Team" />
+        <AssociationConnector Association="SportsSimulatorDBModel.FK_TeamMembers_Team" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

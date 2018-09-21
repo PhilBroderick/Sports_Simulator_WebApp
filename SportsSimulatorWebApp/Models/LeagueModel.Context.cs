@@ -32,10 +32,10 @@ namespace SportsSimulatorWebApp.Models
         public virtual DbSet<Player> Players { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TeamMember> TeamMembers { get; set; }
-        public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<MatchupEntry> MatchupEntries { get; set; }
         public virtual DbSet<Matchup> Matchups { get; set; }
         public virtual DbSet<Round> Rounds { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
