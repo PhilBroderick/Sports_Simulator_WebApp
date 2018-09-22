@@ -37,8 +37,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     subsequentAction = true;
                     break;
                 case TeamEvents.Try:
-                    TryEvent teamTry = new TryEvent(matchup);
-                    subsequentAction = true;
+                    TryEvent teamTry = new TryEvent();
+                    subsequentAction = teamTry.PlayEvent(matchup);
                     break;
                 case TeamEvents.DropGoal:
                     break;
@@ -54,15 +54,11 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 }
                 else
                 {
-                    TryEvent subSequentTry = new TryEvent(matchup);
-                    ConversionEvent subSequentConversion = new ConversionEvent(matchup);
+                    TryEvent subSequentTry = new TryEvent();
+                    subSequentTry.PlayEvent(matchup);
+                    //ConversionEvent subSequentConversion = new ConversionEvent(matchup);
                 }
             }
-        }
-
-        static bool RandomiseSubsequentEvent()
-        {
-            return false;
         }
     }
 }
