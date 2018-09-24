@@ -8,11 +8,16 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class TryEvent : TeamEvent
     {
-        public bool PlayEvent(Matchup matchup)
+        public override bool PlayEvent(Matchup matchup)
         {
             bool isTry = ExecuteEvent(matchup);
 
             return isTry;
+        }
+
+        public bool PlayAwayEvent(Matchup matchup)
+        {
+            return false;
         }
         protected override bool ExecuteEvent(Matchup matchup)
         {

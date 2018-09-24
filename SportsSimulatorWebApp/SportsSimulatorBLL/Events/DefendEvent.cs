@@ -1,12 +1,12 @@
-﻿using SportsSimulatorWebApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SportsSimulatorWebApp.Models;
 
 namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
-    public class AttackEvent : TeamEvent
+    public class DefendEvent : TeamEvent
     {
         public override bool PlayEvent(Matchup matchup)
         {
@@ -14,25 +14,24 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
             return isSubsequentEvent;
         }
-        protected override void setEventName()
-        {
-            EventName = "Attack";
-        }
 
-        
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            // calculates the chance the attacking team has of calling a try event, if they are successful they'll have a chance at a try.
             Random rng = new Random();
-            var attackChance = rng.NextDouble();
+            var defendChance = rng.NextDouble();
             bool isSubsequentEvent = false;
 
-            if(attackChance < matchup.MatchupEntries.First().Team.AttackRating)
+            if(defendChance < matchup.MatchupEntries.First().Team.DefenseRating)
             {
                 isSubsequentEvent = true;
             }
 
             return isSubsequentEvent;
+        }
+
+        protected override void setEventName()
+        {
+            EventName = "Defend";
         }
     }
 }
