@@ -86,9 +86,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             {
                 EventGenerator eg = new EventGenerator(matchup);
             }
-
-            //Determine the outcome of the event based on the team stats. Also if any subsequent events should be called
-            //Determine the rest of the events for the matchup
+            
             //Return the scores/events of the matchup
             double scoreHome = (matchup.MatchupEntries.First().Score).HasValue ? (matchup.MatchupEntries.First().Score).Value : 0;
             double scoreAway = (matchup.MatchupEntries.Last().Score).HasValue ? (matchup.MatchupEntries.Last().Score).Value : 0;

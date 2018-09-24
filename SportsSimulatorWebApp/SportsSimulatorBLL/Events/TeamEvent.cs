@@ -13,5 +13,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         protected abstract void setEventName();
 
         protected abstract bool ExecuteEvent(Matchup matchup);
+
+        public abstract bool PlayEvent(Matchup matchup);
     }
 }
