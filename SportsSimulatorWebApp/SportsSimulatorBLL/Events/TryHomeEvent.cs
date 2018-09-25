@@ -6,7 +6,7 @@ using SportsSimulatorWebApp.Models;
 
 namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
-    public class TryEvent : TeamEvent
+    public class TryHomeEvent : TeamEvent
     {
         public override bool PlayEvent(Matchup matchup)
         {
@@ -78,7 +78,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         protected override void setEventName()
         {
-            EventName = "Try";
+            EventName = "Home Try";
         }
     }
 }
