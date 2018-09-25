@@ -23,7 +23,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
             var attackDifference = matchup.MatchupEntries.Last().Team.Offense - matchup.MatchupEntries.First().Team.Defense;
 
-            if (attackDifference > 20)
+            if (attackDifference >= 15)
             {
                 //skill levels are greatly different - but there is a chance the lower skilled team will save a try attempt.
                 if(rng.NextDouble() < 90)
@@ -36,7 +36,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     //there is a small chance the lower skilled team can save a try
                 }
             }
-            else if (attackDifference < -20)
+            else if (attackDifference <= -15)
             {
                 //in this case, the defending team is vastly superior, but there is a chance, so we add a fix algorithm
                 if(rng.NextDouble() < 90)
@@ -52,7 +52,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             else
             {
                 //In this case, the skills are comparable
-                if(rng.NextDouble() > matchup.MatchupEntries.First().Team.DefenseRating)
+                if(rng.NextDouble() > matchup.MatchupEntries.Last().Team.DefenseRating)
                 {
                     matchup.MatchupEntries.Last().Score += 5;
                     isTry = true;
@@ -69,11 +69,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         protected override void setEventName()
         {
             EventName = "Away Try";
-        }
-
-        public static implicit operator TryAwayEvent(TryHomeEvent v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

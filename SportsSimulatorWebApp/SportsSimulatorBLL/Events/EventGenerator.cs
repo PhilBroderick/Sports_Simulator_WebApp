@@ -74,7 +74,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 }
                 else if(randomEvent == TeamEvents.TryAway)
                 {
-                   TryAwayEvent subsequentAwayTryAttempt = new TryHomeEvent();
+                   TryAwayEvent subsequentAwayTryAttempt = new TryAwayEvent();
                    bool isAwayTry = subsequentAwayTryAttempt.PlayEvent(matchup);
                    if (isAwayTry)
                    {
@@ -85,18 +85,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 }
                 else
                 {
-                    TryHomeEvent subSequentTry = new TryHomeEvent();
-                    bool isTryAttempt = subSequentTry.PlayEvent(matchup);
-                    if (isTryAttempt)
+                    TryHomeEvent subSequentHomeTry = new TryHomeEvent();
+                    bool isHomeTry = subSequentHomeTry.PlayEvent(matchup);
+                    if (isHomeTry)
                     {
-                        TryHomeEvent subsequentHomeTryAttempt = new TryHomeEvent();
-                        bool isHomeTry = subsequentHomeTryAttempt.PlayEvent(matchup);
-                        if (isHomeTry)
-                        {
-                            ConversionEvent homeConversion = new ConversionEvent();
-                            bool isConversion = homeConversion.PlayEvent(matchup);
-                        }
-
+                       ConversionEvent homeConversion = new ConversionEvent();
+                       bool isConversion = homeConversion.PlayEvent(matchup);
                     }
                 }
             }
