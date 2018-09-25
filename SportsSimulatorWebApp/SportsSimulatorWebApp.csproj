@@ -237,6 +237,7 @@
     <Compile Include="SportsSimulatorBLL\Events\AttackEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\ConversionEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\DefendEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\DropGoalEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\EventGenerator.cs" />
     <Compile Include="SportsSimulatorBLL\Events\EventGeneratorManager.cs" />
     <Compile Include="SportsSimulatorBLL\Events\LineoutEvent.cs" />
