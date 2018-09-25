@@ -21,9 +21,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             var defendChance = rng.NextDouble();
             bool isSubsequentEvent = false;
 
-            if(defendChance < matchup.MatchupEntries.First().Team.DefenseRating)
+            if(defendChance > matchup.MatchupEntries.First().Team.DefenseRating)
             {
-                isSubsequentEvent = true;
+                isSubsequentEvent = true; // going to be a try event for away team
             }
 
             return isSubsequentEvent;

@@ -8,20 +8,27 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class ConversionEvent : TeamEvent
     {
-        public ConversionEvent(Matchup matchup)
+        public override bool PlayEvent(Matchup matchup)
         {
-            ExecuteEvent(matchup);
+            bool isConversion = ExecuteEvent(matchup);
+
+            return isConversion;
         }
-        protected override void ExecuteEvent(Matchup matchup)
+
+        protected override bool ExecuteEvent(Matchup matchup)
         {
             Random rng = new Random();
+            bool isConversion = false;
 
             var conversionRate = rng.NextDouble();
 
             if (conversionRate <= 0.7) // This can be changed based on the team, or players, conversion rate.
             {
+                //check if last event called was home or away - can be done using the eventgeneratormanager.
                 matchup.MatchupEntries.First().Score += 2;
-            }    
+                isConversion = true;
+            }
+            return isConversion;
         }
 
         protected override void setEventName()

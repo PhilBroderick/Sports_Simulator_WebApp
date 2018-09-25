@@ -33,18 +33,20 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     subsequentAction = defend.PlayEvent(matchup);
                     break;
                 case TeamEvents.Lineout:
-                    subsequentAction = true;
+                    LineoutEvent lineout = new LineoutEvent();
+                    subsequentAction = lineout.PlayEvent(matchup);
                     break;
                 case TeamEvents.Scrum:
-                    subsequentAction = true;
+                    ScrumEvent scrum = new ScrumEvent();
+                    subsequentAction = scrum.PlayEvent(matchup);
                     break;
                 case TeamEvents.TryHome:
-                    TryEvent homeTry = new TryEvent();
+                    TryHomeEvent homeTry = new TryHomeEvent();
                     subsequentAction = homeTry.PlayEvent(matchup);
                     break;
                 case TeamEvents.TryAway:
-                    TryEvent awayTry = new TryEvent();
-                    subsequentAction = awayTry.PlayAwayEvent(matchup);
+                    TryAwayEvent awayTry = new TryAwayEvent();
+                    subsequentAction = awayTry.PlayEvent(matchup);
                     break;
                 case TeamEvents.DropGoal:
                     break;
@@ -56,43 +58,43 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             {
                 if(randomEvent == TeamEvents.TryHome)
                 {
-                    ConversionEvent subSequentConversion = new ConversionEvent(matchup);
+                    ConversionEvent subSequentConversion = new ConversionEvent();
+                    bool isConversion = subSequentConversion.PlayEvent(matchup);
+
                 }
                 else if(randomEvent == TeamEvents.Defend)
                 {
-                    TryEvent subsequentAwayTry = new TryEvent();
-                    bool isAwayTry = subsequentAwayTry.PlayAwayEvent(matchup);
+                    TryAwayEvent subsequentAwayTry = new TryAwayEvent();
+                    bool isAwayTry = subsequentAwayTry.PlayEvent(matchup);
                     if (isAwayTry)
                     {
-                        ConversionEvent awayConversion = new ConversionEvent(matchup);
+                        ConversionEvent awayConversion = new ConversionEvent();
+                        bool isConversion = awayConversion.PlayEvent(matchup);
                     }
                 }
                 else if(randomEvent == TeamEvents.TryAway)
                 {
-                    TryEvent subSequentTry = new TryEvent();
-                    bool isTryAttempt = subSequentTry.PlayEvent(matchup);
-                    if (isTryAttempt)
-                    {
-                        TryEvent subsequentAwayTryAttempt = new TryEvent();
-                        bool isAwayTry = subsequentAwayTryAttempt.PlayAwayEvent(matchup);
-                        if (isAwayTry)
-                        {
-                            ConversionEvent awayConversion = new ConversionEvent(matchup);
-                        }
-
+                   TryAwayEvent subsequentAwayTryAttempt = new TryHomeEvent();
+                   bool isAwayTry = subsequentAwayTryAttempt.PlayEvent(matchup);
+                   if (isAwayTry)
+                   {
+                       ConversionEvent awayConversion = new ConversionEvent();
+                       bool isConversion = awayConversion.PlayEvent(matchup);
                     }
+                        
                 }
                 else
                 {
-                    TryEvent subSequentTry = new TryEvent();
+                    TryHomeEvent subSequentTry = new TryHomeEvent();
                     bool isTryAttempt = subSequentTry.PlayEvent(matchup);
                     if (isTryAttempt)
                     {
-                        TryEvent subsequentHomeTryAttempt = new TryEvent();
+                        TryHomeEvent subsequentHomeTryAttempt = new TryHomeEvent();
                         bool isHomeTry = subsequentHomeTryAttempt.PlayEvent(matchup);
                         if (isHomeTry)
                         {
-                            ConversionEvent homeConversion = new ConversionEvent(matchup);
+                            ConversionEvent homeConversion = new ConversionEvent();
+                            bool isConversion = homeConversion.PlayEvent(matchup);
                         }
 
                     }
