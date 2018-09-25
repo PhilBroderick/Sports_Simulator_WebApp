@@ -8,14 +8,21 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class EventGenerator
     {
-        public EventGenerator(Matchup matchup)
+        //public EventGenerator(Matchup matchup)
+        //{
+        //    GenerateEvent(matchup);
+        //}
+
+        public TeamEvents GenerateEvent(Matchup matchup)
         {
-            GenerateEvent(matchup);
+            var eventOutcome = GenerateRandomEvent(matchup);
+
+            return eventOutcome;
         }
         public enum TeamEvents { Attack, Defend, Scrum, Lineout, TryHome, TryAway, DropGoal };
         public enum SubsequentEvents { Try, Conversion}
 
-        static void GenerateEvent(Matchup matchup)
+        static TeamEvents GenerateRandomEvent(Matchup matchup)
         {
             var random = new Random();
             var randomEvent = (TeamEvents)random.Next(0, 7); //returns a random event from the TeamEvents enum
@@ -49,7 +56,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     subsequentAction = awayTry.PlayEvent(matchup);
                     break;
                 case TeamEvents.DropGoal:
-                    break;
+                    DropGoalEvent dropGoal = new DropGoalEvent();
+                    subsequentAction = dropGoal.PlayEvent(matchup);
+                    return randomEvent;
 
             }
 
@@ -60,7 +69,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 {
                     ConversionEvent subSequentConversion = new ConversionEvent();
                     bool isConversion = subSequentConversion.PlayEvent(matchup);
-
+                    return randomEvent;
                 }
                 else if(randomEvent == TeamEvents.Defend)
                 {
@@ -70,18 +79,22 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     {
                         ConversionEvent awayConversion = new ConversionEvent();
                         bool isConversion = awayConversion.PlayEvent(matchup);
+                        return randomEvent;
                     }
+                    return randomEvent;
                 }
                 else if(randomEvent == TeamEvents.TryAway)
                 {
                    TryAwayEvent subsequentAwayTryAttempt = new TryAwayEvent();
                    bool isAwayTry = subsequentAwayTryAttempt.PlayEvent(matchup);
+                
                    if (isAwayTry)
                    {
                        ConversionEvent awayConversion = new ConversionEvent();
                        bool isConversion = awayConversion.PlayEvent(matchup);
-                    }
-                        
+                       return randomEvent;
+                   }
+                   return randomEvent;
                 }
                 else
                 {
@@ -91,9 +104,16 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     {
                        ConversionEvent homeConversion = new ConversionEvent();
                        bool isConversion = homeConversion.PlayEvent(matchup);
+                       return randomEvent;
                     }
+                    return randomEvent;
                 }
             }
+            else
+            {
+                return randomEvent;
+            }
+            
         }
     }
 }
