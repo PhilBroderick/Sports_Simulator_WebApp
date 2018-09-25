@@ -85,6 +85,8 @@
     <Property Name="DefenseRating" Type="float" />
     <Property Name="Offense" Type="decimal" Precision="18" Scale="0" />
     <Property Name="Defense" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ScrumRating" Type="float" />
+    <Property Name="LineoutRating" Type="float" />
   </EntityType>
   <Association Name="FK_League_LeagueEntries">
     <End Role="League" Type="Self.League" Multiplicity="1" />

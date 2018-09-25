@@ -10,12 +10,20 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
     {
         public override bool PlayEvent(Matchup matchup)
         {
-            throw new NotImplementedException();
+            bool subsequentEvent = ExecuteEvent(matchup);
+            return subsequentEvent;
         }
 
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            throw new NotImplementedException();
+            Random rng = new Random();
+            bool isSubequentEvent = false;
+
+            if(rng.NextDouble() < matchup.MatchupEntries.First().Team.ScrumRating)
+            {
+                isSubequentEvent = true;
+            }
+            return isSubequentEvent;
         }
 
         protected override void setEventName()

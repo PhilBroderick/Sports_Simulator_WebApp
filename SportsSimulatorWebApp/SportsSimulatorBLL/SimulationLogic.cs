@@ -82,12 +82,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             List<TimeSpan> orderedEventList = GenerateRandomEventTimes();
 
             EventGeneratorManager egm = new EventGeneratorManager();
-
-            //Random generator for which event is called per time
-            //for (int i = 0; i < orderedEventList.Count; i ++)
-            //{
-
-            //}
+            
 
             egm.GenerateAllEvents(matchup, orderedEventList.Count);
 

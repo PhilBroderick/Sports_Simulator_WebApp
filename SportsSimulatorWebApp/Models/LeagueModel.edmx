@@ -90,6 +90,8 @@
           <Property Name="DefenseRating" Type="float" />
           <Property Name="Offense" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Defense" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ScrumRating" Type="float" />
+          <Property Name="LineoutRating" Type="float" />
         </EntityType>
         <Association Name="FK_League_LeagueEntries">
           <End Role="League" Type="Self.League" Multiplicity="1" />
@@ -546,7 +548,7 @@
             <End Role="Team" EntitySet="Teams" />
             <End Role="TeamMember" EntitySet="TeamMembers" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -678,6 +680,8 @@
           <Property Name="DefenseRating" Type="Double" />
           <Property Name="Offense" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Defense" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ScrumRating" Type="Double" />
+          <Property Name="LineoutRating" Type="Double" />
           <NavigationProperty Name="LeagueEntries" Relationship="SportsSimulatorDBModel.FK_League_Teams" FromRole="Team" ToRole="LeagueEntry" />
           <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="Team" ToRole="MatchupEntry" />
           <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Team" ToRole="Matchup" />
@@ -731,7 +735,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -904,6 +908,8 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="LineoutRating" ColumnName="LineoutRating" />
+                <ScalarProperty Name="ScrumRating" ColumnName="ScrumRating" />
                 <ScalarProperty Name="Defense" ColumnName="Defense" />
                 <ScalarProperty Name="Offense" ColumnName="Offense" />
                 <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />

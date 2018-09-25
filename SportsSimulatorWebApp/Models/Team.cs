@@ -33,6 +33,8 @@ namespace SportsSimulatorWebApp.Models
         public Nullable<double> DefenseRating { get; set; }
         public Nullable<decimal> Offense { get; set; }
         public Nullable<decimal> Defense { get; set; }
+        public Nullable<double> ScrumRating { get; set; }
+        public Nullable<double> LineoutRating { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueEntry> LeagueEntries { get; set; }

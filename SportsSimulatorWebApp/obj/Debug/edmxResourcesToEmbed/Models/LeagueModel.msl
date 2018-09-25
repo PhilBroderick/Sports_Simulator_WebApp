@@ -167,6 +167,8 @@
     <EntitySetMapping Name="Teams">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
         <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="LineoutRating" ColumnName="LineoutRating" />
+          <ScalarProperty Name="ScrumRating" ColumnName="ScrumRating" />
           <ScalarProperty Name="Defense" ColumnName="Defense" />
           <ScalarProperty Name="Offense" ColumnName="Offense" />
           <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
