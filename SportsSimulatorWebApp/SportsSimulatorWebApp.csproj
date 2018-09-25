@@ -239,7 +239,10 @@
     <Compile Include="SportsSimulatorBLL\Events\DefendEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\EventGenerator.cs" />
     <Compile Include="SportsSimulatorBLL\Events\EventGeneratorManager.cs" />
-    <Compile Include="SportsSimulatorBLL\Events\TryEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\LineoutEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\ScrumEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\TryAwayEvent .cs" />
+    <Compile Include="SportsSimulatorBLL\Events\TryHomeEvent.cs" />
     <Compile Include="SportsSimulatorBLL\LeagueLogic.cs" />
     <Compile Include="SportsSimulatorBLL\RatingSystemLogic.cs" />
     <Compile Include="SportsSimulatorBLL\SimulationLogic.cs" />
