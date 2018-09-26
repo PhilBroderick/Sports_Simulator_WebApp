@@ -183,5 +183,26 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="EventTimings">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.EventTiming">
+        <MappingFragment StoreEntitySet="EventTimings">
+          <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spEventTimings_GetByMatchup" FunctionName="SportsSimulatorDBModel.Store.spEventTimings_GetByMatchup">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spEventTimings_GetByMatchup_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spEventTimings_Insert" FunctionName="SportsSimulatorDBModel.Store.spEventTimings_Insert" />
   </EntityContainerMapping>
 </Mapping>

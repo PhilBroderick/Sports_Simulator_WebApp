@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SportsSimulatorDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EventTimings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EventType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MatchupId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="League">
           <Key>
             <PropertyRef Name="id" />
@@ -94,6 +103,18 @@
           <Property Name="LineoutRating" Type="float" />
           <Property Name="DropGoalRating" Type="float" />
         </EntityType>
+        <Association Name="FK_EventTimings_Matchup">
+          <End Role="Matchups" Type="Self.Matchups" Multiplicity="1" />
+          <End Role="EventTimings" Type="Self.EventTimings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matchups">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventTimings">
+              <PropertyRef Name="MatchupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_League_LeagueEntries">
           <End Role="League" Type="Self.League" Multiplicity="1" />
           <End Role="LeagueEntries" Type="Self.LeagueEntries" Multiplicity="*" />
@@ -233,6 +254,13 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spEventTimings_GetByMatchup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MatchupId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spEventTimings_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MatchupId" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="spLeagueEntries_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LeagueId" Type="int" Mode="In" />
           <Parameter Name="TeamId" Type="int" Mode="In" />
@@ -290,6 +318,7 @@
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
         <EntityContainer Name="SportsSimulatorDBModelStoreContainer">
+          <EntitySet Name="EventTimings" EntityType="Self.EventTimings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeagueEntries" EntityType="Self.LeagueEntries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MatchupEntries" EntityType="Self.MatchupEntries" Schema="dbo" store:Type="Tables" />
@@ -299,6 +328,10 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TeamMembers" EntityType="Self.TeamMembers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EventTimings_Matchup" Association="Self.FK_EventTimings_Matchup">
+            <End Role="Matchups" EntitySet="Matchups" />
+            <End Role="EventTimings" EntitySet="EventTimings" />
+          </AssociationSet>
           <AssociationSet Name="FK_League_LeagueEntries" Association="Self.FK_League_LeagueEntries">
             <End Role="League" EntitySet="League" />
             <End Role="LeagueEntries" EntitySet="LeagueEntries" />
@@ -549,6 +582,18 @@
             <End Role="Team" EntitySet="Teams" />
             <End Role="TeamMember" EntitySet="TeamMembers" />
           </AssociationSet>
+          <EntitySet Name="EventTimings" EntityType="SportsSimulatorDBModel.EventTiming" />
+          <AssociationSet Name="FK_EventTimings_Matchup" Association="SportsSimulatorDBModel.FK_EventTimings_Matchup">
+            <End Role="Matchup" EntitySet="Matchups" />
+            <End Role="EventTiming" EntitySet="EventTimings" />
+          </AssociationSet>
+          <FunctionImport Name="spEventTimings_GetByMatchup" ReturnType="Collection(SportsSimulatorDBModel.spEventTimings_GetByMatchup_Result)">
+            <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spEventTimings_Insert">
+            <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -620,6 +665,7 @@
           <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_Matchup" FromRole="Matchup" ToRole="MatchupEntry" />
           <NavigationProperty Name="Round" Relationship="SportsSimulatorDBModel.FK_Matchups_Round" FromRole="Matchup" ToRole="Round" />
           <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Matchup" ToRole="Team" />
+          <NavigationProperty Name="EventTimings" Relationship="SportsSimulatorDBModel.FK_EventTimings_Matchup" FromRole="Matchup" ToRole="EventTiming" />
         </EntityType>
         <Association Name="FK_MatchupEntries_Matchup">
           <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="1" />
@@ -737,6 +783,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EventTiming">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EventType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MatchupId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Matchup" Relationship="SportsSimulatorDBModel.FK_EventTimings_Matchup" FromRole="EventTiming" ToRole="Matchup" />
+        </EntityType>
+        <Association Name="FK_EventTimings_Matchup">
+          <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="1" />
+          <End Type="SportsSimulatorDBModel.EventTiming" Role="EventTiming" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Matchup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventTiming">
+              <PropertyRef Name="MatchupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spEventTimings_GetByMatchup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Time" Name="EventTime" Nullable="false" />
+          <Property Type="String" Name="EventType" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="MatchupId" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -926,6 +1000,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EventTimings">
+            <EntityTypeMapping TypeName="SportsSimulatorDBModel.EventTiming">
+              <MappingFragment StoreEntitySet="EventTimings">
+                <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spEventTimings_GetByMatchup" FunctionName="SportsSimulatorDBModel.Store.spEventTimings_GetByMatchup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spEventTimings_GetByMatchup_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spEventTimings_Insert" FunctionName="SportsSimulatorDBModel.Store.spEventTimings_Insert" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
