@@ -16,7 +16,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
             for (int i = 0; i < numOfEvents; i++)
             {
-                TeamEvents.Add(eg.GenerateEvent(matchup));
+                eg.GenerateEvent(matchup); // need to add the List<TeamEvents> to the List<Enum>
             }
             
             return TeamEvents; //return the list of events

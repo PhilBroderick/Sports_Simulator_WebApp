@@ -44,20 +44,6 @@ namespace SportsSimulatorWebApp.Controllers
             }
             
 
-            foreach(Round round in league.Rounds)
-            {
-                foreach(Matchup matchup in round.Matchups)
-                {
-                    RatingSystemLogic rating = new RatingSystemLogic(matchup);
-                }
-            }
-
-            Round roundOne = league.Rounds.First();
-
-            SimulationLogic sim = new SimulationLogic();
-
-            sim.SimulateRound(roundOne);
-
             return View(ltViewModel);
         }
         public ActionResult CreateMatchups(int? id)
@@ -77,11 +63,16 @@ namespace SportsSimulatorWebApp.Controllers
             int roundNumber = 1; // needs to be set as a global variable?
 
             League league = db.Leagues.Find(id);
-            Round round = db.Rounds.Find(roundNumber);
+            Round round = league.Rounds.First();
 
             SimulationLogic sim = new SimulationLogic();
 
             sim.SimulateRound(round);
+            
+            foreach (Matchup matchup in round.Matchups)
+            {
+                RatingSystemLogic rating = new RatingSystemLogic(matchup);
+            }
 
             return RedirectToAction("Index");
 
