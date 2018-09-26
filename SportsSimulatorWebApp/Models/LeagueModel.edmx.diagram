@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="SportsSimulatorDBModel.Round" Width="1.5" PointX="8.25" PointY="6.75" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_Rounds_League" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_Matchups_Round" />
-        <EntityTypeShape EntityType="SportsSimulatorDBModel.Team" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="SportsSimulatorDBModel.Team" Width="1.5" PointX="0.75" PointY="5" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_League_Teams" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_Matchups_Team" />

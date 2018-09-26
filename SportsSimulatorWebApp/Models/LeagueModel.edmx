@@ -92,6 +92,7 @@
           <Property Name="Defense" Type="decimal" Precision="18" Scale="0" />
           <Property Name="ScrumRating" Type="float" />
           <Property Name="LineoutRating" Type="float" />
+          <Property Name="DropGoalRating" Type="float" />
         </EntityType>
         <Association Name="FK_League_LeagueEntries">
           <End Role="League" Type="Self.League" Multiplicity="1" />
@@ -682,6 +683,7 @@
           <Property Name="Defense" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="ScrumRating" Type="Double" />
           <Property Name="LineoutRating" Type="Double" />
+          <Property Name="DropGoalRating" Type="Double" />
           <NavigationProperty Name="LeagueEntries" Relationship="SportsSimulatorDBModel.FK_League_Teams" FromRole="Team" ToRole="LeagueEntry" />
           <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="Team" ToRole="MatchupEntry" />
           <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Team" ToRole="Matchup" />
@@ -908,6 +910,7 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="DropGoalRating" ColumnName="DropGoalRating" />
                 <ScalarProperty Name="LineoutRating" ColumnName="LineoutRating" />
                 <ScalarProperty Name="ScrumRating" ColumnName="ScrumRating" />
                 <ScalarProperty Name="Defense" ColumnName="Defense" />

@@ -96,6 +96,10 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                    }
                    return randomEvent;
                 }
+                else if(randomEvent == TeamEvents.DropGoal)
+                {
+                    return randomEvent;
+                }
                 else
                 {
                     TryHomeEvent subSequentHomeTry = new TryHomeEvent();
