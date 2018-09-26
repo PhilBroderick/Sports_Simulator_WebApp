@@ -21,20 +21,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 result = rng.NextDouble();
 
                 List<double> expectedResults = getExpectedOutcome(matchup);
-                List<Team> teamResults = new List<Team>();
-
-
-                if(result < expectedResults[0])
-                {
-                    teamResults.Add(matchup.MatchupEntries.First().Team);
-                    teamResults.Add(matchup.MatchupEntries.Last().Team);
-                }
-                else
-                {
-                    teamResults.Add(matchup.MatchupEntries.Last().Team);
-                    teamResults.Add(matchup.MatchupEntries.First().Team);
-                }
-
+                
                 List<double> scores = SimulateMatchup(matchup);
 
                 if(result < expectedResults[0])
@@ -82,8 +69,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             List<TimeSpan> orderedEventList = GenerateRandomEventTimes();
 
             EventGeneratorManager egm = new EventGeneratorManager();
-            
-
+                    
             egm.GenerateAllEvents(matchup, orderedEventList.Count);
 
             //Return the scores/events of the matchup
@@ -124,5 +110,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             return sortedTimesList;
         }
+
+        private  static  
     }
 }

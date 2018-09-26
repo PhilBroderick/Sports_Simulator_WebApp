@@ -10,17 +10,26 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
     {
         public override bool PlayEvent(Matchup matchup)
         {
-            throw new NotImplementedException();
+            bool isDropGoal = ExecuteEvent(matchup);
+            return isDropGoal;
         }
 
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            throw new NotImplementedException();
+            Random rng = new Random();
+            bool isDropGoal = false;
+
+            if(rng.NextDouble() < matchup.MatchupEntries.First().Team.DropGoalRating)
+            {
+                matchup.MatchupEntries.First().Score += 3;
+                isDropGoal = true;
+            }
+            return isDropGoal;
         }
 
         protected override void setEventName()
         {
-            throw new NotImplementedException();
+            EventName = "DropGoal";
         }
     }
 }
