@@ -110,7 +110,5 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             return sortedTimesList;
         }
-
-        private  static  
     }
 }

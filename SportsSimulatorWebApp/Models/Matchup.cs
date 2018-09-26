@@ -18,6 +18,7 @@ namespace SportsSimulatorWebApp.Models
         public Matchup()
         {
             this.MatchupEntries = new HashSet<MatchupEntry>();
+            this.EventTimings = new HashSet<EventTiming>();
         }
     
         public int id { get; set; }
@@ -28,5 +29,7 @@ namespace SportsSimulatorWebApp.Models
         public virtual ICollection<MatchupEntry> MatchupEntries { get; set; }
         public virtual Round Round { get; set; }
         public virtual Team Team { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventTiming> EventTimings { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             Random rng = new Random();
             bool isDropGoal = false;
 
-            if(rng.NextDouble() < matchup.MatchupEntries.First().Team.DropGoalRating)
+            if (rng.NextDouble() < matchup.MatchupEntries.First().Team.DropGoalRating)
             {
                 matchup.MatchupEntries.First().Score += 3;
                 isDropGoal = true;

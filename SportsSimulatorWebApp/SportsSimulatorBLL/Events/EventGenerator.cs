@@ -98,7 +98,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 }
                 else if(randomEvent == TeamEvents.DropGoal)
                 {
-                    
+                    return randomEvent;
                 }
                 else
                 {

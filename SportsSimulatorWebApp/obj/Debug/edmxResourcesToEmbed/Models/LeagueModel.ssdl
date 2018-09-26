@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SportsSimulatorDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EventTimings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EventTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="EventType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MatchupId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="League">
     <Key>
       <PropertyRef Name="id" />
@@ -87,7 +96,20 @@
     <Property Name="Defense" Type="decimal" Precision="18" Scale="0" />
     <Property Name="ScrumRating" Type="float" />
     <Property Name="LineoutRating" Type="float" />
+    <Property Name="DropGoalRating" Type="float" />
   </EntityType>
+  <Association Name="FK_EventTimings_Matchup">
+    <End Role="Matchups" Type="Self.Matchups" Multiplicity="1" />
+    <End Role="EventTimings" Type="Self.EventTimings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matchups">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EventTimings">
+        <PropertyRef Name="MatchupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_League_LeagueEntries">
     <End Role="League" Type="Self.League" Multiplicity="1" />
     <End Role="LeagueEntries" Type="Self.LeagueEntries" Multiplicity="*" />
@@ -227,6 +249,13 @@
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="spEventTimings_GetByMatchup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MatchupId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spEventTimings_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MatchupId" Type="int" Mode="In" />
+    <Parameter Name="id" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="spLeagueEntries_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LeagueId" Type="int" Mode="In" />
     <Parameter Name="TeamId" Type="int" Mode="In" />
@@ -284,6 +313,7 @@
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
   <EntityContainer Name="SportsSimulatorDBModelStoreContainer">
+    <EntitySet Name="EventTimings" EntityType="Self.EventTimings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LeagueEntries" EntityType="Self.LeagueEntries" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MatchupEntries" EntityType="Self.MatchupEntries" Schema="dbo" store:Type="Tables" />
@@ -293,6 +323,10 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TeamMembers" EntityType="Self.TeamMembers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_EventTimings_Matchup" Association="Self.FK_EventTimings_Matchup">
+      <End Role="Matchups" EntitySet="Matchups" />
+      <End Role="EventTimings" EntitySet="EventTimings" />
+    </AssociationSet>
     <AssociationSet Name="FK_League_LeagueEntries" Association="Self.FK_League_LeagueEntries">
       <End Role="League" EntitySet="League" />
       <End Role="LeagueEntries" EntitySet="LeagueEntries" />

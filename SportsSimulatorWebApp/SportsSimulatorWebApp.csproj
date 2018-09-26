@@ -165,6 +165,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddPlayersToTeam.cs" />
+    <Compile Include="Models\EventTiming.cs">
+      <DependentUpon>LeagueModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\League.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
@@ -197,6 +200,9 @@
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Round.cs">
+      <DependentUpon>LeagueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spEventTimings_GetByMatchup_Result.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spMatchupEntries_GetByMatchup_Result.cs">
