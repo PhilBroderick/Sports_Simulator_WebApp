@@ -588,7 +588,7 @@
             <End Role="EventTiming" EntitySet="EventTimings" />
           </AssociationSet>
           <FunctionImport Name="spEventTimings_GetByMatchup" ReturnType="Collection(SportsSimulatorDBModel.spEventTimings_GetByMatchup_Result)">
-            <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+          <Parameter Name="MatchupId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spEventTimings_Insert">
             <Parameter Name="MatchupId" Mode="In" Type="Int32" />

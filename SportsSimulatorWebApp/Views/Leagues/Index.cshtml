@@ -3,37 +3,49 @@
 @{
     ViewBag.Title = "Index";
 }
+@*@section Style {
+    <link href="@Url.Content("~/Style/grid.css")" rel="stylesheet" type="text/css" />
+}*@
 
-<h2>Index</h2>
+    <div class="Header">
+        <h2>Leagues</h2>
+    </div>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LeagueName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-        <th></th>
-    </tr>
+<div class="League-Table">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LeagueName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LeagueName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeagueName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
+
+<div class="League-Info">
+    <img src="http://thescrumdaytimes.com/wp-content/uploads/2014/08/Guinness-Pro-12-Fixtures.jpg" alt="Pro 14" />
+</div>

@@ -1,0 +1,26 @@
+﻿
+.Grid {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: grid;
+    grid-template: 75px repeat(2,1fr) 50px/repeat(8,1fr);
+    grid-template-areas:
+        "h h h h  h h h h" 
+        "c c c c  c l l l" 
+        "c c c c  c l l l" ;
+    text-align: center;
+}
+
+.Header {
+    grid-area: h;
+}
+
+.League-Table {
+    grid-area: c;
+}
+
+.League-Info {
+    grid-area: l;
+    height:200px;
+    width:350px;
+}
