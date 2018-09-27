@@ -230,12 +230,12 @@
     <FunctionImport Name="spMatchupEntries_UpdateAwayScore">
       <Parameter Name="MatchupId" Mode="In" Type="Int32" />
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
-      <Parameter Name="Score" Mode="In" Type="Int32" />
+      <Parameter Name="Score" Mode="In" Type="Double" />
     </FunctionImport>
     <FunctionImport Name="spMatchupEntries_UpdateHomeScore">
       <Parameter Name="MatchupId" Mode="In" Type="Int32" />
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
-      <Parameter Name="Score" Mode="In" Type="Int32" />
+      <Parameter Name="Score" Mode="In" Type="Double" />
     </FunctionImport>
     <FunctionImport Name="spMatchup_UpdateWinnerId">
       <Parameter Name="MatchupId" Mode="In" Type="Int32" />

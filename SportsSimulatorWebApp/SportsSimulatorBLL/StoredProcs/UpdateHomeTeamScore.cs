@@ -8,7 +8,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.StoredProcs
 {
     public class UpdateHomeTeamScore
     {
-        public UpdateHomeTeamScore(int matchupId, int teamId, int scoreHome)
+        public UpdateHomeTeamScore(int matchupId, int teamId, double scoreHome)
         {
             using(var context = new SportsSimulatorDBEntities())
             {

@@ -276,12 +276,12 @@
   <Function Name="spMatchupEntries_UpdateAwayScore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MatchupId" Type="int" Mode="In" />
     <Parameter Name="TeamId" Type="int" Mode="In" />
-    <Parameter Name="Score" Type="int" Mode="In" />
+    <Parameter Name="Score" Type="float" Mode="In" />
   </Function>
   <Function Name="spMatchupEntries_UpdateHomeScore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MatchupId" Type="int" Mode="In" />
     <Parameter Name="TeamId" Type="int" Mode="In" />
-    <Parameter Name="Score" Type="int" Mode="In" />
+    <Parameter Name="Score" Type="float" Mode="In" />
   </Function>
   <Function Name="spMatchups_GetByLeague" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LeagueId" Type="int" Mode="In" />

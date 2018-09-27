@@ -8,7 +8,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.StoredProcs
 {
     public class UpdateAwayTeamScore
     {
-        public UpdateAwayTeamScore(int matchupId, int teamId, int score)
+        public UpdateAwayTeamScore(int matchupId, int teamId, double score)
         {
             using(var context = new SportsSimulatorDBEntities())
             {

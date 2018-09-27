@@ -340,7 +340,7 @@ namespace SportsSimulatorWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdateWins", teamIdParameter);
         }
     
-        public virtual int spMatchupEntries_UpdateAwayScore(Nullable<int> matchupId, Nullable<int> teamId, Nullable<int> score)
+        public virtual int spMatchupEntries_UpdateAwayScore(Nullable<int> matchupId, Nullable<int> teamId, Nullable<double> score)
         {
             var matchupIdParameter = matchupId.HasValue ?
                 new ObjectParameter("MatchupId", matchupId) :
@@ -352,12 +352,12 @@ namespace SportsSimulatorWebApp.Models
     
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("Score", score) :
-                new ObjectParameter("Score", typeof(int));
+                new ObjectParameter("Score", typeof(double));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchupEntries_UpdateAwayScore", matchupIdParameter, teamIdParameter, scoreParameter);
         }
     
-        public virtual int spMatchupEntries_UpdateHomeScore(Nullable<int> matchupId, Nullable<int> teamId, Nullable<int> score)
+        public virtual int spMatchupEntries_UpdateHomeScore(Nullable<int> matchupId, Nullable<int> teamId, Nullable<double> score)
         {
             var matchupIdParameter = matchupId.HasValue ?
                 new ObjectParameter("MatchupId", matchupId) :
@@ -369,7 +369,7 @@ namespace SportsSimulatorWebApp.Models
     
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("Score", score) :
-                new ObjectParameter("Score", typeof(int));
+                new ObjectParameter("Score", typeof(double));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchupEntries_UpdateHomeScore", matchupIdParameter, teamIdParameter, scoreParameter);
         }
