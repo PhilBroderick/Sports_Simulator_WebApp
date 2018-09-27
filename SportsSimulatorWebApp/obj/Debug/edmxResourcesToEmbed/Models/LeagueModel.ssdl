@@ -312,6 +312,12 @@
     <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="spTeams_UpdateLosses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TeamId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spTeams_UpdateWins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TeamId" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="SportsSimulatorDBModelStoreContainer">
     <EntitySet Name="EventTimings" EntityType="Self.EventTimings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />

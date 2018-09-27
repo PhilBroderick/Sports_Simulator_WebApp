@@ -1,5 +1,6 @@
 ﻿using SportsSimulatorWebApp.Models;
 using SportsSimulatorWebApp.SportsSimulatorBLL.Events;
+using SportsSimulatorWebApp.SportsSimulatorBLL.StoredProcs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,15 +29,18 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 {
                     //Need to simualate the scores
                     matchup.WinnerId = matchup.MatchupEntries.First().TeamCompetingId;
-                    matchup.MatchupEntries.First().Team.Wins += 1;
-                    matchup.MatchupEntries.Last().Team.Losses += 1;
+                    var winnerId = matchup.MatchupEntries.First().Team.id;
+                    var loserId = matchup.MatchupEntries.Last().Team.id;
+                    UpdateTeamWinsLosses(winnerId, loserId);
+
                 }
                 else if(result > expectedResults[1])
                 {
                     //Need to simulate the scores
                     matchup.WinnerId = matchup.MatchupEntries.Last().TeamCompetingId;
-                    matchup.MatchupEntries.Last().Team.Wins += 1;
-                    matchup.MatchupEntries.First().Team.Losses += 1;
+                    var winnerId = matchup.MatchupEntries.Last().Team.id;
+                    var loserId = matchup.MatchupEntries.First().Team.id;
+                    UpdateTeamWinsLosses(winnerId, loserId);
                 }
                 else
                 {
@@ -109,6 +113,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             List<TimeSpan> sortedTimesList = eventTimeList.OrderBy(t => t.TotalMinutes).ToList();
 
             return sortedTimesList;
+        }
+
+        private void UpdateTeamWinsLosses(int winnerId, int loserId)
+        {
+            UpdateTeamWins updateWin = new UpdateTeamWins(winnerId);
+            UpdateTeamLosses updateLoss = new UpdateTeamLosses(loserId);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace SportsSimulatorWebApp.Controllers
 
         public ActionResult SimulateRound(int? id)
         {
-            int roundNumber = 1; // needs to be set as a global variable?
+           // int roundNumber = 1; // needs to be set as a global variable?
 
             League league = db.Leagues.Find(id);
             Round round = league.Rounds.First();

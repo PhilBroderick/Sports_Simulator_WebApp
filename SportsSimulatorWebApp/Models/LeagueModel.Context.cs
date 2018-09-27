@@ -321,5 +321,23 @@ namespace SportsSimulatorWebApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEventTimings_Insert", matchupIdParameter, id);
         }
+    
+        public virtual int spTeams_UpdateLosses(Nullable<int> teamId)
+        {
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("TeamId", teamId) :
+                new ObjectParameter("TeamId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdateLosses", teamIdParameter);
+        }
+    
+        public virtual int spTeams_UpdateWins(Nullable<int> teamId)
+        {
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("TeamId", teamId) :
+                new ObjectParameter("TeamId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdateWins", teamIdParameter);
+        }
     }
 }

@@ -317,6 +317,12 @@
           <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="spTeams_UpdateLosses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTeams_UpdateWins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="SportsSimulatorDBModelStoreContainer">
           <EntitySet Name="EventTimings" EntityType="Self.EventTimings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
@@ -593,6 +599,12 @@
           <FunctionImport Name="spEventTimings_Insert">
             <Parameter Name="MatchupId" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_UpdateLosses">
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_UpdateWins">
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1021,6 +1033,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spEventTimings_Insert" FunctionName="SportsSimulatorDBModel.Store.spEventTimings_Insert" />
+          <FunctionImportMapping FunctionImportName="spTeams_UpdateLosses" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateLosses" />
+          <FunctionImportMapping FunctionImportName="spTeams_UpdateWins" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateWins" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
