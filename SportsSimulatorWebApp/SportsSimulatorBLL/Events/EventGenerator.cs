@@ -13,13 +13,20 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         //    GenerateEvent(matchup);
         //}
 
-        public List<TeamEvents> GenerateEvent(Matchup matchup)
+        public string GenerateEvent(Matchup matchup)
         {
             List<TeamEvents> eventOutcome = GenerateRandomEvent(matchup);
 
-            return eventOutcome;
+            var eventString = String.Join(", ", eventOutcome.Select(x => x.ToString()));
+
+            //var enumList = eventOutcome.Select(x => Enum.Parse(typeof(TeamEvents), x)).Cast().ToList();
+
+            return eventString;
         }
-        public enum TeamEvents { Attack, Defend, Scrum, Lineout, TryHome, TryAway, DropGoal , Conversion };
+        public enum TeamEvents
+        {
+            Attack, Defend, Scrum, Lineout, TryHome, TryAway, DropGoal , Conversion
+        };
 
         static List<TeamEvents> GenerateRandomEvent(Matchup matchup)
         {
@@ -132,6 +139,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             }
             
         }
+
     }
 
     static class EnumHelpers<T> where T : struct

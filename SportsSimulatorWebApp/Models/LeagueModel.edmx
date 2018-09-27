@@ -266,6 +266,10 @@
           <Parameter Name="TeamId" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="spMatchup_UpdateWinnerId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MatchupId" Type="int" Mode="In" />
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
         <Function Name="spMatchupEntries_GetByMatchup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MatchupId" Type="int" Mode="In" />
         </Function>
@@ -273,6 +277,16 @@
           <Parameter Name="MatchupId" Type="int" Mode="In" />
           <Parameter Name="TeamCompetingId" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spMatchupEntries_UpdateAwayScore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MatchupId" Type="int" Mode="In" />
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+          <Parameter Name="Score" Type="float" Mode="In" />
+        </Function>
+        <Function Name="spMatchupEntries_UpdateHomeScore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MatchupId" Type="int" Mode="In" />
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+          <Parameter Name="Score" Type="float" Mode="In" />
         </Function>
         <Function Name="spMatchups_GetByLeague" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LeagueId" Type="int" Mode="In" />
@@ -316,6 +330,12 @@
         <Function Name="spTeams_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spTeams_UpdateLosses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTeams_UpdateWins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="SportsSimulatorDBModelStoreContainer">
           <EntitySet Name="EventTimings" EntityType="Self.EventTimings" Schema="dbo" store:Type="Tables" />
@@ -593,6 +613,26 @@
           <FunctionImport Name="spEventTimings_Insert">
             <Parameter Name="MatchupId" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_UpdateLosses">
+          <Parameter Name="TeamId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_UpdateWins">
+          <Parameter Name="TeamId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spMatchupEntries_UpdateAwayScore">
+            <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+            <Parameter Name="Score" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="spMatchupEntries_UpdateHomeScore">
+            <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+            <Parameter Name="Score" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="spMatchup_UpdateWinnerId">
+            <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1021,6 +1061,11 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spEventTimings_Insert" FunctionName="SportsSimulatorDBModel.Store.spEventTimings_Insert" />
+          <FunctionImportMapping FunctionImportName="spTeams_UpdateLosses" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateLosses" />
+          <FunctionImportMapping FunctionImportName="spTeams_UpdateWins" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateWins" />
+          <FunctionImportMapping FunctionImportName="spMatchupEntries_UpdateAwayScore" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_UpdateAwayScore" />
+          <FunctionImportMapping FunctionImportName="spMatchupEntries_UpdateHomeScore" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_UpdateHomeScore" />
+          <FunctionImportMapping FunctionImportName="spMatchup_UpdateWinnerId" FunctionName="SportsSimulatorDBModel.Store.spMatchup_UpdateWinnerId" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
