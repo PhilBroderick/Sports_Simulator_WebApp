@@ -25,21 +25,26 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 
                 List<double> scores = SimulateMatchup(matchup);
 
-                if(result < expectedResults[0])
+                if(scores[0] < scores[1])
                 {
                     //Need to simualate the scores
+                    //Update Matchup with winnerId
+                    
+                    //Update matchup entries with scores
                     matchup.WinnerId = matchup.MatchupEntries.First().TeamCompetingId;
                     var winnerId = matchup.MatchupEntries.First().Team.id;
                     var loserId = matchup.MatchupEntries.Last().Team.id;
+                    UpdateMatchup(matchup.id, winnerId);
                     UpdateTeamWinsLosses(winnerId, loserId);
 
                 }
-                else if(result > expectedResults[1])
+                else if(scores[0] > scores[1])
                 {
                     //Need to simulate the scores
                     matchup.WinnerId = matchup.MatchupEntries.Last().TeamCompetingId;
                     var winnerId = matchup.MatchupEntries.Last().Team.id;
                     var loserId = matchup.MatchupEntries.First().Team.id;
+                    UpdateMatchup(matchup.id, winnerId);
                     UpdateTeamWinsLosses(winnerId, loserId);
                 }
                 else
@@ -119,6 +124,11 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         {
             UpdateTeamWins updateWin = new UpdateTeamWins(winnerId);
             UpdateTeamLosses updateLoss = new UpdateTeamLosses(loserId);
+        }
+
+        private void UpdateMatchup(int matchupId, int winnerId)
+        {
+            UpdateMatchupWinnerID updateWinnerId = new UpdateMatchupWinnerID(matchupId, winnerId);
         }
     }
 }

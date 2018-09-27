@@ -206,5 +206,8 @@
     <FunctionImportMapping FunctionImportName="spEventTimings_Insert" FunctionName="SportsSimulatorDBModel.Store.spEventTimings_Insert" />
     <FunctionImportMapping FunctionImportName="spTeams_UpdateLosses" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateLosses" />
     <FunctionImportMapping FunctionImportName="spTeams_UpdateWins" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateWins" />
+    <FunctionImportMapping FunctionImportName="spMatchupEntries_UpdateAwayScore" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_UpdateAwayScore" />
+    <FunctionImportMapping FunctionImportName="spMatchupEntries_UpdateHomeScore" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_UpdateHomeScore" />
+    <FunctionImportMapping FunctionImportName="spMatchup_UpdateWinnerId" FunctionName="SportsSimulatorDBModel.Store.spMatchup_UpdateWinnerId" />
   </EntityContainerMapping>
 </Mapping>

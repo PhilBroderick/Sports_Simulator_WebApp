@@ -8,15 +8,15 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class EventGeneratorManager
     {
-        public List<Enum> GenerateAllEvents(Matchup matchup, int numOfEvents)
+        public List<string> GenerateAllEvents(Matchup matchup, int numOfEvents)
         {
             EventGenerator eg = new EventGenerator();
 
-            List<Enum> TeamEvents = new List<Enum>();
+            List<string> TeamEvents = new List<string>();
 
             for (int i = 0; i < numOfEvents; i++)
             {
-                eg.GenerateEvent(matchup); // need to add the List<TeamEvents> to the List<Enum>
+                TeamEvents.Add(eg.GenerateEvent(matchup)); // need to add the List<TeamEvents> to the List<Enum>
             }
             
             return TeamEvents; //return the list of events

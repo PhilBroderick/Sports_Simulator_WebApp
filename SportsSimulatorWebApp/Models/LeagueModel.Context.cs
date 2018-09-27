@@ -339,5 +339,52 @@ namespace SportsSimulatorWebApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdateWins", teamIdParameter);
         }
+    
+        public virtual int spMatchupEntries_UpdateAwayScore(Nullable<int> matchupId, Nullable<int> teamId, Nullable<int> score)
+        {
+            var matchupIdParameter = matchupId.HasValue ?
+                new ObjectParameter("MatchupId", matchupId) :
+                new ObjectParameter("MatchupId", typeof(int));
+    
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("TeamId", teamId) :
+                new ObjectParameter("TeamId", typeof(int));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("Score", score) :
+                new ObjectParameter("Score", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchupEntries_UpdateAwayScore", matchupIdParameter, teamIdParameter, scoreParameter);
+        }
+    
+        public virtual int spMatchupEntries_UpdateHomeScore(Nullable<int> matchupId, Nullable<int> teamId, Nullable<int> score)
+        {
+            var matchupIdParameter = matchupId.HasValue ?
+                new ObjectParameter("MatchupId", matchupId) :
+                new ObjectParameter("MatchupId", typeof(int));
+    
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("TeamId", teamId) :
+                new ObjectParameter("TeamId", typeof(int));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("Score", score) :
+                new ObjectParameter("Score", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchupEntries_UpdateHomeScore", matchupIdParameter, teamIdParameter, scoreParameter);
+        }
+    
+        public virtual int spMatchup_UpdateWinnerId(Nullable<int> matchupId, Nullable<int> teamId)
+        {
+            var matchupIdParameter = matchupId.HasValue ?
+                new ObjectParameter("MatchupId", matchupId) :
+                new ObjectParameter("MatchupId", typeof(int));
+    
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("TeamId", teamId) :
+                new ObjectParameter("TeamId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spMatchup_UpdateWinnerId", matchupIdParameter, teamIdParameter);
+        }
     }
 }

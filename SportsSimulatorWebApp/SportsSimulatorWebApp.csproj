@@ -254,6 +254,10 @@
     <Compile Include="SportsSimulatorBLL\RatingSystemLogic.cs" />
     <Compile Include="SportsSimulatorBLL\SimulationLogic.cs" />
     <Compile Include="SportsSimulatorBLL\Events\TeamEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateAwayTeamScore.cs" />
+    <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateHomeTeamScore.cs" />
+    <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamLosses.cs" />
+    <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamWins.cs" />
     <Compile Include="SportsSimulatorBLL\TeamLogic.cs" />
   </ItemGroup>
   <ItemGroup>

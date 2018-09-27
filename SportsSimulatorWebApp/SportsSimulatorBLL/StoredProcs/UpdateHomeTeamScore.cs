@@ -6,13 +6,13 @@ using System.Web;
 
 namespace SportsSimulatorWebApp.SportsSimulatorBLL.StoredProcs
 {
-    public class UpdateTeamLosses
+    public class UpdateHomeTeamScore
     {
-        public UpdateTeamLosses(int teamId)
+        public UpdateHomeTeamScore(int matchupId, int teamId, int scoreHome)
         {
             using(var context = new SportsSimulatorDBEntities())
             {
-                context.spTeams_UpdateLosses(teamId);
+                context.spMatchupEntries_UpdateHomeScore(matchupId, teamId, scoreHome);
             }
         }
     }

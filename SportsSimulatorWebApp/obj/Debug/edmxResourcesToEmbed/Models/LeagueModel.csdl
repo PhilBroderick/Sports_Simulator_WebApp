@@ -227,6 +227,20 @@
     <FunctionImport Name="spTeams_UpdateWins">
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="spMatchupEntries_UpdateAwayScore">
+      <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+      <Parameter Name="TeamId" Mode="In" Type="Int32" />
+      <Parameter Name="Score" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spMatchupEntries_UpdateHomeScore">
+      <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+      <Parameter Name="TeamId" Mode="In" Type="Int32" />
+      <Parameter Name="Score" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spMatchup_UpdateWinnerId">
+      <Parameter Name="MatchupId" Mode="In" Type="Int32" />
+      <Parameter Name="TeamId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
