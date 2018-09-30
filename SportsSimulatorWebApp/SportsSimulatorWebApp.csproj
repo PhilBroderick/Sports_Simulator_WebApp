@@ -246,10 +246,13 @@
     <Compile Include="SportsSimulatorBLL\Events\AttackEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\ConversionEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\DefendEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\DropGoalAwayEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\DropGoalEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\EventGenerator.cs" />
     <Compile Include="SportsSimulatorBLL\Events\EventGeneratorManager.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\LineoutAwayEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\LineoutEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\Events\ScrumAwayEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\ScrumEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\TryAwayEvent .cs" />
     <Compile Include="SportsSimulatorBLL\Events\TryHomeEvent.cs" />

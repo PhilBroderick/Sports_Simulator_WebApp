@@ -20,12 +20,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         }
         public enum TeamEvents
         {
-            Attack, Defend, Scrum, Lineout, TryHome, TryAway, DropGoal , Conversion
+            Attack, Defend, Scrum, Lineout, TryHome, TryAway, DropGoal , LineoutAway, ScrumAway, DropGoalAway, Conversion
         };
 
         static List<TeamEvents> GenerateRandomEvent(Matchup matchup)
         {
-            var randomEvent = (TeamEvents)StaticRandom.Instance.Next(0, 7); //returns a random event from the TeamEvents enum
+            var randomEvent = (TeamEvents)StaticRandom.Instance.Next(0, 9); //returns a random event from the TeamEvents enum
             List<TeamEvents> Events = new List<TeamEvents>();
             
             bool subsequentAction = false;
@@ -61,6 +61,14 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     subsequentAction = dropGoal.PlayEvent(matchup);
                     Events.Add(randomEvent);
                     return Events;
+                case TeamEvents.LineoutAway:
+                    LineoutAwayEvent awayLineout = new LineoutAwayEvent();
+                    subsequentAction = awayLineout.PlayEvent(matchup);
+                    break;
+                case TeamEvents.ScrumAway:
+                    ScrumAwayEvent awayScrum = new ScrumAwayEvent();
+                    subsequentAction = awayScrum.PlayEvent(matchup);
+                    break;
 
             }
 
@@ -80,7 +88,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 {
                     TryAwayEvent subsequentAwayTry = new TryAwayEvent();
                     bool isAwayTry = subsequentAwayTry.PlayEvent(matchup);
+                    var secondEvent = TeamEvents.TryAway;
                     Events.Add(randomEvent);
+                    Events.Add(secondEvent);
                     if (isAwayTry)
                     {
                         ConversionEvent awayConversion = new ConversionEvent();
@@ -108,6 +118,36 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 }
                 else if(randomEvent == TeamEvents.DropGoal)
                 {
+                    return Events;
+                }
+                else if(randomEvent == TeamEvents.ScrumAway)
+                {
+                    TryAwayEvent subsequentAwayTry = new TryAwayEvent();
+                    bool isAwayTry = subsequentAwayTry.PlayEvent(matchup);
+                    Events.Add(randomEvent);
+                    if (isAwayTry)
+                    {
+                        ConversionEvent awayConversion = new ConversionEvent();
+                        bool isConversion = awayConversion.PlayEvent(matchup);
+                        var subsequentEvent = TeamEvents.Conversion;
+                        Events.Add(subsequentEvent);
+                        return Events;
+                    }
+                    return Events;
+                }
+                else if(randomEvent == TeamEvents.LineoutAway)
+                {
+                    TryAwayEvent subsequentAwayTry = new TryAwayEvent();
+                    bool isAwayTry = subsequentAwayTry.PlayEvent(matchup);
+                    Events.Add(randomEvent);
+                    if (isAwayTry)
+                    {
+                        ConversionEvent awayConversion = new ConversionEvent();
+                        bool isConversion = awayConversion.PlayEvent(matchup);
+                        var subsequentEvent = TeamEvents.Conversion;
+                        Events.Add(subsequentEvent);
+                        return Events;
+                    }
                     return Events;
                 }
                 else
