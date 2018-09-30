@@ -33,8 +33,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
         public RatingSystemLogic(Matchup matchup)
         {
-            double team1Score = matchup.MatchupEntries.First().Score ?? 0;
-            double team2Score = matchup.MatchupEntries.Last().Score ?? 0;
+            double team1Score = matchup.MatchupEntries.First().Score;
+            double team2Score = matchup.MatchupEntries.Last().Score;
 
             if(matchup.WinnerId == matchup.MatchupEntries.First().TeamCompetingId)
             {

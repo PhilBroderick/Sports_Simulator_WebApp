@@ -168,6 +168,8 @@
     <EntitySetMapping Name="Teams">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
         <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="PointsAgainst" ColumnName="PointsAgainst" />
+          <ScalarProperty Name="PointsFor" ColumnName="PointsFor" />
           <ScalarProperty Name="DropGoalRating" ColumnName="DropGoalRating" />
           <ScalarProperty Name="LineoutRating" ColumnName="LineoutRating" />
           <ScalarProperty Name="ScrumRating" ColumnName="ScrumRating" />
@@ -220,5 +222,7 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spLeagues_UpdateCurrentRound" FunctionName="SportsSimulatorDBModel.Store.spLeagues_UpdateCurrentRound" />
+    <FunctionImportMapping FunctionImportName="spTeams_UpdateDraws" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateDraws" />
+    <FunctionImportMapping FunctionImportName="spTeams_UpdateRating" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateRating" />
   </EntityContainerMapping>
 </Mapping>

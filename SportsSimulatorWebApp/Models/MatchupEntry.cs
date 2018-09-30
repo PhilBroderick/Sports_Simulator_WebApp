@@ -17,7 +17,7 @@ namespace SportsSimulatorWebApp.Models
         public int id { get; set; }
         public int MatchupId { get; set; }
         public int TeamCompetingId { get; set; }
-        public Nullable<double> Score { get; set; }
+        public double Score { get; set; }
     
         public virtual Matchup Matchup { get; set; }
         public virtual Team Team { get; set; }

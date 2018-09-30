@@ -48,8 +48,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 }
                 else
                 {
-                    matchup.MatchupEntries.First().Team.Draws += 1;
-                    matchup.MatchupEntries.Last().Team.Draws += 1;
+                    var homeTeamId = matchup.MatchupEntries.First().Team.id;
+                    var awayTeamId = matchup.MatchupEntries.Last().Team.id;
+                    UpdateTeamDraws(homeTeamId, awayTeamId);
                 }
             }
         }
@@ -79,9 +80,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             EventGeneratorManager egm = new EventGeneratorManager();
                     
             List<string> returnedEvents = egm.GenerateAllEvents(matchup, orderedEventList.Count);
-            
-            double scoreHome = (matchup.MatchupEntries.First().Score).HasValue ? (matchup.MatchupEntries.First().Score).Value : 0;
-            double scoreAway = (matchup.MatchupEntries.Last().Score).HasValue ? (matchup.MatchupEntries.Last().Score).Value : 0;
+
+            double scoreHome = matchup.MatchupEntries.First().Score;
+            double scoreAway = matchup.MatchupEntries.Last().Score;
 
             List<double> matchupScores = new List<double>
             {
@@ -122,6 +123,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         {
             UpdateTeamWins updateWin = new UpdateTeamWins(winnerId);
             UpdateTeamLosses updateLoss = new UpdateTeamLosses(loserId);
+        }
+
+        private void UpdateTeamDraws(int homeTeamId, int awayTeamId)
+        {
+            UpdateTeamDraws updateHomeDraw = new UpdateTeamDraws(homeTeamId);
+            UpdateTeamDraws updateAwayDraw = new UpdateTeamDraws(awayTeamId);
         }
 
         private void UpdateMatchup(int matchupId, int winnerId)

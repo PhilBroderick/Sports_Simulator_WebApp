@@ -33,7 +33,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MatchupId" Type="int" Nullable="false" />
     <Property Name="TeamCompetingId" Type="int" Nullable="false" />
-    <Property Name="Score" Type="float" />
+    <Property Name="Score" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="Matchups">
     <Key>
@@ -98,6 +98,8 @@
     <Property Name="ScrumRating" Type="float" />
     <Property Name="LineoutRating" Type="float" />
     <Property Name="DropGoalRating" Type="float" />
+    <Property Name="PointsFor" Type="float" Nullable="false" />
+    <Property Name="PointsAgainst" Type="float" Nullable="false" />
   </EntityType>
   <Association Name="FK_EventTimings_Matchup">
     <End Role="Matchups" Type="Self.Matchups" Multiplicity="1" />
@@ -333,8 +335,15 @@
     <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="spTeams_UpdateDraws" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TeamId" Type="int" Mode="In" />
+  </Function>
   <Function Name="spTeams_UpdateLosses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="TeamId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spTeams_UpdateRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TeamId" Type="int" Mode="In" />
+    <Parameter Name="TeamRating" Type="decimal" Mode="In" />
   </Function>
   <Function Name="spTeams_UpdateWins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="TeamId" Type="int" Mode="In" />
