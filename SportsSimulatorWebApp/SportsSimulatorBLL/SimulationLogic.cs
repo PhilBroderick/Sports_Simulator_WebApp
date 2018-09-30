@@ -38,7 +38,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 }
                 else if(scores[0] < scores[1])
                 {
-                    //Need to simulate the scores
                     matchup.WinnerId = matchup.MatchupEntries.Last().TeamCompetingId;
                     var winnerId = matchup.MatchupEntries.Last().Team.id;
                     var loserId = matchup.MatchupEntries.First().Team.id;
@@ -80,8 +79,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             EventGeneratorManager egm = new EventGeneratorManager();
                     
             List<string> returnedEvents = egm.GenerateAllEvents(matchup, orderedEventList.Count);
-
-            //Return the scores/events of the matchup
+            
             double scoreHome = (matchup.MatchupEntries.First().Score).HasValue ? (matchup.MatchupEntries.First().Score).Value : 0;
             double scoreAway = (matchup.MatchupEntries.Last().Score).HasValue ? (matchup.MatchupEntries.Last().Score).Value : 0;
 
