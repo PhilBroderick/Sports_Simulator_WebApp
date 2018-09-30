@@ -8,11 +8,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class EventGenerator
     {
-        //public EventGenerator(Matchup matchup)
-        //{
-        //    GenerateEvent(matchup);
-        //}
-
         public string GenerateEvent(Matchup matchup)
         {
             List<TeamEvents> eventOutcome = GenerateRandomEvent(matchup);
@@ -30,10 +25,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         static List<TeamEvents> GenerateRandomEvent(Matchup matchup)
         {
-            var random = new Random();
-            var randomEvent = (TeamEvents)random.Next(0, 7); //returns a random event from the TeamEvents enum
+            var randomEvent = (TeamEvents)StaticRandom.Instance.Next(0, 7); //returns a random event from the TeamEvents enum
             List<TeamEvents> Events = new List<TeamEvents>();
-            TeamEvents subsequentEvent;
+            
             bool subsequentAction = false;
             
             switch (randomEvent)
@@ -77,7 +71,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 {
                     ConversionEvent subSequentConversion = new ConversionEvent();
                     bool isConversion = subSequentConversion.PlayEvent(matchup);
-                    subsequentEvent = TeamEvents.Conversion;
+                    var subsequentEvent = TeamEvents.Conversion;
                     Events.Add(randomEvent);
                     Events.Add(subsequentEvent);
                     return Events;
@@ -91,7 +85,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     {
                         ConversionEvent awayConversion = new ConversionEvent();
                         bool isConversion = awayConversion.PlayEvent(matchup);
-                        subsequentEvent = TeamEvents.Conversion;
+                        var subsequentEvent = TeamEvents.Conversion;
                         Events.Add(subsequentEvent);
                         return Events;
                     }
@@ -106,7 +100,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                    {
                        ConversionEvent awayConversion = new ConversionEvent();
                        bool isConversion = awayConversion.PlayEvent(matchup);
-                       subsequentEvent = TeamEvents.Conversion;
+                       var subsequentEvent = TeamEvents.Conversion;
                        Events.Add(subsequentEvent);
                        return Events;
                     }
@@ -125,7 +119,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     {
                        ConversionEvent homeConversion = new ConversionEvent();
                        bool isConversion = homeConversion.PlayEvent(matchup);
-                       subsequentEvent = TeamEvents.Conversion;
+                       var secondEvent = TeamEvents.TryHome;
+                       var subsequentEvent = TeamEvents.Conversion;
+                       Events.Add(secondEvent);
                        Events.Add(subsequentEvent);
                        return Events;
                     }

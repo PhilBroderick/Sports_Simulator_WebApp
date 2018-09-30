@@ -16,10 +16,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            Random rng = new Random();
             bool isDropGoal = false;
 
-            if (rng.NextDouble() < matchup.MatchupEntries.First().Team.DropGoalRating)
+            if (StaticRandom.Instance.NextDouble() < matchup.MatchupEntries.First().Team.DropGoalRating)
             {
                 matchup.MatchupEntries.First().Score += 3;
                 isDropGoal = true;

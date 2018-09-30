@@ -60,18 +60,22 @@ namespace SportsSimulatorWebApp.Controllers
 
         public ActionResult SimulateRound(int? id)
         {
-           // int roundNumber = 1; // needs to be set as a global variable?
-
             League league = db.Leagues.Find(id);
-            Round round = league.Rounds.First();
+            int currentRound = league.CurrentRound;
+            Round round = (from r in league.Rounds.OfType<Round>() where r.RoundNumber == currentRound select r).FirstOrDefault();
 
             SimulationLogic sim = new SimulationLogic();
 
             sim.SimulateRound(round);
-            
+
             foreach (Matchup matchup in round.Matchups)
             {
                 RatingSystemLogic rating = new RatingSystemLogic(matchup);
+            }
+
+            using(var context = new SportsSimulatorDBEntities())
+            {
+                currentRound = context.spLeagues_UpdateCurrentRound(league.id);
             }
 
             return RedirectToAction("Index");

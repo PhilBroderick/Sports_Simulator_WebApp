@@ -16,10 +16,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            Random rng = new Random();
             bool isSubequentEvent = false;
 
-            if(rng.NextDouble() < matchup.MatchupEntries.First().Team.ScrumRating)
+            if(StaticRandom.Instance.NextDouble() < matchup.MatchupEntries.First().Team.ScrumRating)
             {
                 isSubequentEvent = true;
             }

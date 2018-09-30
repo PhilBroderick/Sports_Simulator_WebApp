@@ -211,6 +211,9 @@
     <Compile Include="Models\spMatchups_GetByLeague_Result.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spMatchups_GetByRound_Result.cs">
+      <DependentUpon>LeagueModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\spPlayer_GetById_Result.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
@@ -254,6 +257,7 @@
     <Compile Include="SportsSimulatorBLL\RatingSystemLogic.cs" />
     <Compile Include="SportsSimulatorBLL\SimulationLogic.cs" />
     <Compile Include="SportsSimulatorBLL\Events\TeamEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\StaticRandom.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateAwayTeamScore.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateHomeTeamScore.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateMatchupWinnerID.cs" />

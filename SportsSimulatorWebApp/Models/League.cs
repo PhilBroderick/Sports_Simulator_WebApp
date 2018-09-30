@@ -24,6 +24,7 @@ namespace SportsSimulatorWebApp.Models
         public int id { get; set; }
         public string LeagueName { get; set; }
         public Nullable<int> Active { get; set; }
+        public int CurrentRound { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueEntry> LeagueEntries { get; set; }

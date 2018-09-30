@@ -25,7 +25,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 
                 List<double> scores = SimulateMatchup(matchup);
 
-                if(scores[0] < scores[1])
+                if(scores[0] > scores[1])
                 {
                     matchup.WinnerId = matchup.MatchupEntries.First().TeamCompetingId;
                     var winnerId = matchup.MatchupEntries.First().Team.id;
@@ -36,7 +36,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     UpdateTeamWinsLosses(winnerId, loserId);
 
                 }
-                else if(scores[0] > scores[1])
+                else if(scores[0] < scores[1])
                 {
                     //Need to simulate the scores
                     matchup.WinnerId = matchup.MatchupEntries.Last().TeamCompetingId;
@@ -79,7 +79,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             EventGeneratorManager egm = new EventGeneratorManager();
                     
-            egm.GenerateAllEvents(matchup, orderedEventList.Count);
+            List<string> returnedEvents = egm.GenerateAllEvents(matchup, orderedEventList.Count);
 
             //Return the scores/events of the matchup
             double scoreHome = (matchup.MatchupEntries.First().Score).HasValue ? (matchup.MatchupEntries.First().Score).Value : 0;
