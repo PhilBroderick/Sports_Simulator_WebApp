@@ -25,8 +25,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         static List<TeamEvents> GenerateRandomEvent(Matchup matchup)
         {
-            var random = new Random();
-            var randomEvent = (TeamEvents)random.Next(0, 7); //returns a random event from the TeamEvents enum
+            var randomEvent = (TeamEvents)StaticRandom.Instance.Next(0, 7); //returns a random event from the TeamEvents enum
             List<TeamEvents> Events = new List<TeamEvents>();
             
             bool subsequentAction = false;

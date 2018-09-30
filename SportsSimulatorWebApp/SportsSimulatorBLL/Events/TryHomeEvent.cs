@@ -21,8 +21,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         }
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            Random rng = new Random();
-            //var tryChance = rng.NextDouble();
+            var tryChance = StaticRandom.Instance.NextDouble();
             bool isTry = false;
 
             var attackDifference = matchup.MatchupEntries.First().Team.Offense - matchup.MatchupEntries.Last().Team.Defense;
@@ -30,7 +29,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             if (attackDifference >= 15)
             {
                 //skill levels are greatly different - but there is a chance the lower skilled team will save a try attempt.
-                if(rng.NextDouble() < 90)
+                if(tryChance < 90)
                 {
                     matchup.MatchupEntries.First().Score += 5;
                     isTry = true;
@@ -43,7 +42,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             else if (attackDifference <= -15)
             {
                 //in this case, the defending team is vastly superior, but there is a chance, so we add a fix algorithm
-                if(rng.NextDouble() < 90)
+                if(tryChance < 90)
                 {
                     //most likely the 2nd team will defend it
                 }
@@ -56,7 +55,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             else
             {
                 //In this case, the skills are comparable
-                if(rng.NextDouble() > matchup.MatchupEntries.Last().Team.DefenseRating)
+                if(tryChance > matchup.MatchupEntries.Last().Team.DefenseRating)
                 {
                     matchup.MatchupEntries.First().Score += 5;
                     isTry = true;

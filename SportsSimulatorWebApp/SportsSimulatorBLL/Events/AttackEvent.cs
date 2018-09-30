@@ -23,8 +23,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         protected override bool ExecuteEvent(Matchup matchup)
         {
             // calculates the chance the attacking team has of calling a try event, if they are successful they'll have a chance at a try.
-            Random rng = new Random();
-            var attackChance = rng.NextDouble();
+            var attackChance = StaticRandom.Instance.NextDouble();
             bool isSubsequentEvent = false;
 
             if(attackChance < matchup.MatchupEntries.First().Team.AttackRating)

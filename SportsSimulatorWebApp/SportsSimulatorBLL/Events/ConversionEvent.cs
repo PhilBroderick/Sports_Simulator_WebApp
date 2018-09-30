@@ -17,10 +17,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            Random rng = new Random();
             bool isConversion = false;
 
-            var conversionRate = rng.NextDouble();
+            var conversionRate = StaticRandom.Instance.NextDouble();
 
             if (conversionRate <= 0.7) // This can be changed based on the team, or players, conversion rate.
             {

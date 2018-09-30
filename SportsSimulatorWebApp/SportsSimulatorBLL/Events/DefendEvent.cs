@@ -17,8 +17,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            Random rng = new Random();
-            var defendChance = rng.NextDouble();
+            var defendChance = StaticRandom.Instance.NextDouble();
             bool isSubsequentEvent = false;
 
             if(defendChance > (matchup.MatchupEntries.First().Team.DefenseRating) / 2)
