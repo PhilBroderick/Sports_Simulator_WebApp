@@ -404,5 +404,27 @@ namespace SportsSimulatorWebApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spLeagues_UpdateCurrentRound", leagueIdParameter);
         }
+    
+        public virtual int spTeams_UpdateDraws(Nullable<int> teamId)
+        {
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("TeamId", teamId) :
+                new ObjectParameter("TeamId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdateDraws", teamIdParameter);
+        }
+    
+        public virtual int spTeams_UpdateRating(Nullable<int> teamId, Nullable<decimal> teamRating)
+        {
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("TeamId", teamId) :
+                new ObjectParameter("TeamId", typeof(int));
+    
+            var teamRatingParameter = teamRating.HasValue ?
+                new ObjectParameter("TeamRating", teamRating) :
+                new ObjectParameter("TeamRating", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdateRating", teamIdParameter, teamRatingParameter);
+        }
     }
 }

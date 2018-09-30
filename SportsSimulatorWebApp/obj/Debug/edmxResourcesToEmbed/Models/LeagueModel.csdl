@@ -248,6 +248,13 @@
     <FunctionImport Name="spLeagues_UpdateCurrentRound">
       <Parameter Name="LeagueId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="spTeams_UpdateDraws">
+      <Parameter Name="TeamId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spTeams_UpdateRating">
+      <Parameter Name="TeamId" Mode="In" Type="Int32" />
+      <Parameter Name="TeamRating" Mode="In" Type="Decimal" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -305,7 +312,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MatchupId" Type="Int32" Nullable="false" />
     <Property Name="TeamCompetingId" Type="Int32" Nullable="false" />
-    <Property Name="Score" Type="Double" />
+    <Property Name="Score" Type="Double" Nullable="false" />
     <NavigationProperty Name="Matchup" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_Matchup" FromRole="MatchupEntry" ToRole="Matchup" />
     <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="MatchupEntry" ToRole="Team" />
   </EntityType>
@@ -388,6 +395,8 @@
     <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="Team" ToRole="MatchupEntry" />
     <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Team" ToRole="Matchup" />
     <NavigationProperty Name="TeamMembers" Relationship="SportsSimulatorDBModel.FK_TeamMembers_Team" FromRole="Team" ToRole="TeamMember" />
+    <Property Name="PointsFor" Type="Double" Nullable="false" />
+    <Property Name="PointsAgainst" Type="Double" Nullable="false" />
   </EntityType>
   <Association Name="FK_League_Teams">
     <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />

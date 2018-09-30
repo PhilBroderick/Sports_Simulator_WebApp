@@ -38,7 +38,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MatchupId" Type="int" Nullable="false" />
           <Property Name="TeamCompetingId" Type="int" Nullable="false" />
-          <Property Name="Score" Type="float" />
+          <Property Name="Score" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Matchups">
           <Key>
@@ -103,6 +103,8 @@
           <Property Name="ScrumRating" Type="float" />
           <Property Name="LineoutRating" Type="float" />
           <Property Name="DropGoalRating" Type="float" />
+          <Property Name="PointsFor" Type="float" Nullable="false" />
+          <Property Name="PointsAgainst" Type="float" Nullable="false" />
         </EntityType>
         <Association Name="FK_EventTimings_Matchup">
           <End Role="Matchups" Type="Self.Matchups" Multiplicity="1" />
@@ -338,8 +340,15 @@
           <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="spTeams_UpdateDraws" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
         <Function Name="spTeams_UpdateLosses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTeams_UpdateRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TeamId" Type="int" Mode="In" />
+          <Parameter Name="TeamRating" Type="decimal" Mode="In" />
         </Function>
         <Function Name="spTeams_UpdateWins" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeamId" Type="int" Mode="In" />
@@ -646,7 +655,14 @@
           <Parameter Name="RoundId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spLeagues_UpdateCurrentRound">
-            <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_UpdateDraws">
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_UpdateRating">
+            <Parameter Name="TeamId" Mode="In" Type="Int32" />
+            <Parameter Name="TeamRating" Mode="In" Type="Decimal" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -705,7 +721,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MatchupId" Type="Int32" Nullable="false" />
           <Property Name="TeamCompetingId" Type="Int32" Nullable="false" />
-          <Property Name="Score" Type="Double" />
+          <Property Name="Score" Type="Double" Nullable="false" />
           <NavigationProperty Name="Matchup" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_Matchup" FromRole="MatchupEntry" ToRole="Matchup" />
           <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="MatchupEntry" ToRole="Team" />
         </EntityType>
@@ -788,6 +804,8 @@
           <NavigationProperty Name="MatchupEntries" Relationship="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" FromRole="Team" ToRole="MatchupEntry" />
           <NavigationProperty Name="Matchups" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Team" ToRole="Matchup" />
           <NavigationProperty Name="TeamMembers" Relationship="SportsSimulatorDBModel.FK_TeamMembers_Team" FromRole="Team" ToRole="TeamMember" />
+          <Property Name="PointsFor" Type="Double" Nullable="false" />
+          <Property Name="PointsAgainst" Type="Double" Nullable="false" />
         </EntityType>
         <Association Name="FK_League_Teams">
           <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />
@@ -1044,6 +1062,8 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="PointsAgainst" ColumnName="PointsAgainst" />
+                <ScalarProperty Name="PointsFor" ColumnName="PointsFor" />
                 <ScalarProperty Name="DropGoalRating" ColumnName="DropGoalRating" />
                 <ScalarProperty Name="LineoutRating" ColumnName="LineoutRating" />
                 <ScalarProperty Name="ScrumRating" ColumnName="ScrumRating" />
@@ -1096,6 +1116,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spLeagues_UpdateCurrentRound" FunctionName="SportsSimulatorDBModel.Store.spLeagues_UpdateCurrentRound" />
+          <FunctionImportMapping FunctionImportName="spTeams_UpdateDraws" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateDraws" />
+          <FunctionImportMapping FunctionImportName="spTeams_UpdateRating" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateRating" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
