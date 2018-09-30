@@ -211,6 +211,9 @@
     <Compile Include="Models\spMatchups_GetByLeague_Result.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spMatchups_GetByRound_Result.cs">
+      <DependentUpon>LeagueModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\spPlayer_GetById_Result.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>

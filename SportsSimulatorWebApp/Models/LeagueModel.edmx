@@ -21,6 +21,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LeagueName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Active" Type="int" />
+          <Property Name="CurrentRound" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LeagueEntries">
           <Key>
@@ -266,6 +267,9 @@
           <Parameter Name="TeamId" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="spLeagues_UpdateCurrentRound" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LeagueId" Type="int" Mode="In" />
+        </Function>
         <Function Name="spMatchup_UpdateWinnerId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MatchupId" Type="int" Mode="In" />
           <Parameter Name="TeamId" Type="int" Mode="In" />
@@ -290,6 +294,9 @@
         </Function>
         <Function Name="spMatchups_GetByLeague" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LeagueId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spMatchups_GetByRound" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoundId" Type="int" Mode="In" />
         </Function>
         <Function Name="spMatchups_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoundId" Type="int" Mode="In" />
@@ -402,6 +409,7 @@
           <Property Name="Active" Type="Int32" />
           <NavigationProperty Name="LeagueEntries" Relationship="Self.FK_League_LeagueEntries" FromRole="League" ToRole="LeagueEntries" />
           <NavigationProperty Name="Rounds" Relationship="SportsSimulatorDBModel.FK_Rounds_League" FromRole="League" ToRole="Round" />
+          <Property Name="CurrentRound" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="LeagueEntry">
           <Key>
@@ -634,6 +642,12 @@
             <Parameter Name="MatchupId" Mode="In" Type="Int32" />
             <Parameter Name="TeamId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="spMatchups_GetByRound" ReturnType="Collection(SportsSimulatorDBModel.spMatchups_GetByRound_Result)">
+          <Parameter Name="RoundId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spLeagues_UpdateCurrentRound">
+            <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -851,6 +865,11 @@
           <Property Type="String" Name="EventType" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="MatchupId" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="spMatchups_GetByRound_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="WinnerId" Nullable="true" />
+          <Property Type="Int32" Name="RoundId" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -860,6 +879,7 @@
           <EntitySetMapping Name="Leagues">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.League">
               <MappingFragment StoreEntitySet="League">
+                <ScalarProperty Name="CurrentRound" ColumnName="CurrentRound" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="LeagueName" ColumnName="LeagueName" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
@@ -1066,6 +1086,16 @@
           <FunctionImportMapping FunctionImportName="spMatchupEntries_UpdateAwayScore" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_UpdateAwayScore" />
           <FunctionImportMapping FunctionImportName="spMatchupEntries_UpdateHomeScore" FunctionName="SportsSimulatorDBModel.Store.spMatchupEntries_UpdateHomeScore" />
           <FunctionImportMapping FunctionImportName="spMatchup_UpdateWinnerId" FunctionName="SportsSimulatorDBModel.Store.spMatchup_UpdateWinnerId" />
+          <FunctionImportMapping FunctionImportName="spMatchups_GetByRound" FunctionName="SportsSimulatorDBModel.Store.spMatchups_GetByRound">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SportsSimulatorDBModel.spMatchups_GetByRound_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
+                <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spLeagues_UpdateCurrentRound" FunctionName="SportsSimulatorDBModel.Store.spLeagues_UpdateCurrentRound" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

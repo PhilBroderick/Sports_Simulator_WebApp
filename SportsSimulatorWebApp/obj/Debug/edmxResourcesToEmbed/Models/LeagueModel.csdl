@@ -9,6 +9,7 @@
     <Property Name="Active" Type="Int32" />
     <NavigationProperty Name="LeagueEntries" Relationship="Self.FK_League_LeagueEntries" FromRole="League" ToRole="LeagueEntries" />
     <NavigationProperty Name="Rounds" Relationship="SportsSimulatorDBModel.FK_Rounds_League" FromRole="League" ToRole="Round" />
+    <Property Name="CurrentRound" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="LeagueEntry">
     <Key>
@@ -241,6 +242,12 @@
       <Parameter Name="MatchupId" Mode="In" Type="Int32" />
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="spMatchups_GetByRound" ReturnType="Collection(SportsSimulatorDBModel.spMatchups_GetByRound_Result)">
+      <Parameter Name="RoundId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spLeagues_UpdateCurrentRound">
+      <Parameter Name="LeagueId" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -457,5 +464,10 @@
     <Property Type="Time" Name="EventTime" Nullable="false" />
     <Property Type="String" Name="EventType" Nullable="false" MaxLength="50" />
     <Property Type="Int32" Name="MatchupId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="spMatchups_GetByRound_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="Int32" Name="WinnerId" Nullable="true" />
+    <Property Type="Int32" Name="RoundId" Nullable="false" />
   </ComplexType>
 </Schema>

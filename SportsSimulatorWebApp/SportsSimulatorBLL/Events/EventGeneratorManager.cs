@@ -11,7 +11,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         public List<string> GenerateAllEvents(Matchup matchup, int numOfEvents)
         {
             EventGenerator eg = new EventGenerator();
-
+             
             List<string> TeamEvents = new List<string>();
 
             for (int i = 0; i < numOfEvents; i++)

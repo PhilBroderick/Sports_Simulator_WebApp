@@ -16,6 +16,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="LeagueName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Active" Type="int" />
+    <Property Name="CurrentRound" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="LeagueEntries">
     <Key>
@@ -261,6 +262,9 @@
     <Parameter Name="TeamId" Type="int" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="spLeagues_UpdateCurrentRound" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LeagueId" Type="int" Mode="In" />
+  </Function>
   <Function Name="spMatchup_UpdateWinnerId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MatchupId" Type="int" Mode="In" />
     <Parameter Name="TeamId" Type="int" Mode="In" />
@@ -285,6 +289,9 @@
   </Function>
   <Function Name="spMatchups_GetByLeague" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LeagueId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spMatchups_GetByRound" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RoundId" Type="int" Mode="In" />
   </Function>
   <Function Name="spMatchups_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="RoundId" Type="int" Mode="In" />
