@@ -165,7 +165,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddPlayersToTeam.cs" />
+    <Compile Include="Models\Event.cs">
+      <DependentUpon>LeagueModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EventTiming.cs">
+      <DependentUpon>LeagueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EventType.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\League.cs">

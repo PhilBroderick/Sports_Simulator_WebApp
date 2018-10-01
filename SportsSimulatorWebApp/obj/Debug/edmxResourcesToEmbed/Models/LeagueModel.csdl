@@ -220,7 +220,8 @@
     </FunctionImport>
     <FunctionImport Name="spEventTimings_Insert">
       <Parameter Name="MatchupId" Mode="In" Type="Int32" />
-      <Parameter Name="id" Mode="InOut" Type="Int32" />
+      <Parameter Name="EventTime" Mode="In" Type="Time" />
+      <Parameter Name="EventId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="spTeams_UpdateLosses">
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
@@ -255,6 +256,15 @@
       <Parameter Name="TeamId" Mode="In" Type="Int32" />
       <Parameter Name="TeamRating" Mode="In" Type="Decimal" />
     </FunctionImport>
+    <EntitySet Name="Events" EntityType="SportsSimulatorDBModel.Event" />
+    <AssociationSet Name="FK_EventTimings_Event" Association="SportsSimulatorDBModel.FK_EventTimings_Event">
+      <End Role="EventTiming" EntitySet="EventTimings" />
+      <End Role="EventTiming1" EntitySet="EventTimings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventTimings_Event1" Association="SportsSimulatorDBModel.FK_EventTimings_Event1">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="EventTiming" EntitySet="EventTimings" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -452,9 +462,12 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="EventTime" Type="Time" Nullable="false" Precision="7" />
-    <Property Name="EventType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MatchupId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Matchup" Relationship="SportsSimulatorDBModel.FK_EventTimings_Matchup" FromRole="EventTiming" ToRole="Matchup" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EventTimings1" Relationship="SportsSimulatorDBModel.FK_EventTimings_Event" FromRole="EventTiming" ToRole="EventTiming1" />
+    <NavigationProperty Name="EventTiming1" Relationship="SportsSimulatorDBModel.FK_EventTimings_Event" FromRole="EventTiming1" ToRole="EventTiming" />
+    <NavigationProperty Name="Event" Relationship="SportsSimulatorDBModel.FK_EventTimings_Event1" FromRole="EventTiming" ToRole="Event" />
   </EntityType>
   <Association Name="FK_EventTimings_Matchup">
     <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="1" />
@@ -479,4 +492,50 @@
     <Property Type="Int32" Name="WinnerId" Nullable="true" />
     <Property Type="Int32" Name="RoundId" Nullable="false" />
   </ComplexType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EventType" Type="SportsSimulatorDBModel.EventType" />
+    <NavigationProperty Name="EventTimings" Relationship="SportsSimulatorDBModel.FK_EventTimings_Event1" FromRole="Event" ToRole="EventTiming" />
+  </EntityType>
+  <EnumType Name="EventType">
+    <Member Name="Attack" Value="1" />
+    <Member Name="Defend" Value="2" />
+    <Member Name="Scrum" Value="3" />
+    <Member Name="Lineout" Value="4" />
+    <Member Name="TryHome" Value="5" />
+    <Member Name="TryAway" Value="6" />
+    <Member Name="DropGoalHome" Value="7" />
+    <Member Name="DropGoalAway" Value="8" />
+    <Member Name="LineoutAway" Value="9" />
+    <Member Name="ScrumAway" Value="10" />
+    <Member Name="Conversion" Value="11" />
+  </EnumType>
+  <Association Name="FK_EventTimings_Event">
+    <End Type="SportsSimulatorDBModel.EventTiming" Role="EventTiming" Multiplicity="1" />
+    <End Type="SportsSimulatorDBModel.EventTiming" Role="EventTiming1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EventTiming">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EventTiming1">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventTimings_Event1">
+    <End Type="SportsSimulatorDBModel.Event" Role="Event" Multiplicity="1" />
+    <End Type="SportsSimulatorDBModel.EventTiming" Role="EventTiming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="EventTiming">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

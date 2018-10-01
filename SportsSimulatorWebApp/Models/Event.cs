@@ -12,23 +12,19 @@ namespace SportsSimulatorWebApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EventTiming
+    public partial class Event
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EventTiming()
+        public Event()
         {
-            this.EventTimings1 = new HashSet<EventTiming>();
+            this.EventTimings = new HashSet<EventTiming>();
         }
     
         public int id { get; set; }
-        public System.TimeSpan EventTime { get; set; }
-        public int MatchupId { get; set; }
-        public int EventId { get; set; }
+        public string EventName { get; set; }
+        public Nullable<EventType> EventType { get; set; }
     
-        public virtual Matchup Matchup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EventTiming> EventTimings1 { get; set; }
-        public virtual EventTiming EventTiming1 { get; set; }
-        public virtual Event Event { get; set; }
+        public virtual ICollection<EventTiming> EventTimings { get; set; }
     }
 }

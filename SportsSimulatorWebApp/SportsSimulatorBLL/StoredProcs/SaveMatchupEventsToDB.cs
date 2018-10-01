@@ -9,7 +9,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.StoredProcs
     {
         public SaveMatchupEventsToDB()
         {
-
         }
     }
 }

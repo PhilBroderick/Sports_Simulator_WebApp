@@ -189,8 +189,8 @@
     <EntitySetMapping Name="EventTimings">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.EventTiming">
         <MappingFragment StoreEntitySet="EventTimings">
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="MatchupId" ColumnName="MatchupId" />
-          <ScalarProperty Name="EventType" ColumnName="EventType" />
           <ScalarProperty Name="EventTime" ColumnName="EventTime" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
@@ -224,5 +224,14 @@
     <FunctionImportMapping FunctionImportName="spLeagues_UpdateCurrentRound" FunctionName="SportsSimulatorDBModel.Store.spLeagues_UpdateCurrentRound" />
     <FunctionImportMapping FunctionImportName="spTeams_UpdateDraws" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateDraws" />
     <FunctionImportMapping FunctionImportName="spTeams_UpdateRating" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateRating" />
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
