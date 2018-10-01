@@ -1,4 +1,5 @@
 ﻿using SportsSimulatorWebApp.Models;
+using SportsSimulatorWebApp.SportsSimulatorBLL.StoredProcs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,15 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 EventGenerator eg = new EventGenerator();
                 TeamEvents.Add(eg.GenerateEvent(matchup)); // need to add the List<TeamEvents> to the List<Enum>
             }
+
+            SaveEventsToDB();
             
             return TeamEvents; //return the list of events
+        }
+
+        private void SaveEventsToDB()
+        {
+            SaveMatchupEventsToDB saveEvents = new SaveMatchupEventsToDB();
         }
     }
 }
