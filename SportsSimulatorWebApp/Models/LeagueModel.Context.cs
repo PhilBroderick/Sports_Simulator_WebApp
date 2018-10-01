@@ -37,6 +37,7 @@ namespace SportsSimulatorWebApp.Models
         public virtual DbSet<Round> Rounds { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<EventTiming> EventTimings { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -313,13 +314,21 @@ namespace SportsSimulatorWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spEventTimings_GetByMatchup_Result>("spEventTimings_GetByMatchup", matchupIdParameter);
         }
     
-        public virtual int spEventTimings_Insert(Nullable<int> matchupId, ObjectParameter id)
+        public virtual int spEventTimings_Insert(Nullable<int> matchupId, Nullable<System.TimeSpan> eventTime, Nullable<int> eventId)
         {
             var matchupIdParameter = matchupId.HasValue ?
                 new ObjectParameter("MatchupId", matchupId) :
                 new ObjectParameter("MatchupId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEventTimings_Insert", matchupIdParameter, id);
+            var eventTimeParameter = eventTime.HasValue ?
+                new ObjectParameter("EventTime", eventTime) :
+                new ObjectParameter("EventTime", typeof(System.TimeSpan));
+    
+            var eventIdParameter = eventId.HasValue ?
+                new ObjectParameter("EventId", eventId) :
+                new ObjectParameter("EventId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEventTimings_Insert", matchupIdParameter, eventTimeParameter, eventIdParameter);
         }
     
         public virtual int spTeams_UpdateLosses(Nullable<int> teamId)

@@ -88,7 +88,6 @@ C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Micro
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Microsoft.AI.Web.xml
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csprojAssemblyReference.cache
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csproj.CoreCompileInputs.cache
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csproj.CopyComplete
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.dll
@@ -188,3 +187,4 @@ C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csproj.CopyComplete
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.dll
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.pdb
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csprojAssemblyReference.cache

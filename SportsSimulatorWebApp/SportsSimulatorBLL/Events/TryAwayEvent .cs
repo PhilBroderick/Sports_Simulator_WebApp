@@ -40,7 +40,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 //in this case, the defending team is vastly superior, but there is a chance, so we add a fix algorithm
                 if(tryChance < 90)
                 {
-                    //most likely the 2nd team will defend it
+                    //most likely the 1st team will defend it
                 }
                 else
                 {
@@ -51,14 +51,14 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             else
             {
                 //In this case, the skills are comparable
-                if(tryChance > matchup.MatchupEntries.Last().Team.DefenseRating)
+                if(tryChance > matchup.MatchupEntries.First().Team.DefenseRating)
                 {
                     matchup.MatchupEntries.Last().Score += 5;
                     isTry = true;
                 }
                 else
                 {
-                    //Away team defending the try attempt
+                    //Home team defending the try attempt
                 }
             }
 

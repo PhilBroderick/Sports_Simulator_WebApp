@@ -23,8 +23,11 @@
         <AssociationConnector Association="SportsSimulatorDBModel.FK_MatchupEntries_TeamCompeting" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_Matchups_Team" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_TeamMembers_Team" />
-        <EntityTypeShape EntityType="SportsSimulatorDBModel.EventTiming" Width="1.5" PointX="8.25" PointY="3.125" />
+        <EntityTypeShape EntityType="SportsSimulatorDBModel.EventTiming" Width="1.5" PointX="8.25" PointY="3.375" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_EventTimings_Matchup" />
+        <EntityTypeShape EntityType="SportsSimulatorDBModel.Event" Width="1.5" PointX="10.375" PointY="4.125" />
+        <AssociationConnector Association="SportsSimulatorDBModel.FK_EventTimings_Event" />
+        <AssociationConnector Association="SportsSimulatorDBModel.FK_EventTimings_Event1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
