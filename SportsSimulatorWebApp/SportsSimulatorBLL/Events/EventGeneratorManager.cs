@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Collections.Specialized;
 
 namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class EventGeneratorManager
     {
-        public List<List<Event>> GenerateAllEvents(Matchup matchup, int numOfEvents)
+        public List<List<Event>> GenerateAllEvents(Matchup matchup, List<TimeSpan> eventTimings)
         {
             List<List<Event>> TeamEvents = new List<List<Event>>();
             
@@ -17,24 +18,33 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
             EventGenerator eg = new EventGenerator();
             
-            for (int i = 0; i < numOfEvents; i++)
+            for (int i = 0; i < eventTimings.Count; i++)
             {
                 TeamEvents.Add(eg.GenerateEvent(matchup, allEvents)); // need to add the List<TeamEvents> to the List<Enum>
             }
 
-            SaveEventsToDB();
+            OrderedDictionary combinedEventTimings = CombineEventsAndTimings(TeamEvents, eventTimings);
+
+            SaveEventsToDB(combinedEventTimings, matchup.id);
             
             return TeamEvents; //return the list of events
         }
 
-        public enum EventType
+        private OrderedDictionary CombineEventsAndTimings(List<List<Event>> matchupEvents, List<TimeSpan> eventTimings)
         {
+            OrderedDictionary combinedEventTimings = new OrderedDictionary();
 
-        };
+            for(int i = 0; i < eventTimings.Count; i++)
+            {
+                combinedEventTimings.Add(eventTimings[i], matchupEvents[i]);
+            }
 
-        private void SaveEventsToDB()
+            return combinedEventTimings;
+        }
+       
+        private void SaveEventsToDB(OrderedDictionary combinedEventTimings, int matchupId)
         {
-            SaveMatchupEventsToDB saveEvents = new SaveMatchupEventsToDB();
+            SaveMatchupEventsToDB saveEvents = new SaveMatchupEventsToDB(combinedEventTimings, matchupId);
         }
 
         private List<Event> GetAllEvents()

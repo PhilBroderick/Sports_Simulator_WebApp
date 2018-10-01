@@ -79,7 +79,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             EventGeneratorManager egm = new EventGeneratorManager();
                     
-            List<List<Event>> returnedEvents = egm.GenerateAllEvents(matchup, orderedEventList.Count);
+            List<List<Event>> returnedEvents = egm.GenerateAllEvents(matchup, orderedEventList);
 
             double scoreHome = matchup.MatchupEntries.First().Score;
             double scoreAway = matchup.MatchupEntries.Last().Score;
