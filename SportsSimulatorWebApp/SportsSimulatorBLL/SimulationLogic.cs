@@ -109,8 +109,14 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             for (int i = 0; i <= randNoOfEvents; i++)
             {
-                int timeOfEvent = rngTime.Next(maxMinutes);
-                TimeSpan t = start.Add(TimeSpan.FromMinutes(timeOfEvent));
+                TimeSpan t;
+                do
+                {
+                   int timeOfEvent = rngTime.Next(maxMinutes);
+                   t = start.Add(TimeSpan.FromMinutes(timeOfEvent));
+                   
+                } while (eventTimeList.Contains(t));
+
                 eventTimeList.Add(t);
             }
 
