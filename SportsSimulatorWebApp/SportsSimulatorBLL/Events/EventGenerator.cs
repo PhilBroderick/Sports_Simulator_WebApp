@@ -8,64 +8,57 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
     public class EventGenerator
     {
-        public List<Event> GenerateEvent(Matchup matchup, List<Models.Event> allEvents)
+        public List<Event> GenerateEvent(Matchup matchup, List<Event> allEvents)
         {
             List<Event> eventOutcome = GenerateRandomEvent(matchup, allEvents);
 
-            var eventString = String.Join(", ", eventOutcome.Select(x => x.ToString()));
-
             return eventOutcome;
         }
-        //public enum TeamEvents
-        //{
-        //    Attack, Defend, Scrum, Lineout, TryHome, TryAway, DropGoal , LineoutAway, ScrumAway, DropGoalAway, Conversion
-        //};
 
-        static List<Event> GenerateRandomEvent(Matchup matchup, List<Event> events)
+        private List<Event> GenerateRandomEvent(Matchup matchup, List<Event> events)
         {
-            var randomEventNum = StaticRandom.Instance.Next(0, 10);
-            var randomEvent = events[randomEventNum];
-            var randomEventName = randomEvent.EventName;
+            var randomEvent = (EventType)StaticRandom.Instance.Next(0, 10);
+            var eventFromDB = GetEventFromDB(randomEvent.ToString());
             List<Event> Events = new List<Event>();
             
             bool subsequentAction = false;
             
-            switch (randomEventName)
+            switch (randomEvent)
             {
-                case "Attack":
+                case EventType.Attack:
                     AttackEvent attack = new AttackEvent();
                     subsequentAction = attack.PlayEvent(matchup);
                     break;
-                case "Defend":
+                case EventType.Defend:
                     DefendEvent defend = new DefendEvent();
                     subsequentAction = defend.PlayEvent(matchup);
                     break;
-                case "Lineout":
+                case EventType.Lineout:
                     LineoutEvent lineout = new LineoutEvent();
                     subsequentAction = lineout.PlayEvent(matchup);
                     break;
-                case "Scrum":
+                case EventType.Scrum:
                     ScrumEvent scrum = new ScrumEvent();
                     subsequentAction = scrum.PlayEvent(matchup);
                     break;
-                case "TryHome":
+                case EventType.TryHome:
                     TryHomeEvent homeTry = new TryHomeEvent();
                     subsequentAction = homeTry.PlayEvent(matchup);
                     break;
-                case "TryAway":
+                case EventType.TryAway:
                     TryAwayEvent awayTry = new TryAwayEvent();
                     subsequentAction = awayTry.PlayEvent(matchup);
                     break;
-                case "DropGoal":
+                case EventType.DropGoalHome:
                     DropGoalEvent dropGoal = new DropGoalEvent();
                     subsequentAction = dropGoal.PlayEvent(matchup);
-                    Events.Add(randomEvent);
+                    Events.Add(eventFromDB);
                     return Events;
-                case "LineoutAway":
+                case EventType.LineoutAway:
                     LineoutAwayEvent awayLineout = new LineoutAwayEvent();
                     subsequentAction = awayLineout.PlayEvent(matchup);
                     break;
-                case "ScrumAway":
+                case EventType.ScrumAway:
                     ScrumAwayEvent awayScrum = new ScrumAwayEvent();
                     subsequentAction = awayScrum.PlayEvent(matchup);
                     break;
@@ -75,78 +68,82 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             //if the event requires a subsequent action - such as a try needing a conversion attempt - run this.
             if(subsequentAction == true)
             {
-                if(randomEventName == "TryHome")
+                if(randomEvent == EventType.TryHome)
                 {
                     ConversionEvent subSequentConversion = new ConversionEvent();
                     bool isConversion = subSequentConversion.PlayEvent(matchup);
-                    var subsequentEvent = events.Last();
-                    Events.Add(randomEvent);
+                    var subsequentEvent = GetEventFromDB("Conversion");
+                    Events.Add(eventFromDB);
                     Events.Add(subsequentEvent);
-                    return Events;
+                    //return Events;
                 }
-                else if(randomEventName == "Defend")
+                else if(randomEvent == EventType.Defend)
                 {
                     TryAwayEvent subsequentAwayTry = new TryAwayEvent();
                     bool isAwayTry = subsequentAwayTry.PlayEvent(matchup);
-                    var secondEvent = events[5];
-                    Events.Add(randomEvent);
+                    var secondEvent = GetEventFromDB("TryAway");
+                    Events.Add(eventFromDB);
                     Events.Add(secondEvent);
                     if (isAwayTry)
                     {
                         ConversionEvent awayConversion = new ConversionEvent();
                         bool isConversion = awayConversion.PlayEvent(matchup);
-                        var subsequentEvent = events.Last();
+                        var subsequentEvent = GetEventFromDB("Conversion");
                         Events.Add(subsequentEvent);
-                        return Events;
+                        //return Events;
                     }
                     return Events;
                 }
-                else if(randomEventName == "TryAway")
+                else if(randomEvent == EventType.TryAway)
                 {
                    TryAwayEvent subsequentAwayTryAttempt = new TryAwayEvent();
                    bool isAwayTry = subsequentAwayTryAttempt.PlayEvent(matchup);
-                   Events.Add(randomEvent);
+                   Events.Add(eventFromDB);
                     if (isAwayTry)
                    {
                        ConversionEvent awayConversion = new ConversionEvent();
                        bool isConversion = awayConversion.PlayEvent(matchup);
-                       var subsequentEvent = events.Last();
+                       var subsequentEvent = GetEventFromDB("Conversion");
                        Events.Add(subsequentEvent);
-                       return Events;
+                       //return Events;
                     }
                    return Events;
                 }
-                else if(randomEventName == "DropGoal")
+                else if(randomEvent == EventType.DropGoalHome)
                 {
                     return Events;
                 }
-                else if(randomEventName == "ScrumAway")
+                else if(randomEvent == EventType.ScrumAway)
                 {
                     TryAwayEvent subsequentAwayTry = new TryAwayEvent();
                     bool isAwayTry = subsequentAwayTry.PlayEvent(matchup);
-                    Events.Add(randomEvent);
+                    var secondEvent = GetEventFromDB("TryAway");
+                    Events.Add(eventFromDB);
+                    Events.Add(secondEvent);
                     if (isAwayTry)
                     {
                         ConversionEvent awayConversion = new ConversionEvent();
                         bool isConversion = awayConversion.PlayEvent(matchup);
-                        var subsequentEvent = events.Last();
+                        var subsequentEvent = GetEventFromDB("Conversion");
                         Events.Add(subsequentEvent);
-                        return Events;
+                        //return Events;
                     }
                     return Events;
                 }
-                else if(randomEventName == "LineoutAway")
+                else if(randomEvent == EventType.LineoutAway)
                 {
                     TryAwayEvent subsequentAwayTry = new TryAwayEvent();
                     bool isAwayTry = subsequentAwayTry.PlayEvent(matchup);
-                    Events.Add(randomEvent);
+                    var secondEvent = GetEventFromDB("TryAway");
+                    Events.Add(eventFromDB);
+                    Events.Add(secondEvent);
                     if (isAwayTry)
                     {
                         ConversionEvent awayConversion = new ConversionEvent();
                         bool isConversion = awayConversion.PlayEvent(matchup);
-                        var subsequentEvent = events.Last();
+                        var subsequentEvent = GetEventFromDB("Conversion");
                         Events.Add(subsequentEvent);
-                        return Events;
+                        //return Events;
                     }
                     return Events;
                 }
@@ -154,26 +151,36 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 {
                     TryHomeEvent subSequentHomeTry = new TryHomeEvent();
                     bool isHomeTry = subSequentHomeTry.PlayEvent(matchup);
-                    Events.Add(randomEvent);
+                    var secondEvent = GetEventFromDB("TryHome");
+                    Events.Add(eventFromDB);
+                    Events.Add(secondEvent);
                     if (isHomeTry)
                     {
                        ConversionEvent homeConversion = new ConversionEvent();
                        bool isConversion = homeConversion.PlayEvent(matchup);
-                       var secondEvent = events[4];
-                       var subsequentEvent = events.Last();
-                       Events.Add(secondEvent);
+                       var subsequentEvent = GetEventFromDB("Conversion");
                        Events.Add(subsequentEvent);
-                       return Events;
+                       //return Events;
                     }
                     return Events;
                 }
             }
             else
             {
-                Events.Add(randomEvent);
+                Events.Add(eventFromDB);
                 return Events;
             }
             
+        }
+
+        private Event GetEventFromDB(string eventType)
+        {
+            using(var context = new SportsSimulatorDBEntities())
+            {
+                //var eventName = context.spEvent_GetByName(eventType);
+
+                return null; //eventName;
+            }
         }
 
     }
