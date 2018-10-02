@@ -1,4 +1,5 @@
 ﻿using SportsSimulatorWebApp.Models;
+using SportsSimulatorWebApp.SportsSimulatorBLL.StoredProcs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,9 +50,13 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             SetNewSettings(Convert.ToDouble(matchup.MatchupEntries.First().Team.TeamRating), Convert.ToDouble(matchup.MatchupEntries.Last().Team.TeamRating), resultA, resultB);
 
-            matchup.MatchupEntries.First().Team.TeamRating = Convert.ToDecimal(_newRatingA);
+            var homeId = matchup.MatchupEntries.First().Team.id;
+            var homeTeamRating = Convert.ToDecimal(_newRatingA);
+            
+            var awayId = matchup.MatchupEntries.Last().Team.id;
+            var awayTeamRating = Convert.ToDecimal(_newRatingB);
 
-            matchup.MatchupEntries.Last().Team.TeamRating = Convert.ToDecimal(_newRatingB);
+            UpdateTeamRatings(homeId, awayId, homeTeamRating, awayTeamRating);
         }
         
 
@@ -110,6 +115,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             };
 
             return newRatingList;
+        }
+
+        private void UpdateTeamRatings(int homeTeamId, int awayTeamId, decimal homeTeamRating, decimal awayTeamRating)
+        {
+            UpdateTeamRating updateHomeRating = new UpdateTeamRating(homeTeamId, homeTeamRating);
+            UpdateTeamRating updateAwayRating = new UpdateTeamRating(awayTeamId, awayTeamRating);
         }
     }
 }

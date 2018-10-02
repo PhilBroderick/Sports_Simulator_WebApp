@@ -435,5 +435,14 @@ namespace SportsSimulatorWebApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdateRating", teamIdParameter, teamRatingParameter);
         }
+    
+        public virtual int spEvent_GetByName(string eventName)
+        {
+            var eventNameParameter = eventName != null ?
+                new ObjectParameter("EventName", eventName) :
+                new ObjectParameter("EventName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEvent_GetByName", eventNameParameter);
+        }
     }
 }

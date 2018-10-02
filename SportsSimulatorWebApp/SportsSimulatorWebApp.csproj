@@ -158,13 +158,14 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeagueEntriesController.cs" />
     <Compile Include="Controllers\LeaguesController.cs" />
+    <Compile Include="Controllers\MatchupsController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\TeamMembersController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddPlayersToTeam.cs" />
+    <Compile Include="Models\ViewModels\AddPlayersToTeam.cs" />
     <Compile Include="Models\Event.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
@@ -195,7 +196,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LeagueModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\LeagueTeamViewModel.cs" />
+    <Compile Include="Models\ViewModels\MatchupEventTimingViewModel.cs" />
+    <Compile Include="Models\ViewModels\LeagueTeamViewModel.cs" />
     <Compile Include="Models\Matchup.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
@@ -209,6 +211,9 @@
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spEventTimings_GetByMatchup_Result.cs">
+      <DependentUpon>LeagueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spEvent_GetByName_Result.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spMatchupEntries_GetByMatchup_Result.cs">
@@ -247,7 +252,7 @@
     <Compile Include="Models\TeamMember.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TeamPlayerViewModel.cs" />
+    <Compile Include="Models\ViewModels\TeamPlayerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SportsSimulatorBLL\Events\AttackEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\ConversionEvent.cs" />
@@ -273,6 +278,7 @@
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateMatchupWinnerID.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamDraws.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamLosses.cs" />
+    <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamRating.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamWins.cs" />
     <Compile Include="SportsSimulatorBLL\TeamLogic.cs" />
   </ItemGroup>
@@ -362,6 +368,7 @@
     <Content Include="Views\TeamMembers\AddTeamMembers.cshtml" />
     <Content Include="Views\LeagueEntries\CreateLeagueEntries.cshtml" />
     <Content Include="Views\Teams\Details.cshtml" />
+    <Content Include="Views\Matchups\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
