@@ -211,6 +211,9 @@
     <Compile Include="Models\spEventTimings_GetByMatchup_Result.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spEvent_GetByName_Result.cs">
+      <DependentUpon>LeagueModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\spMatchupEntries_GetByMatchup_Result.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
@@ -273,6 +276,7 @@
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateMatchupWinnerID.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamDraws.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamLosses.cs" />
+    <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamRating.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamWins.cs" />
     <Compile Include="SportsSimulatorBLL\TeamLogic.cs" />
   </ItemGroup>

@@ -233,5 +233,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spEvent_GetByName" FunctionName="SportsSimulatorDBModel.Store.spEvent_GetByName" />
   </EntityContainerMapping>
 </Mapping>

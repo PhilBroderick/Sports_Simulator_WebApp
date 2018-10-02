@@ -17,7 +17,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         private List<Event> GenerateRandomEvent(Matchup matchup, List<Event> events)
         {
-            var randomEvent = (EventType)StaticRandom.Instance.Next(0, 10);
+            var randomEvent = (EventType)StaticRandom.Instance.Next(1, 11);
             var eventFromDB = GetEventFromDB(randomEvent.ToString());
             List<Event> Events = new List<Event>();
             
@@ -75,23 +75,15 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     var subsequentEvent = GetEventFromDB("Conversion");
                     Events.Add(eventFromDB);
                     Events.Add(subsequentEvent);
-                    //return Events;
+                    return Events;
                 }
                 else if(randomEvent == EventType.Defend)
                 {
-                    TryAwayEvent subsequentAwayTry = new TryAwayEvent();
-                    bool isAwayTry = subsequentAwayTry.PlayEvent(matchup);
-                    var secondEvent = GetEventFromDB("TryAway");
                     Events.Add(eventFromDB);
-                    Events.Add(secondEvent);
-                    if (isAwayTry)
-                    {
-                        ConversionEvent awayConversion = new ConversionEvent();
-                        bool isConversion = awayConversion.PlayEvent(matchup);
-                        var subsequentEvent = GetEventFromDB("Conversion");
-                        Events.Add(subsequentEvent);
-                        //return Events;
-                    }
+                    ConversionEvent awayConversion = new ConversionEvent();
+                    bool isConversion = awayConversion.PlayEvent(matchup);
+                    var subsequentEvent = GetEventFromDB("Conversion");
+                    Events.Add(subsequentEvent);
                     return Events;
                 }
                 else if(randomEvent == EventType.TryAway)
@@ -105,7 +97,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                        bool isConversion = awayConversion.PlayEvent(matchup);
                        var subsequentEvent = GetEventFromDB("Conversion");
                        Events.Add(subsequentEvent);
-                       //return Events;
+                       return Events;
                     }
                    return Events;
                 }
@@ -126,7 +118,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                         bool isConversion = awayConversion.PlayEvent(matchup);
                         var subsequentEvent = GetEventFromDB("Conversion");
                         Events.Add(subsequentEvent);
-                        //return Events;
+                        return Events;
                     }
                     return Events;
                 }
@@ -143,7 +135,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                         bool isConversion = awayConversion.PlayEvent(matchup);
                         var subsequentEvent = GetEventFromDB("Conversion");
                         Events.Add(subsequentEvent);
-                        //return Events;
+                        return Events;
                     }
                     return Events;
                 }
@@ -160,7 +152,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                        bool isConversion = homeConversion.PlayEvent(matchup);
                        var subsequentEvent = GetEventFromDB("Conversion");
                        Events.Add(subsequentEvent);
-                       //return Events;
+                       return Events;
                     }
                     return Events;
                 }
@@ -177,9 +169,11 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         {
             using(var context = new SportsSimulatorDBEntities())
             {
-                //var eventName = context.spEvent_GetByName(eventType);
+                var eventName = context.Events
+                                       .Where(e => e.EventName == eventType)
+                                       .Select(e => e).First();
 
-                return null; //eventName;
+                return eventName;
             }
         }
 

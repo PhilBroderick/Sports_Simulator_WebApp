@@ -277,6 +277,9 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spEvent_GetByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventName" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="spEventTimings_GetByMatchup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MatchupId" Type="int" Mode="In" />
         </Function>
@@ -700,6 +703,9 @@
             <End Role="Event" EntitySet="Events" />
             <End Role="EventTiming" EntitySet="EventTimings" />
           </AssociationSet>
+          <FunctionImport Name="spEvent_GetByName">
+            <Parameter Name="EventName" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -973,6 +979,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="spEvent_GetByName_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="EventName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="EventType" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1212,6 +1223,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spEvent_GetByName" FunctionName="SportsSimulatorDBModel.Store.spEvent_GetByName">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
