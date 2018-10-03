@@ -1,0 +1,42 @@
+﻿@model SportsSimulatorWebApp.Models.ViewModels.MatchupTeamsViewModel
+@{
+    ViewBag.Title = "LeagueCurrentMatchups";
+}
+
+<h2>@Model.LeagueName - Round @Model.RoundNumber</h2>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Matchup Number")
+            </th>
+            <th>
+                @Html.DisplayName("Home Team")
+            </th>
+            <th>
+                @Html.DisplayName("Away Team")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+                @{var matchups = Model.matchups;}
+                @foreach (var matchup in matchups)
+                {
+        <tr>
+            <td>
+                @matchup.id
+            </td>
+            <td>
+                @matchup.MatchupEntries.First().Team.TeamName
+            </td>
+            <td>
+                @matchup.MatchupEntries.Last().Team.TeamName
+            </td>
+        </tr>
+                }
+        </tr>
+    </tbody>
+
+</table>

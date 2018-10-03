@@ -43,5 +43,33 @@ namespace SportsSimulatorWebApp.Controllers
 
             return View(metViewModel);
         }
+
+        public ActionResult LeagueCurrentRoundMatchups(int id)
+        {
+            League league = db.Leagues.Find(id);
+
+
+            if (league == null)
+            {
+                return HttpNotFound();
+            }
+            
+            var round = db.Rounds
+                        .Where(r => r.RoundNumber == league.CurrentRound)
+                        .FirstOrDefault();
+
+            MatchupTeamsViewModel mtViewModel = new MatchupTeamsViewModel()
+            {
+                LeagueName = league.LeagueName,
+                RoundNumber = (int)round.RoundNumber
+            };
+
+            foreach (var matchup in round.Matchups)
+            {
+                mtViewModel.matchups.Add(matchup);
+            }
+
+            return View("LeagueCurrentMatchups",mtViewModel);
+        }
     }
 }

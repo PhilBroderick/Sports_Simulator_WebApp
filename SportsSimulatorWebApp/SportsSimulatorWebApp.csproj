@@ -252,6 +252,7 @@
     <Compile Include="Models\TeamMember.cs">
       <DependentUpon>LeagueModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\MatchupTeamsViewModel.cs" />
     <Compile Include="Models\ViewModels\TeamPlayerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SportsSimulatorBLL\Events\AttackEvent.cs" />
@@ -369,6 +370,7 @@
     <Content Include="Views\LeagueEntries\CreateLeagueEntries.cshtml" />
     <Content Include="Views\Teams\Details.cshtml" />
     <Content Include="Views\Matchups\Details.cshtml" />
+    <Content Include="Views\Matchups\LeagueCurrentMatchups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
