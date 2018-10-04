@@ -16,16 +16,18 @@ namespace SportsSimulatorWebApp.Controllers
             return View();
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            return View();
+            Round round = db.Rounds.Find(id);
+
+            return View(round);
         }
 
         public ActionResult ViewAllRounds(int id)
         {
             League league = db.Leagues.Find(id);
 
-            return View();
+            return View(league);
         }
     }
 }

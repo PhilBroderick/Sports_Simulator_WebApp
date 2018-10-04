@@ -19,7 +19,7 @@
             {
             <tr>
                 <td>
-                    @round.id
+                    @Html.ActionLink(round.RoundNumber.ToString() ,"Details", "Rounds", new { round.id }, null)
                 </td>
             </tr>
             }
