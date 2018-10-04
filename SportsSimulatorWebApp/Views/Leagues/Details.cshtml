@@ -1,51 +1,56 @@
-﻿@model SportsSimulatorWebApp.Models.LeagueTeamViewModel
+﻿
+@model SportsSimulatorWebApp.Models.LeagueTeamViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Model.league.LeagueName</h2>
+
+<div class="League-Info">
+    <img class="img-thumbnail" src="http://thescrumdaytimes.com/wp-content/uploads/2014/08/Guinness-Pro-12-Fixtures.jpg" alt="Pro 14" />
+</div>
 
 <table class="table table-bordered table-hover table-striped">
     <thead>
         <tr>
             <th>
                 @Html.DisplayName("League")
-        </th>
-        <th>
-            @Html.DisplayName("Team List")
-        </th>
-    </tr>
+            </th>
+            <th>
+                @Html.DisplayName("Team List")
+            </th>
+        </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 @Html.DisplayFor(model => model.league.LeagueName)
             </td>
-                @{var teamList = Model.enteredTeams; }
-                 @foreach(var team in teamList)
-                 {
-                     <tr>
-                         <td></td>
-                         <td>@team.TeamName</td>
-                     </tr>
-                 }
-        </tr>
-    </tbody>
+            @{var teamList = Model.enteredTeams; }
+            @foreach (var team in teamList)
+            {
+            <tr>
+                <td></td>
+                <td>@team.TeamName</td>
+            </tr>
+        }
+            </tr>
+        </tbody>
 
-</table>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.league.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<p>
-    <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.league.id })">Add Teams to League &raquo;</a>
+    </table>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.league.id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <p>
+        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.league.id })">Add Teams to League &raquo;</a>
 
-    <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.league.id })">Create Matchups &raquo;</a>
+        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.league.id })">Create Matchups &raquo;</a>
 
-    <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("SimulateRound","Leagues", new { id = Model.league.id })">Simulate Round &raquo;</a>
+        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("SimulateRound","Leagues", new { id = Model.league.id })">Simulate Round &raquo;</a>
 
-    <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("AllRoundsForLeague","Rounds", new { id = Model.league.id })">View All Rounds &raquo;</a>
+        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("ViewAllRounds","Rounds", new { id = Model.league.id })">View All Rounds &raquo;</a>
 
-    <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("LeagueCurrentRoundMatchups","Matchups", new { id = Model.league.id })">View Current Matchups &raquo;</a>
-</p>
+        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("LeagueCurrentRoundMatchups","Matchups", new { id = Model.league.id })">View Current Matchups &raquo;</a>
+    </p>
