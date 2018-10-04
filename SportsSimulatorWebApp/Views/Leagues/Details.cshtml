@@ -45,5 +45,7 @@
 
     <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("SimulateRound","Leagues", new { id = Model.league.id })">Simulate Round &raquo;</a>
 
+    <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("AllRoundsForLeague","Rounds", new { id = Model.league.id })">View All Rounds &raquo;</a>
+
     <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("LeagueCurrentRoundMatchups","Matchups", new { id = Model.league.id })">View Current Matchups &raquo;</a>
 </p>

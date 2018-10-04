@@ -1,0 +1,29 @@
+﻿@model SportsSimulatorWebApp.Models.League
+@{
+    ViewBag.Title = "ViewAllRounds";
+}
+
+<h2>@Model.LeagueName - All Rounds</h2>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Round Number")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var round in Model.Rounds)
+            {
+            <tr>
+                <td>
+                    @round.id
+                </td>
+            </tr>
+            }
+        </tr>
+    </tbody>
+</table>
+
