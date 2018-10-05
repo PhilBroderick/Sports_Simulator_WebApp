@@ -7,9 +7,6 @@ using System.Web;
 
 namespace SportsSimulatorWebApp.SportsSimulatorBLL
 {
-    /// <summary>
-    /// TODO - Called after each matchup has taken place, to update the ratings.
-    /// </summary>
     public class RatingSystemLogic
     {
         private const double winMultipler = 1.0;
