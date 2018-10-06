@@ -79,11 +79,19 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 }
                 else if(randomEvent == EventType.Defend)
                 {
+                    TryAwayEvent subsequentAwayTryAttempt = new TryAwayEvent();
+                    bool isAwayTry = subsequentAwayTryAttempt.PlayEvent(matchup);
+                    var secondEvent = GetEventFromDB("TryAway");
                     Events.Add(eventFromDB);
-                    ConversionEvent awayConversion = new ConversionEvent();
-                    bool isConversion = awayConversion.PlayEvent(matchup);
-                    var subsequentEvent = GetEventFromDB("Conversion");
-                    Events.Add(subsequentEvent);
+                    Events.Add(secondEvent);
+                    if (isAwayTry)
+                    {
+                        ConversionEvent awayConversion = new ConversionEvent();
+                        bool isConversion = awayConversion.PlayEvent(matchup);
+                        var subsequentEvent = GetEventFromDB("Conversion");
+                        Events.Add(subsequentEvent);
+                        return Events;
+                    }
                     return Events;
                 }
                 else if(randomEvent == EventType.TryAway)

@@ -150,6 +150,7 @@
     <EntitySetMapping Name="Matchups">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Matchup">
         <MappingFragment StoreEntitySet="Matchups">
+          <ScalarProperty Name="HasBeenPlayed" ColumnName="HasBeenPlayed" />
           <ScalarProperty Name="RoundId" ColumnName="RoundId" />
           <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
           <ScalarProperty Name="id" ColumnName="id" />
