@@ -5,33 +5,36 @@
 
 <h2>Matchup @Model.matchup.id Details</h2>
 
-@if(Model.hasBeenPlayed = 1)
+@if (Model.matchup.HasBeenPlayed == true)
 {
-<table class="table table-bordered table-hover table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayName("Event Timings")
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @{ var eventList = Model.eventTimings;}
-                @foreach(var timing in eventList)
-                {
-                    <tr>
-                        <td>@timing.EventTime</td>
-                        <td>@timing.Event.EventName</td>
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Event Timings")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @{ var eventList = Model.eventTimings;}
+                    @foreach (var timing in eventList)
+                    {
+                <tr>
+                    <td>@timing.EventTime</td>
+                    <td>@timing.Event.EventName</td>
+                </tr>
+            }
+                    </td>
                     </tr>
-                }
-            </td>
-        </tr>
-    </tbody>
-</table>
-} 
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Matchup has not yet been played.</p>
+        }
 
-<p>Matchup has not yet been played.</p>
 
 

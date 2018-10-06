@@ -50,6 +50,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="WinnerId" Type="int" />
     <Property Name="RoundId" Type="int" Nullable="false" />
+    <Property Name="HasBeenPlayed" Type="bit" />
   </EntityType>
   <EntityType Name="Players">
     <Key>

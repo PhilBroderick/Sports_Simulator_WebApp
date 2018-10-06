@@ -55,6 +55,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WinnerId" Type="int" />
           <Property Name="RoundId" Type="int" Nullable="false" />
+          <Property Name="HasBeenPlayed" Type="bit" />
         </EntityType>
         <EntityType Name="Players">
           <Key>
@@ -704,7 +705,7 @@
             <End Role="EventTiming" EntitySet="EventTimings" />
           </AssociationSet>
           <FunctionImport Name="spEvent_GetByName">
-            <Parameter Name="EventName" Mode="In" Type="String" />
+          <Parameter Name="EventName" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -778,6 +779,7 @@
           <NavigationProperty Name="Round" Relationship="SportsSimulatorDBModel.FK_Matchups_Round" FromRole="Matchup" ToRole="Round" />
           <NavigationProperty Name="Team" Relationship="SportsSimulatorDBModel.FK_Matchups_Team" FromRole="Matchup" ToRole="Team" />
           <NavigationProperty Name="EventTimings" Relationship="SportsSimulatorDBModel.FK_EventTimings_Matchup" FromRole="Matchup" ToRole="EventTiming" />
+          <Property Name="HasBeenPlayed" Type="Boolean" />
         </EntityType>
         <Association Name="FK_MatchupEntries_Matchup">
           <End Type="SportsSimulatorDBModel.Matchup" Role="Matchup" Multiplicity="1" />
@@ -1140,6 +1142,7 @@
           <EntitySetMapping Name="Matchups">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Matchup">
               <MappingFragment StoreEntitySet="Matchups">
+                <ScalarProperty Name="HasBeenPlayed" ColumnName="HasBeenPlayed" />
                 <ScalarProperty Name="RoundId" ColumnName="RoundId" />
                 <ScalarProperty Name="WinnerId" ColumnName="WinnerId" />
                 <ScalarProperty Name="id" ColumnName="id" />
