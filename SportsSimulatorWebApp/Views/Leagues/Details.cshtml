@@ -1,5 +1,5 @@
 ﻿
-@model SportsSimulatorWebApp.Models.LeagueTeamViewModel
+@model SportsSimulatorWebApp.Models.LeagueTableViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -15,28 +15,44 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayName("League")
+                @Html.DisplayName("Team")
             </th>
             <th>
-                @Html.DisplayName("Team List")
+                @Html.DisplayName("Wins")
+            </th>
+            <th>
+                @Html.DisplayName("Losses")
+            </th>
+            <th>
+                @Html.DisplayName("Draws")
+            </th>
+            <th>
+                @Html.DisplayName("Points For")
+            </th>
+            <th>
+                @Html.DisplayName("Points Against")
+            </th>
+            <th>
+                @Html.DisplayName("Points")
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>
-                @Html.DisplayFor(model => model.league.LeagueName)
-            </td>
             @{var teamList = Model.enteredTeams; }
             @foreach (var team in teamList)
             {
-            <tr>
-                <td></td>
-                <td>@team.TeamName</td>
-            </tr>
+        <tr>
+            <td>@team.TeamName</td>
+            <td>@team.Wins</td>
+            <td>@team.Losses</td>
+            <td>@team.Draws</td>
+            <td>@team.PointsFor</td>
+            <td>@team.PointsAgainst</td>
+            <td>@team.Points</td>
+        </tr>
         }
-            </tr>
-        </tbody>
+    </tbody>
 
     </table>
     <p>

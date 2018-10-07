@@ -169,6 +169,10 @@
     <EntitySetMapping Name="Teams">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
         <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="LosingBonusPoints" ColumnName="LosingBonusPoints" />
+          <ScalarProperty Name="TryBonusPoints" ColumnName="TryBonusPoints" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="PointsDifference" ColumnName="PointsDifference" />
           <ScalarProperty Name="PointsAgainst" ColumnName="PointsAgainst" />
           <ScalarProperty Name="PointsFor" ColumnName="PointsFor" />
           <ScalarProperty Name="DropGoalRating" ColumnName="DropGoalRating" />
@@ -237,5 +241,6 @@
     <FunctionImportMapping FunctionImportName="spEvent_GetByName" FunctionName="SportsSimulatorDBModel.Store.spEvent_GetByName" />
     <FunctionImportMapping FunctionImportName="spClearLeagueDetails" FunctionName="SportsSimulatorDBModel.Store.spClearLeagueDetails" />
     <FunctionImportMapping FunctionImportName="spTeams_UpdatePointsForAgainst" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdatePointsForAgainst" />
+    <FunctionImportMapping FunctionImportName="spTeams_UpdatePoints" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdatePoints" />
   </EntityContainerMapping>
 </Mapping>

@@ -470,5 +470,18 @@ namespace SportsSimulatorWebApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdatePointsForAgainst", teamIdParameter, pointsForParameter, pointsAgainstParameter);
         }
+    
+        public virtual int spTeams_UpdatePoints(Nullable<int> id, Nullable<double> points)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pointsParameter = points.HasValue ?
+                new ObjectParameter("points", points) :
+                new ObjectParameter("points", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdatePoints", idParameter, pointsParameter);
+        }
     }
 }

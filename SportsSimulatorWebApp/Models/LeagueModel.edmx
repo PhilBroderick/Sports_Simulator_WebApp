@@ -114,6 +114,10 @@
           <Property Name="DropGoalRating" Type="float" />
           <Property Name="PointsFor" Type="float" Nullable="false" />
           <Property Name="PointsAgainst" Type="float" Nullable="false" />
+          <Property Name="PointsDifference" Type="float" />
+          <Property Name="Points" Type="float" />
+          <Property Name="TryBonusPoints" Type="float" />
+          <Property Name="LosingBonusPoints" Type="float" />
         </EntityType>
         <Association Name="FK_EventTimings_Event">
           <End Role="Events" Type="Self.Events" Multiplicity="1" />
@@ -373,6 +377,10 @@
         </Function>
         <Function Name="spTeams_UpdateLosses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTeams_UpdatePoints" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="points" Type="float" Mode="In" />
         </Function>
         <Function Name="spTeams_UpdatePointsForAgainst" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="teamId" Type="int" Mode="In" />
@@ -723,6 +731,10 @@
             <Parameter Name="PointsFor" Mode="In" Type="Double" />
             <Parameter Name="PointsAgainst" Mode="In" Type="Double" />
           </FunctionImport>
+          <FunctionImport Name="spTeams_UpdatePoints">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="points" Mode="In" Type="Double" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -866,6 +878,10 @@
           <NavigationProperty Name="TeamMembers" Relationship="SportsSimulatorDBModel.FK_TeamMembers_Team" FromRole="Team" ToRole="TeamMember" />
           <Property Name="PointsFor" Type="Double" Nullable="false" />
           <Property Name="PointsAgainst" Type="Double" Nullable="false" />
+          <Property Name="PointsDifference" Type="Double" />
+          <Property Name="Points" Type="Double" />
+          <Property Name="TryBonusPoints" Type="Double" />
+          <Property Name="LosingBonusPoints" Type="Double" />
         </EntityType>
         <Association Name="FK_League_Teams">
           <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />
@@ -1177,6 +1193,10 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="LosingBonusPoints" ColumnName="LosingBonusPoints" />
+                <ScalarProperty Name="TryBonusPoints" ColumnName="TryBonusPoints" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="PointsDifference" ColumnName="PointsDifference" />
                 <ScalarProperty Name="PointsAgainst" ColumnName="PointsAgainst" />
                 <ScalarProperty Name="PointsFor" ColumnName="PointsFor" />
                 <ScalarProperty Name="DropGoalRating" ColumnName="DropGoalRating" />
@@ -1246,6 +1266,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spClearLeagueDetails" FunctionName="SportsSimulatorDBModel.Store.spClearLeagueDetails" />
           <FunctionImportMapping FunctionImportName="spTeams_UpdatePointsForAgainst" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdatePointsForAgainst" />
+          <FunctionImportMapping FunctionImportName="spTeams_UpdatePoints" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdatePoints" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

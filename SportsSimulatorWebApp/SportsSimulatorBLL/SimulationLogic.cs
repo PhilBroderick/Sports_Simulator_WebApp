@@ -27,6 +27,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
                 var homeTeamId = matchup.MatchupEntries.First().Team.id;
                 var awayTeamId = matchup.MatchupEntries.Last().Team.id;
+                var pointsForWin = 4;
+                var pointsForLoss = 0;
+                var pointsForDraw = 2;
 
                 if(scores[0] > scores[1])
                 {
@@ -37,6 +40,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     UpdateMatchupScores(matchup.id, winnerId, scores[0]);
                     UpdateMatchupScores(matchup.id, loserId, scores[1]);
                     UpdateTeamWinsLosses(winnerId, loserId);
+                    UpdateTeamPoints(homeTeamId, awayTeamId, pointsForWin, pointsForLoss); 
 
                 }
                 else if(scores[0] < scores[1])
@@ -48,10 +52,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     UpdateMatchupScores(matchup.id, winnerId, scores[1]);
                     UpdateMatchupScores(matchup.id, loserId, scores[0]);
                     UpdateTeamWinsLosses(winnerId, loserId);
+                    UpdateTeamPoints(homeTeamId, awayTeamId, pointsForLoss, pointsForWin);
                 }
                 else
                 {
                     UpdateTeamDraws(homeTeamId, awayTeamId);
+                    UpdateTeamPoints(homeTeamId, awayTeamId, pointsForDraw, pointsForDraw);
                 }
 
                 UpdateTeamPointsForAgainst(homeTeamId, awayTeamId, scores[0], scores[1]);
@@ -155,6 +161,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         {
             UpdateTeamPointsForAgainst pointsForAgainstHome = new UpdateTeamPointsForAgainst(homeTeamId, homePoints, awayPoints);
             UpdateTeamPointsForAgainst pointsForAgainstAway = new UpdateTeamPointsForAgainst(awayTeamId, awayPoints, homePoints);
+        }
+
+        private void UpdateTeamPoints(int homeTeamId, int awayTeamId, double pointsToAddHome, double pointsToAddAway)
+        {
+            UpdateTeamPoints pointsAddHome = new UpdateTeamPoints(homeTeamId, pointsToAddHome);
+            UpdateTeamPoints pointsAddAway = new UpdateTeamPoints(awayTeamId, pointsToAddAway);
         }
     }
 }
