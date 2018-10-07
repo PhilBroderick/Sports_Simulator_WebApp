@@ -109,7 +109,7 @@
     <Property Name="DropGoalRating" Type="float" />
     <Property Name="PointsFor" Type="float" Nullable="false" />
     <Property Name="PointsAgainst" Type="float" Nullable="false" />
-    <Property Name="PointsDifference" Type="float" />
+    <Property Name="PointsDifference" Type="float" StoreGeneratedPattern="Computed" Nullable="false" />
     <Property Name="Points" Type="float" />
     <Property Name="TryBonusPoints" Type="float" />
     <Property Name="LosingBonusPoints" Type="float" />

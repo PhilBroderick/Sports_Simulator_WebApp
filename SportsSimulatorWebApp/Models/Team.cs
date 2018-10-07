@@ -38,7 +38,7 @@ namespace SportsSimulatorWebApp.Models
         public Nullable<double> DropGoalRating { get; set; }
         public double PointsFor { get; set; }
         public double PointsAgainst { get; set; }
-        public Nullable<double> PointsDifference { get; set; }
+        public double PointsDifference { get; set; }
         public Nullable<double> Points { get; set; }
         public Nullable<double> TryBonusPoints { get; set; }
         public Nullable<double> LosingBonusPoints { get; set; }

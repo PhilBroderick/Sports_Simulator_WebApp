@@ -423,7 +423,7 @@
     <NavigationProperty Name="TeamMembers" Relationship="SportsSimulatorDBModel.FK_TeamMembers_Team" FromRole="Team" ToRole="TeamMember" />
     <Property Name="PointsFor" Type="Double" Nullable="false" />
     <Property Name="PointsAgainst" Type="Double" Nullable="false" />
-    <Property Name="PointsDifference" Type="Double" />
+    <Property Name="PointsDifference" Type="Double" Nullable="false" />
     <Property Name="Points" Type="Double" />
     <Property Name="TryBonusPoints" Type="Double" />
     <Property Name="LosingBonusPoints" Type="Double" />

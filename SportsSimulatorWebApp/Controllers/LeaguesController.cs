@@ -45,7 +45,7 @@ namespace SportsSimulatorWebApp.Controllers
                 unorderedTeamList.Add(leagueEntry.Team);
             }
 
-            ltViewModel.enteredTeams = unorderedTeamList.OrderByDescending(t => t.PointsFor).ToList();
+            ltViewModel.enteredTeams = unorderedTeamList.OrderByDescending(t => t.Points).ThenByDescending(t => t.PointsDifference).ToList();
 
             return View(ltViewModel);
         }
