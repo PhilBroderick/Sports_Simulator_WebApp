@@ -268,6 +268,18 @@
     <FunctionImport Name="spEvent_GetByName">
       <Parameter Name="EventName" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="spClearLeagueDetails">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spTeams_UpdatePointsForAgainst">
+      <Parameter Name="teamId" Mode="In" Type="Int32" />
+      <Parameter Name="PointsFor" Mode="In" Type="Double" />
+      <Parameter Name="PointsAgainst" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="spTeams_UpdatePoints">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="points" Mode="In" Type="Double" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -411,6 +423,10 @@
     <NavigationProperty Name="TeamMembers" Relationship="SportsSimulatorDBModel.FK_TeamMembers_Team" FromRole="Team" ToRole="TeamMember" />
     <Property Name="PointsFor" Type="Double" Nullable="false" />
     <Property Name="PointsAgainst" Type="Double" Nullable="false" />
+    <Property Name="PointsDifference" Type="Double" Nullable="false" />
+    <Property Name="Points" Type="Double" />
+    <Property Name="TryBonusPoints" Type="Double" />
+    <Property Name="LosingBonusPoints" Type="Double" />
   </EntityType>
   <Association Name="FK_League_Teams">
     <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />

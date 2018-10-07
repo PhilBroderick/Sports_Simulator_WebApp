@@ -24,7 +24,8 @@ namespace SportsSimulatorWebApp.Controllers
         // GET: Leagues/Details/5
         public ActionResult Details(int? id)
         {
-            LeagueTeamViewModel ltViewModel = new LeagueTeamViewModel();
+            LeagueTableViewModel ltViewModel = new LeagueTableViewModel();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -37,12 +38,14 @@ namespace SportsSimulatorWebApp.Controllers
             }
 
             ltViewModel.league = league;
+            List<Team> unorderedTeamList = new List<Team>();
 
             foreach(LeagueEntry leagueEntry in league.LeagueEntries)
             {
-                ltViewModel.enteredTeams.Add(leagueEntry.Team);
+                unorderedTeamList.Add(leagueEntry.Team);
             }
-            
+
+            ltViewModel.enteredTeams = unorderedTeamList.OrderByDescending(t => t.Points).ThenByDescending(t => t.PointsDifference).ToList();
 
             return View(ltViewModel);
         }

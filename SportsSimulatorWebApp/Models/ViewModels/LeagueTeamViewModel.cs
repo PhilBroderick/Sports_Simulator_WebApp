@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SportsSimulatorWebApp.Models
 {
-    public class LeagueTeamViewModel
+    public class LeagueTableViewModel
     {
         public League league { get; set; }
 
