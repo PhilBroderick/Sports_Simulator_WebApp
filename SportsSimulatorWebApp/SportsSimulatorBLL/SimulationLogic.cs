@@ -25,11 +25,14 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 
                 List<double> scores = SimulateMatchup(matchup);
 
+                var homeTeamId = matchup.MatchupEntries.First().Team.id;
+                var awayTeamId = matchup.MatchupEntries.Last().Team.id;
+
                 if(scores[0] > scores[1])
                 {
                     matchup.WinnerId = matchup.MatchupEntries.First().TeamCompetingId;
-                    var winnerId = matchup.MatchupEntries.First().Team.id;
-                    var loserId = matchup.MatchupEntries.Last().Team.id;
+                    var winnerId = homeTeamId;
+                    var loserId = awayTeamId;
                     UpdateMatchup(matchup.id, winnerId);
                     UpdateMatchupScores(matchup.id, winnerId, scores[0]);
                     UpdateMatchupScores(matchup.id, loserId, scores[1]);
@@ -39,8 +42,8 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 else if(scores[0] < scores[1])
                 {
                     matchup.WinnerId = matchup.MatchupEntries.Last().TeamCompetingId;
-                    var winnerId = matchup.MatchupEntries.Last().Team.id;
-                    var loserId = matchup.MatchupEntries.First().Team.id;
+                    var winnerId = awayTeamId;
+                    var loserId = homeTeamId;
                     UpdateMatchup(matchup.id, winnerId);
                     UpdateMatchupScores(matchup.id, winnerId, scores[1]);
                     UpdateMatchupScores(matchup.id, loserId, scores[0]);
@@ -48,10 +51,11 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                 }
                 else
                 {
-                    var homeTeamId = matchup.MatchupEntries.First().Team.id;
-                    var awayTeamId = matchup.MatchupEntries.Last().Team.id;
                     UpdateTeamDraws(homeTeamId, awayTeamId);
                 }
+
+                UpdateTeamPointsForAgainst(homeTeamId, awayTeamId, scores[0], scores[1]);
+
             }
         }
 
@@ -145,6 +149,12 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         private void UpdateMatchupScores(int matchupId, int teamId, double score)
         {
             UpdateHomeTeamScore updateHomeScore = new UpdateHomeTeamScore(matchupId, teamId, score);
+        }
+
+        private void UpdateTeamPointsForAgainst(int homeTeamId, int awayTeamId, double homePoints, double awayPoints)
+        {
+            UpdateTeamPointsForAgainst pointsForAgainstHome = new UpdateTeamPointsForAgainst(homeTeamId, homePoints, awayPoints);
+            UpdateTeamPointsForAgainst pointsForAgainstAway = new UpdateTeamPointsForAgainst(awayTeamId, awayPoints, homePoints);
         }
     }
 }

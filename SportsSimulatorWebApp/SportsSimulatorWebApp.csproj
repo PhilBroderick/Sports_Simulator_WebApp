@@ -280,6 +280,7 @@
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateMatchupWinnerID.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamDraws.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamLosses.cs" />
+    <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamPointsForAgainst.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamRating.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamWins.cs" />
     <Compile Include="SportsSimulatorBLL\TeamLogic.cs" />

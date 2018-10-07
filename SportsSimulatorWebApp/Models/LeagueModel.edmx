@@ -278,6 +278,9 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spClearLeagueDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="spEvent_GetByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EventName" Type="nvarchar" Mode="In" />
         </Function>
@@ -370,6 +373,11 @@
         </Function>
         <Function Name="spTeams_UpdateLosses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeamId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spTeams_UpdatePointsForAgainst" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="teamId" Type="int" Mode="In" />
+          <Parameter Name="PointsFor" Type="float" Mode="In" />
+          <Parameter Name="PointsAgainst" Type="float" Mode="In" />
         </Function>
         <Function Name="spTeams_UpdateRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeamId" Type="int" Mode="In" />
@@ -706,6 +714,14 @@
           </AssociationSet>
           <FunctionImport Name="spEvent_GetByName">
           <Parameter Name="EventName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spClearLeagueDetails">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spTeams_UpdatePointsForAgainst">
+            <Parameter Name="teamId" Mode="In" Type="Int32" />
+            <Parameter Name="PointsFor" Mode="In" Type="Double" />
+            <Parameter Name="PointsAgainst" Mode="In" Type="Double" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1228,6 +1244,8 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spEvent_GetByName" FunctionName="SportsSimulatorDBModel.Store.spEvent_GetByName">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spClearLeagueDetails" FunctionName="SportsSimulatorDBModel.Store.spClearLeagueDetails" />
+          <FunctionImportMapping FunctionImportName="spTeams_UpdatePointsForAgainst" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdatePointsForAgainst" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

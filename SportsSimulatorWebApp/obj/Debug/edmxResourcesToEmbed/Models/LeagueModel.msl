@@ -235,5 +235,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="spEvent_GetByName" FunctionName="SportsSimulatorDBModel.Store.spEvent_GetByName" />
+    <FunctionImportMapping FunctionImportName="spClearLeagueDetails" FunctionName="SportsSimulatorDBModel.Store.spClearLeagueDetails" />
+    <FunctionImportMapping FunctionImportName="spTeams_UpdatePointsForAgainst" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdatePointsForAgainst" />
   </EntityContainerMapping>
 </Mapping>

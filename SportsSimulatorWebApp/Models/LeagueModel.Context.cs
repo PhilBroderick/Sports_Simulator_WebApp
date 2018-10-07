@@ -444,5 +444,31 @@ namespace SportsSimulatorWebApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEvent_GetByName", eventNameParameter);
         }
+    
+        public virtual int spClearLeagueDetails(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spClearLeagueDetails", idParameter);
+        }
+    
+        public virtual int spTeams_UpdatePointsForAgainst(Nullable<int> teamId, Nullable<double> pointsFor, Nullable<double> pointsAgainst)
+        {
+            var teamIdParameter = teamId.HasValue ?
+                new ObjectParameter("teamId", teamId) :
+                new ObjectParameter("teamId", typeof(int));
+    
+            var pointsForParameter = pointsFor.HasValue ?
+                new ObjectParameter("PointsFor", pointsFor) :
+                new ObjectParameter("PointsFor", typeof(double));
+    
+            var pointsAgainstParameter = pointsAgainst.HasValue ?
+                new ObjectParameter("PointsAgainst", pointsAgainst) :
+                new ObjectParameter("PointsAgainst", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdatePointsForAgainst", teamIdParameter, pointsForParameter, pointsAgainstParameter);
+        }
     }
 }
