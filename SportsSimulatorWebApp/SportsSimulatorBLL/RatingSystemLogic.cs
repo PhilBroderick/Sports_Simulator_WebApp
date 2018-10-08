@@ -34,15 +34,20 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             double team1Score = matchup.MatchupEntries.First().Score;
             double team2Score = matchup.MatchupEntries.Last().Score;
 
-            if(matchup.WinnerId == matchup.MatchupEntries.First().TeamCompetingId)
+            if(team1Score > team2Score)
             {
                 resultA = winMultipler;
                 resultB = lossMultipler;
             }
-            else
+            else if(team1Score < team2Score)
             {
                 resultA = lossMultipler;
                 resultB = winMultipler;
+            }
+            else
+            {
+                resultA = drawMutlipler;
+                resultB = drawMutlipler;
             }
 
             SetNewSettings(Convert.ToDouble(matchup.MatchupEntries.First().Team.TeamRating), Convert.ToDouble(matchup.MatchupEntries.Last().Team.TeamRating), resultA, resultB);

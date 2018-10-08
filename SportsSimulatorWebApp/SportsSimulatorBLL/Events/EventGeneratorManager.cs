@@ -20,14 +20,14 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             
             for (int i = 0; i < eventTimings.Count; i++)
             {
-                TeamEvents.Add(eg.GenerateEvent(matchup, allEvents)); // need to add the List<TeamEvents> to the List<Enum>
+                TeamEvents.Add(eg.GenerateEvent(matchup, allEvents));
             }
 
             OrderedDictionary combinedEventTimings = CombineEventsAndTimings(TeamEvents, eventTimings);
 
             SaveEventsToDB(combinedEventTimings, matchup.id);
             
-            return TeamEvents; //return the list of events
+            return TeamEvents;
         }
 
         private OrderedDictionary CombineEventsAndTimings(List<List<Event>> matchupEvents, List<TimeSpan> eventTimings)
@@ -56,5 +56,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 return events;
             }
         }
+        
     }
 }

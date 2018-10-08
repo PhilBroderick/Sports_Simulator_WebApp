@@ -16,48 +16,50 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         {
             foreach (Matchup matchup in round.Matchups)
             {
-                Random rng = new Random();
-                double result = 0;
-
-                result = rng.NextDouble();
 
                 List<double> expectedResults = getExpectedOutcome(matchup);
-                
-                List<double> scores = SimulateMatchup(matchup);
+
+                List<List<Event>> returnedEvents = SimulateMatchup(matchup);
+
+                List<double> scores = GetMatchupScores(matchup);
+
+                List<int> tryCounts = CheckMatchupForBonusPoints(returnedEvents);
+
+                List<int> pointsForTeams = CalculatePointsForMatchup(tryCounts, scores);
+
+                var homeTeamPoints = pointsForTeams[0];
+                var awayTeamPoints = pointsForTeams[1];
 
                 var homeTeamId = matchup.MatchupEntries.First().Team.id;
                 var awayTeamId = matchup.MatchupEntries.Last().Team.id;
-                var pointsForWin = 4;
-                var pointsForLoss = 0;
-                var pointsForDraw = 2;
 
                 if(scores[0] > scores[1])
                 {
-                    matchup.WinnerId = matchup.MatchupEntries.First().TeamCompetingId;
                     var winnerId = homeTeamId;
                     var loserId = awayTeamId;
+                    matchup.WinnerId = winnerId;
                     UpdateMatchup(matchup.id, winnerId);
                     UpdateMatchupScores(matchup.id, winnerId, scores[0]);
                     UpdateMatchupScores(matchup.id, loserId, scores[1]);
                     UpdateTeamWinsLosses(winnerId, loserId);
-                    UpdateTeamPoints(homeTeamId, awayTeamId, pointsForWin, pointsForLoss); 
+                    UpdateTeamPoints(homeTeamId, awayTeamId, homeTeamPoints, awayTeamPoints); 
 
                 }
                 else if(scores[0] < scores[1])
                 {
-                    matchup.WinnerId = matchup.MatchupEntries.Last().TeamCompetingId;
                     var winnerId = awayTeamId;
                     var loserId = homeTeamId;
+                    matchup.WinnerId = winnerId;
                     UpdateMatchup(matchup.id, winnerId);
                     UpdateMatchupScores(matchup.id, winnerId, scores[1]);
                     UpdateMatchupScores(matchup.id, loserId, scores[0]);
                     UpdateTeamWinsLosses(winnerId, loserId);
-                    UpdateTeamPoints(homeTeamId, awayTeamId, pointsForLoss, pointsForWin);
+                    UpdateTeamPoints(homeTeamId, awayTeamId, homeTeamPoints, awayTeamPoints);
                 }
                 else
                 {
                     UpdateTeamDraws(homeTeamId, awayTeamId);
-                    UpdateTeamPoints(homeTeamId, awayTeamId, pointsForDraw, pointsForDraw);
+                    UpdateTeamPoints(homeTeamId, awayTeamId, homeTeamPoints, awayTeamPoints);
                 }
 
                 UpdateTeamPointsForAgainst(homeTeamId, awayTeamId, scores[0], scores[1]);
@@ -83,7 +85,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
             return expectedResultList;
         }
 
-        private List<double> SimulateMatchup(Matchup matchup)
+        private List<List<Event>> SimulateMatchup(Matchup matchup)
         {
             List<TimeSpan> orderedEventList = GenerateRandomEventTimes();
 
@@ -91,6 +93,11 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
                     
             List<List<Event>> returnedEvents = egm.GenerateAllEvents(matchup, orderedEventList);
 
+            return returnedEvents;
+        }
+
+        private List<double> GetMatchupScores(Matchup matchup)
+        {
             double scoreHome = matchup.MatchupEntries.First().Score;
             double scoreAway = matchup.MatchupEntries.Last().Score;
 
@@ -167,6 +174,117 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         {
             UpdateTeamPoints pointsAddHome = new UpdateTeamPoints(homeTeamId, pointsToAddHome);
             UpdateTeamPoints pointsAddAway = new UpdateTeamPoints(awayTeamId, pointsToAddAway);
+        }
+
+        private List<int> CheckMatchupForBonusPoints(List<List<Event>> occuredMatchupEvents)
+        {
+            var homeTryCount = 0;
+            var awayTryCount = 0;
+
+            foreach(List<Event> timeGroupedEvents in occuredMatchupEvents)
+            {
+                if(occuredMatchupEvents.OfType<Event>().Any(e => e.EventName == "TryHome"))
+                {
+                    if (occuredMatchupEvents.OfType<Event>().Any(e => e.EventName == "ConversionHome"))
+                    {
+                        homeTryCount += 1;
+                    }
+                }
+                else if (occuredMatchupEvents.OfType<Event>().Any(e => e.EventName == "TryAway"))
+                {
+                    if (occuredMatchupEvents.OfType<Event>().Any(e => e.EventName == "ConversionAway"))
+                    {
+                        awayTryCount += 1;
+                    }
+                }
+            }
+
+            List<int> tryCountsForMatchup = new List<int>
+            {
+                homeTryCount,
+                awayTryCount
+            };
+
+            return tryCountsForMatchup;
+            
+        }
+
+        private List<int> CalculatePointsForMatchup(List<int> tryCounts, List<double> scores )
+        {
+            var homeTryCount = tryCounts[0];
+            var awayTryCount = tryCounts[1];
+
+            var pointsForWin = 4;
+            var pointsForLoss = 0;
+            var pointsForDraw = 2;
+            var pointsForTryBonus = 1;
+            var pointsforLosingBonus = 1;
+
+            var homePoints = 0;
+            var awayPoints = 0;
+
+            if(scores[0] > scores[1])
+            {
+                homePoints += pointsForWin;
+                awayPoints += pointsForLoss;
+                if(homeTryCount >= 4)
+                {
+                    homePoints += pointsForTryBonus;
+                }
+
+                if(scores[0] - scores[1] <= 7)
+                {
+                    awayPoints += pointsforLosingBonus;
+                }
+
+                if(awayTryCount >= 4)
+                {
+                    awayPoints += pointsForTryBonus;
+                }
+            }
+
+            else if (scores[0] < scores[1])
+            {
+                homePoints += pointsForLoss;
+                awayPoints += pointsForWin;
+                if (homeTryCount >= 4)
+                {
+                    homePoints += pointsForTryBonus;
+                }
+
+                if (scores[1] - scores[0] <= 7)
+                {
+                    homePoints += pointsforLosingBonus;
+                }
+
+                if (awayTryCount >= 4)
+                {
+                    awayPoints += pointsForTryBonus;
+                }
+            }
+            else
+            {
+                homePoints += pointsForDraw;
+                awayPoints += pointsForDraw;
+
+                if(homeTryCount >= 4)
+                {
+                    homePoints += pointsForTryBonus;
+                }
+
+                if(awayTryCount >= 4)
+                {
+                    awayPoints += pointsForTryBonus;
+                }
+            }
+
+            List<int> matchupTeamPoints = new List<int>()
+            {
+                homePoints,
+                awayPoints
+            };
+
+            return matchupTeamPoints;
         }
     }
 }
