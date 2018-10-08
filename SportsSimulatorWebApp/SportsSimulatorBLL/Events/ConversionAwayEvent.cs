@@ -6,7 +6,7 @@ using SportsSimulatorWebApp.Models;
 
 namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 {
-    public class ConversionEvent : TeamEvent
+    public class ConversionAwayEvent : TeamEvent
     {
         public override bool PlayEvent(Matchup matchup)
         {
@@ -24,7 +24,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             if (conversionRate <= 0.7) // This can be changed based on the team, or players, conversion rate.
             {
                 //check if last event called was home or away - can be done using the eventgeneratormanager.
-                matchup.MatchupEntries.First().Score += 2;
+                matchup.MatchupEntries.Last().Score += 2;
                 isConversion = true;
             }
             return isConversion;
@@ -32,7 +32,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
 
         protected override void setEventName()
         {
-            EventName = "Conversion";
+            EventName = "Conversion Away";
         }
     }
 }
