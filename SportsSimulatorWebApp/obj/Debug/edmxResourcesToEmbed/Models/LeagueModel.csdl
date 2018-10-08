@@ -280,6 +280,7 @@
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="points" Mode="In" Type="Double" />
     </FunctionImport>
+    <FunctionImport Name="spPlayers_NotInATeam" EntitySet="Players" ReturnType="Collection(SportsSimulatorDBModel.Player)" />
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -562,5 +563,14 @@
     <Property Type="Int32" Name="id" Nullable="false" />
     <Property Type="String" Name="EventName" Nullable="false" MaxLength="50" />
     <Property Type="Int32" Name="EventType" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spPlayers_NotInATeam_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="PlayerRating" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="Position" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="AttackRating" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="DefenseRating" Nullable="true" Precision="18" Scale="0" />
   </ComplexType>
 </Schema>

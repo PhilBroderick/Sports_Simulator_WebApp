@@ -187,3 +187,4 @@ C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csproj.CopyComplete
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.dll
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.pdb
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csprojAssemblyReference.cache

@@ -341,6 +341,7 @@
     <Parameter Name="Position" Type="nvarchar" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="spPlayers_NotInATeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spRounds_GetByLeague" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LeagueId" Type="int" Mode="In" />
   </Function>

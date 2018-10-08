@@ -43,7 +43,7 @@ namespace SportsSimulatorWebApp.Controllers
             SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
 
             Team team = db.Teams.Find(id);
-            List<Player> players = db.Players.ToList();
+            List<Player> players = db.spPlayers_NotInATeam().ToList();
 
             List<SelectListItem> items = new List<SelectListItem>();
 
@@ -52,7 +52,7 @@ namespace SportsSimulatorWebApp.Controllers
                 var item = new SelectListItem
                 {
                     Value = player.id.ToString(),
-                    Text = player.FirstName
+                    Text = player.FirstName + " " + player.LastName
                 };
 
                 items.Add(item);
@@ -72,15 +72,23 @@ namespace SportsSimulatorWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddSelectedPlayersToTeam(int id, [Bind(Include ="Name, PlayerId")] TeamPlayerViewModel model)
+        public ActionResult AddTeamMembers(int id, [Bind(Include ="Name, PlayerId")] TeamPlayerViewModel model)
         {
+            List<Player> selectedPlayers = new List<Player>();
+
+            foreach(var playerId in model.PlayerId)
+            {
+                var idOFPlayer = int.Parse(playerId);
+                selectedPlayers.Add((from p in db.Players where id == idOFPlayer select p).First());
+            }
+
             if(ModelState.IsValid)
             {
                 TeamLogic tL = new TeamLogic();
                 tL.AddPlayerToTeamList(model.Players, model.Team);
             }
 
-            return RedirectToAction("Details", "Teams", new { id = model.Team.id });
+            return RedirectToAction("Index", "Teams", id);
         }
 
         public ActionResult AddSelectedPlayersToTeam(int teamId)

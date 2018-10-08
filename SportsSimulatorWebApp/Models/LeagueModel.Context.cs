@@ -483,5 +483,15 @@ namespace SportsSimulatorWebApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdatePoints", idParameter, pointsParameter);
         }
+    
+        public virtual ObjectResult<Player> spPlayers_NotInATeam()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Player>("spPlayers_NotInATeam");
+        }
+    
+        public virtual ObjectResult<Player> spPlayers_NotInATeam(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Player>("spPlayers_NotInATeam", mergeOption);
+        }
     }
 }
