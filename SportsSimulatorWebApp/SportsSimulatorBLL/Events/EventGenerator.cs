@@ -70,7 +70,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             {
                 if(randomEvent == EventType.TryHome)
                 {
-                    ConversionAwayEvent subSequentConversion = new ConversionAwayEvent();
+                    ConversionHomeEvent subSequentConversion = new ConversionHomeEvent();
                     bool isConversion = subSequentConversion.PlayEvent(matchup);
                     var subsequentEvent = GetEventFromDB("Conversion");
                     Events.Add(eventFromDB);
@@ -156,7 +156,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                     Events.Add(secondEvent);
                     if (isHomeTry)
                     {
-                       ConversionAwayEvent homeConversion = new ConversionAwayEvent();
+                       ConversionHomeEvent homeConversion = new ConversionHomeEvent();
                        bool isConversion = homeConversion.PlayEvent(matchup);
                        var subsequentEvent = GetEventFromDB("Conversion");
                        Events.Add(subsequentEvent);

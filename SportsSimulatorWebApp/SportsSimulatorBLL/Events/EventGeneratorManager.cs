@@ -13,8 +13,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         public List<List<Event>> GenerateAllEvents(Matchup matchup, List<TimeSpan> eventTimings)
         {
             List<List<Event>> TeamEvents = new List<List<Event>>();
-            var homeTryBonus = 0;
-            var awayTryBonus = 0;
             
             List<Event> allEvents = GetAllEvents();
 
@@ -24,8 +22,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             {
                 TeamEvents.Add(eg.GenerateEvent(matchup, allEvents));
             }
-
-
 
             OrderedDictionary combinedEventTimings = CombineEventsAndTimings(TeamEvents, eventTimings);
 
@@ -60,26 +56,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
                 return events;
             }
         }
-
-        private void CheckEventsForTrysForBonusPoints(List<List<Event>> TeamEvents)
-        {
-            //check for home try
-
-            if (TeamEvents.Last().OfType<Event>().Any(e => e.EventName == "TryHome"))
-            {
-                if (TeamEvents.Last().OfType<Event>().Any(e => e.EventName == "ConversionHome"))
-                {
-                    var homeTryCount = 1;
-                }
-            }
-            else if(TeamEvents.Last().OfType<Event>().Any(e => e.EventName == "TryAway"))
-            {
-                if (TeamEvents.Last().OfType<Event>().Any(e => e.EventName == "ConversionAway"))
-                {
-                    var awayTryCount = 1;
-                }
-            }
-
-        }
+        
     }
 }
