@@ -12,7 +12,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         private const double winMultipler = 1.0;
         private const double drawMutlipler = 0.5;
         private const double lossMultipler = 0.0;
-        private const double kFactor = 15;
+        private const double kFactor = 20;
 
         protected double _ratingA;
         protected double _ratingB;

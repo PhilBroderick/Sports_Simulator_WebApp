@@ -16,17 +16,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
         {
             //TODO - Call when on TeamMember Page and adding player to team.
             int playerCount = team.TeamMembers.Count;
-            decimal teamRating = 0;
-
-            foreach (TeamMember tm in team.TeamMembers)
-            {
-                teamRating += tm.Player.PlayerRating;
-            }
-
-            teamRating /= playerCount;
-
-            team.TeamRating = teamRating;
-
+            
         }
 
         public void AddPlayerToTeamList(List<Player> players, Team team)

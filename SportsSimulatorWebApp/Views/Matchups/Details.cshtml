@@ -6,35 +6,39 @@
 <h2>Matchup @Model.matchup.id Details</h2>
 
 @if (Model.matchup.HasBeenPlayed == true)
+
 {
+<h2>@Model.matchup.MatchupEntries.First().Team.TeamName : @Model.matchup.MatchupEntries.First().Score 
+    - @Model.matchup.MatchupEntries.Last().Score : @Model.matchup.MatchupEntries.Last().Team.TeamName</h2>
     <table class="table table-bordered table-hover table-striped">
         <thead>
             <tr>
                 <th>
                     @Html.DisplayName("Event Timings")
                 </th>
+                <th>
+                    @Html.DisplayName("Event Name")
+                </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>
-                    @{ var eventList = Model.eventTimings;}
-                    @foreach (var timing in eventList)
-                    {
+                @{ var eventList = Model.eventTimings;}
+                @foreach (var timing in eventList)
+                {
                 <tr>
                     <td>@timing.EventTime</td>
                     <td>@timing.Event.EventName</td>
                 </tr>
             }
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>Matchup has not yet been played.</p>
-        }
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Matchup has not yet been played.</p>
+    }
 
 
 

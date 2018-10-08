@@ -51,7 +51,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
             else
             {
                 //In this case, the skills are comparable
-                if(tryChance > matchup.MatchupEntries.First().Team.DefenseRating)
+                if(tryChance > (matchup.MatchupEntries.First().Team.DefenseRating / 2))
                 {
                     matchup.MatchupEntries.Last().Score += 5;
                     isTry = true;
