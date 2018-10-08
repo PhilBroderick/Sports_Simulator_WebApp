@@ -183,16 +183,16 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
 
             foreach(List<Event> timeGroupedEvents in occuredMatchupEvents)
             {
-                if(occuredMatchupEvents.OfType<Event>().Any(e => e.EventName == "TryHome"))
+                if(timeGroupedEvents.OfType<Event>().Any(e => e.EventName == "TryHome"))
                 {
-                    if (occuredMatchupEvents.OfType<Event>().Any(e => e.EventName == "ConversionHome"))
+                    if (timeGroupedEvents.OfType<Event>().Any(e => e.EventName == "ConversionHome"))
                     {
                         homeTryCount += 1;
                     }
                 }
-                else if (occuredMatchupEvents.OfType<Event>().Any(e => e.EventName == "TryAway"))
+                else if (timeGroupedEvents.OfType<Event>().Any(e => e.EventName == "TryAway"))
                 {
-                    if (occuredMatchupEvents.OfType<Event>().Any(e => e.EventName == "ConversionAway"))
+                    if (timeGroupedEvents.OfType<Event>().Any(e => e.EventName == "ConversionAway"))
                     {
                         awayTryCount += 1;
                     }
