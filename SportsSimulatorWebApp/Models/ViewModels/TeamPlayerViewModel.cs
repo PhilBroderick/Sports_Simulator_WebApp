@@ -9,6 +9,10 @@ namespace SportsSimulatorWebApp.Models
 {
     public class TeamPlayerViewModel
     {
+        public TeamPlayerViewModel()
+        {
+            this.Players = new List<Player>();
+        }
         public Team Team { get; set; }
 
         [Required]
