@@ -76,10 +76,12 @@ namespace SportsSimulatorWebApp.Controllers
         {
             List<Player> selectedPlayers = new List<Player>();
 
+            model.Team = db.Teams.Find(id);
+
             foreach(var playerId in model.PlayerId)
             {
                 var idOFPlayer = int.Parse(playerId);
-                selectedPlayers.Add((from p in db.Players where id == idOFPlayer select p).First());
+                model.Players.Add((from p in db.Players where p.id == idOFPlayer select p).First());
             }
 
             if(ModelState.IsValid)

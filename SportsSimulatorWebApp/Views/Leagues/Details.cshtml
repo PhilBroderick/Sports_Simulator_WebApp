@@ -60,17 +60,16 @@
 
     </table>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.league.id }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
     <p>
-        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.league.id })">Add Teams to League &raquo;</a>
+        <a class="btn btn-primary btn-lg" href="@Url.Action("CreateLeagueEntries","LeagueEntries", new { id = Model.league.id })">Add Teams to League &raquo;</a>
 
-        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.league.id })">Create Matchups &raquo;</a>
+        <a class="btn btn-primary btn-lg" href="@Url.Action("CreateMatchups","Leagues", new { id = Model.league.id })">Create Matchups &raquo;</a>
 
-        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("SimulateRound","Leagues", new { id = Model.league.id })">Simulate Round &raquo;</a>
+        <a class="btn btn-primary btn-lg" href="@Url.Action("SimulateRound","Leagues", new { id = Model.league.id })">Simulate Round &raquo;</a>
 
-        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("ViewAllRounds","Rounds", new { id = Model.league.id })">View All Rounds &raquo;</a>
+        <a class="btn btn-primary btn-lg" href="@Url.Action("ViewAllRounds","Rounds", new { id = Model.league.id })">View All Rounds &raquo;</a>
 
-        <a class="btn btn-default btn-primary btn-lg" href="@Url.Action("LeagueCurrentRoundMatchups","Matchups", new { id = Model.league.id })">View Current Matchups &raquo;</a>
+        <a class="btn btn-primary btn-lg" href="@Url.Action("LeagueCurrentRoundMatchups","Matchups", new { id = Model.league.id })">View Current Matchups &raquo;</a>
     </p>
