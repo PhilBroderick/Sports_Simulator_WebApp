@@ -10,13 +10,19 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL
     public class TeamLogic
     {
         private SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
-        public int maxPlayers = 5;
+        public int maxPlayers = 15;
 
-        public void CreateTeamRating(Team team)
+        public void UpdateTeamsRatings(Team team)
         {
             //TODO - Call when on TeamMember Page and adding player to team.
             int playerCount = team.TeamMembers.Count;
-            
+            var attackRating = 0;
+
+            foreach(TeamMember teamMember in team.TeamMembers)
+            {
+               // attackRating += teamMember.Player.AttackRating;
+            }
+
         }
 
         public void AddPlayerToTeamList(List<Player> players, Team team)
