@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SportsSimulatorWebApp.Models;
-using SportsSimulatorWebApp.SportsSimulatorBLL;
+using SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogic;
 
 namespace SportsSimulatorWebApp.Controllers
 {
@@ -89,10 +89,11 @@ namespace SportsSimulatorWebApp.Controllers
             if(ModelState.IsValid)
             {
                 var maxPlayersInATeam = 15;
-                if(model.Team.TeamMembers.Count + model.Players.Count >= maxPlayersInATeam)
+                if(model.Team.TeamMembers.Count + model.Players.Count < maxPlayersInATeam)
                 {
                     TeamLogic tL = new TeamLogic();
                     tL.AddPlayerToTeamList(model.Players, model.Team);
+                    tL.UpdateTeamsRatings(model.Team.id);
                 }
                 else
                 {

@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SportsSimulatorWebApp.Models;
-using SportsSimulatorWebApp.SportsSimulatorBLL;
+using SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogic;
 
 namespace SportsSimulatorWebApp.Controllers
 {
