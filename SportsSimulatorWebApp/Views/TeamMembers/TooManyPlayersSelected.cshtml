@@ -1,0 +1,11 @@
+﻿@model SportsSimulatorWebApp.Models.Team
+@{
+    ViewBag.Title = "TooManyPlayersSelected";
+}
+
+<h2>Too Many Players Selected. A Team can only contain 15 players.</h2>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("AddTeamMembers","Teams", new { id = Model.Team.id })">Return to Team &raquo;</a>
+</p>
+

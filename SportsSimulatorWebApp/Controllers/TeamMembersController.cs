@@ -62,11 +62,6 @@ namespace SportsSimulatorWebApp.Controllers
 
             TeamPlayerViewModel tpViewModel = new TeamPlayerViewModel { PlayerList = playersList, Team = team };
 
-            //TODO - Add multiselectlist to this controller - button needs added to save selected players and add them to TeamMembers table
-
-            //tpViewModel.Team = team;
-            //tpViewModel.Players = players;
-
             return View(tpViewModel);
         }
 
@@ -75,34 +70,38 @@ namespace SportsSimulatorWebApp.Controllers
         public ActionResult AddTeamMembers(int id, [Bind(Include ="Name, PlayerId")] TeamPlayerViewModel model)
         {
             List<Player> selectedPlayers = new List<Player>();
-
-            model.Team = db.Teams.Find(id);
-
-            foreach(var playerId in model.PlayerId)
+            
+            if(model.PlayerId == null)
             {
-                var idOFPlayer = int.Parse(playerId);
-                model.Players.Add((from p in db.Players where p.id == idOFPlayer select p).First());
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                model.Team = db.Teams.Find(id);
+
+                foreach (var playerId in model.PlayerId)
+                {
+                    var idOFPlayer = int.Parse(playerId);
+                    model.Players.Add((from p in db.Players where p.id == idOFPlayer select p).First());
+                }
             }
 
             if(ModelState.IsValid)
             {
-                TeamLogic tL = new TeamLogic();
-                tL.AddPlayerToTeamList(model.Players, model.Team);
+                var maxPlayersInATeam = 15;
+                if(model.Team.TeamMembers.Count + model.Players.Count >= maxPlayersInATeam)
+                {
+                    TeamLogic tL = new TeamLogic();
+                    tL.AddPlayerToTeamList(model.Players, model.Team);
+                }
+                else
+                {
+                    return View("TooManyPlayersSelected", model.Team);
+                }
+                
             }
 
             return RedirectToAction("Index", "Teams", id);
-        }
-
-        public ActionResult AddSelectedPlayersToTeam(int teamId)
-        {
-            //TODO - Test this function - will need to pass the list of selected players to this method
-            TeamLogic tL = new TeamLogic();
-            Team t = db.Teams.Find(teamId);
-            List<Player> players = new List<Player>();
-
-            tL.AddPlayerToTeamList(players, t);
-
-            return RedirectToAction("Details", "Teams", new { Id = teamId });
         }
 
         // GET: TeamMembers/Create
