@@ -1,5 +1,21 @@
 ﻿@model SportsSimulatorWebApp.Models.TeamPlayerViewModel
 
+@section scripts{
+    <script>
+        $("form").submit(function (e) {
+            var validationFailed = false;
+            var blah = $('.form-control').val();
+            if (blah.length == 0) {
+                validationFailed = true;
+            };
+            if (validationFailed) {
+                alert("You need to select a player to add");
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+    }
 
 <h1>
     @Html.DisplayFor(model => model.Team.TeamName)
@@ -13,20 +29,16 @@ FormMethod.Post, new { @class = "form-horizontal" }))
             @Html.LabelFor(i => i.PlayerList, new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 @Html.ListBoxFor(i => Model.PlayerId, Model.PlayerList,
-                    new { @class = "form-control" })
+                    new { @class = "form-control listBox" })
                 @Html.ValidationMessageFor(i => i.PlayerList,
                     "", new { @class = "text-warning" })
             </div>
         </div>
         <div class="form-group">
-            <input type="submit" value="Add Selected Player" class="btn btn-primary" />
+            <input type="submit" value="Add Selected Player" class="btn btn-primary" id="addPlayerBtn" />
             <a class="btn btn-primary" href="@Url.Action("Details","Teams", new { id = Model.Team.id })">Return to Team &raquo;</a>
         </div>
     }
-</p>
-
-
-<p>
-    
+    <button id="btnClicked">Click me!</button>
 </p>
 
