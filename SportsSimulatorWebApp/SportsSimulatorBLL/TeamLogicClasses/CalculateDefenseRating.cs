@@ -7,20 +7,20 @@ using System.Web;
 
 namespace SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogicClasses
 {
-    public class CalculateAttackRating : ICalculateNewRatings
+    public class CalculateDefenseRating : ICalculateNewRatings
     {
         public double CalculateRating(Team team)
         {
-            double attackRating = 0;
+            double defenseRating = 0;
 
             foreach(var member in team.TeamMembers)
             {
-                var playerRating = (double)member.Player.AttackRating / 100;
+                var playerRating = (double)member.Player.DefenseRating / 100;
 
-                attackRating += playerRating;
+                defenseRating += playerRating;
             }
 
-            var newRating = attackRating / team.TeamMembers.Count;
+            var newRating = defenseRating / team.TeamMembers.Count;
 
             return newRating;
         }

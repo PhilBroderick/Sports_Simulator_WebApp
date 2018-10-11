@@ -9,6 +9,6 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogic
 {
     public interface ICalculateNewRatings
     {
-        decimal CalculateRating(Team team);
+        double CalculateRating(Team team);
     }
 }

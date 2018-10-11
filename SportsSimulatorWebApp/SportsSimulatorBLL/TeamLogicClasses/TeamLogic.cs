@@ -19,11 +19,9 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogic
             
             updatedTeam = db.Teams.Find(teamId);
 
-            var attackRatingNew = new CalculateAttackRating();
+            CalculateAllRatings(updatedTeam);
 
-            attackRatingNew.CalculateRating(updatedTeam);
-
-            WriteTeamRatingsToDB(updatedTeam);
+            WriteTeamRatingsToDB writeRatings = new WriteTeamRatingsToDB();
         }
 
         public void AddPlayerToTeamList(List<Player> players, Team team)
@@ -44,18 +42,15 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogic
           }
         }
 
-        private void WriteTeamRatingsToDB(Team team)
+        private void CalculateAllRatings(Team team)
         {
+            var calculateAttack = new CalculateAttackRating();
 
-        }
-        private void CalculateNewTeamRatings(Team team, List<TeamMember> teamMembers)
-        {
-            CalculateAttackRatings(team, teamMembers);
-        }
+            team.AttackRating = calculateAttack.CalculateRating(team);
 
-        private void CalculateAttackRatings(Team team, List<TeamMember> teamMembers)
-        {
+            var calculateDefense = new CalculateDefenseRating();
 
+            team.DefenseRating = calculateDefense.CalculateRating(team);
         }
     }
 }
