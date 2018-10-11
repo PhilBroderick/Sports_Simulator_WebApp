@@ -287,7 +287,11 @@
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamPointsForAgainst.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamRating.cs" />
     <Compile Include="SportsSimulatorBLL\StoredProcs\UpdateTeamWins.cs" />
-    <Compile Include="SportsSimulatorBLL\TeamLogic.cs" />
+    <Compile Include="SportsSimulatorBLL\TeamLogicClasses\CalculateAttackRating.cs" />
+    <Compile Include="SportsSimulatorBLL\TeamLogicClasses\CalculateDefenseRating.cs" />
+    <Compile Include="SportsSimulatorBLL\TeamLogicClasses\ICalculateNewRatings.cs" />
+    <Compile Include="SportsSimulatorBLL\TeamLogicClasses\TeamLogic.cs" />
+    <Compile Include="SportsSimulatorBLL\TeamLogicClasses\WriteTeamRatingsToDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-darkly.css" />
