@@ -21,7 +21,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogic
 
             CalculateAllRatings(updatedTeam);
 
-            WriteTeamRatingsToDB writeRatings = new WriteTeamRatingsToDB();
+            WriteTeamRatingsToDB writeRatings = new WriteTeamRatingsToDB(updatedTeam);
         }
 
         public void AddPlayerToTeamList(List<Player> players, Team team)

@@ -493,5 +493,22 @@ namespace SportsSimulatorWebApp.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Player>("spPlayers_NotInATeam", mergeOption);
         }
+    
+        public virtual int spTeams_UpdateAllRatings(Nullable<int> id, Nullable<double> attackRating, Nullable<double> defenseRating)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var attackRatingParameter = attackRating.HasValue ?
+                new ObjectParameter("AttackRating", attackRating) :
+                new ObjectParameter("AttackRating", typeof(double));
+    
+            var defenseRatingParameter = defenseRating.HasValue ?
+                new ObjectParameter("DefenseRating", defenseRating) :
+                new ObjectParameter("DefenseRating", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spTeams_UpdateAllRatings", idParameter, attackRatingParameter, defenseRatingParameter);
+        }
     }
 }

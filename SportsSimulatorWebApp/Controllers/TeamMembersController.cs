@@ -102,7 +102,7 @@ namespace SportsSimulatorWebApp.Controllers
                 
             }
 
-            return RedirectToAction("Index", "Teams", id);
+            return RedirectToAction("Details", "Teams", new { id });
         }
 
         // GET: TeamMembers/Create

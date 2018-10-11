@@ -21,7 +21,7 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.Events
         }
         protected override bool ExecuteEvent(Matchup matchup)
         {
-            var tryChance = StaticRandom.Instance.NextDouble();
+            var tryChance = StaticRandom.Instance.Next(0, 101);
             bool isTry = false;
 
             var attackDifference = matchup.MatchupEntries.First().Team.Offense - matchup.MatchupEntries.Last().Team.Defense;

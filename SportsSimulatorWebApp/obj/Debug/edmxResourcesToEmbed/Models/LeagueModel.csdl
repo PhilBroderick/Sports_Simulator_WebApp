@@ -281,6 +281,11 @@
       <Parameter Name="points" Mode="In" Type="Double" />
     </FunctionImport>
     <FunctionImport Name="spPlayers_NotInATeam" EntitySet="Players" ReturnType="Collection(SportsSimulatorDBModel.Player)" />
+    <FunctionImport Name="spTeams_UpdateAllRatings">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="AttackRating" Mode="In" Type="Double" />
+      <Parameter Name="DefenseRating" Mode="In" Type="Double" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
