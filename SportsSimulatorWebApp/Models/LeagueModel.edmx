@@ -373,6 +373,11 @@
           <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="spTeams_UpdateAllRatings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="AttackRating" Type="float" Mode="In" />
+          <Parameter Name="DefenseRating" Type="float" Mode="In" />
+        </Function>
         <Function Name="spTeams_UpdateDraws" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeamId" Type="int" Mode="In" />
         </Function>
@@ -737,6 +742,11 @@
             <Parameter Name="points" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="spPlayers_NotInATeam" EntitySet="Players" ReturnType="Collection(SportsSimulatorDBModel.Player)" />
+          <FunctionImport Name="spTeams_UpdateAllRatings">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="AttackRating" Mode="In" Type="Double" />
+            <Parameter Name="DefenseRating" Mode="In" Type="Double" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1280,6 +1290,7 @@
           <FunctionImportMapping FunctionImportName="spTeams_UpdatePoints" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdatePoints" />
           <FunctionImportMapping FunctionImportName="spPlayers_NotInATeam" FunctionName="SportsSimulatorDBModel.Store.spPlayers_NotInATeam">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spTeams_UpdateAllRatings" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateAllRatings" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

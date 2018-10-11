@@ -8,11 +8,11 @@ namespace SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogicClasses
 {
     public class WriteTeamRatingsToDB
     {
-        public WriteTeamRatingsToDB()
+        public WriteTeamRatingsToDB(Team team)
         {
             using(var context = new SportsSimulatorDBEntities())
             {
-                //context.spTeams_UpdateAllRatings();
+                context.spTeams_UpdateAllRatings(team.id, team.AttackRating, team.DefenseRating);
             }
         }
     }

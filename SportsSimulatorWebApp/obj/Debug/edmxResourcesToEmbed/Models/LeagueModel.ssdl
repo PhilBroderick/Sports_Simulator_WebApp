@@ -368,6 +368,11 @@
     <Parameter Name="TeamName" Type="nvarchar" Mode="In" />
     <Parameter Name="id" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="spTeams_UpdateAllRatings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="AttackRating" Type="float" Mode="In" />
+    <Parameter Name="DefenseRating" Type="float" Mode="In" />
+  </Function>
   <Function Name="spTeams_UpdateDraws" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="TeamId" Type="int" Mode="In" />
   </Function>
