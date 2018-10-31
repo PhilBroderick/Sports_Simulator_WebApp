@@ -187,4 +187,14 @@ C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csproj.CopyComplete
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.dll
 C:\Users\phil.broderick\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.pdb
-C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csprojAssemblyReference.cache
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\AutoMapper.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.Net.Http.Formatting.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.ValueTuple.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.Web.Http.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.Web.Http.WebHost.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\AutoMapper.pdb
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\AutoMapper.xml
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.Net.Http.Formatting.xml
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.ValueTuple.xml
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.Web.Http.xml
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.Web.Http.WebHost.xml
