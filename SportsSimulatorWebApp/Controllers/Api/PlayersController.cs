@@ -6,40 +6,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using AutoMapper;
 using System.Web.Http;
+using AutoMapper;
 
 namespace SportsSimulatorWebApp.Controllers.Api
 {
-    public class LeaguesController : ApiController
+    public class PlayersController : ApiController
     {
         private SportsSimulatorDBEntities _context;
-        public LeaguesController()
+
+        public PlayersController()
         {
             _context = new SportsSimulatorDBEntities();
         }
 
-        public IHttpActionResult GetLeagues()
+        public IHttpActionResult GetPlayers()
         {
-            var leagueDtos = _context.Leagues
-                .ProjectTo<LeagueDto>()
+            var playerDtos = _context.Players
+                .ProjectTo<PlayerDto>()
                 .ToList();
 
-            return Ok(leagueDtos);
+            return Ok(playerDtos);
         }
 
-        public IHttpActionResult GetLeague(int id)
+        public IHttpActionResult GetPlayer(int id)
         {
-            var league = _context.Leagues.SingleOrDefault(l => l.id == id);
+            var player = _context.Players.SingleOrDefault(p => p.id == id);
 
-            if(league == null)
+            if(player == null)
             {
                 return NotFound();
             }
 
-            var leagueDto = Mapper.Map<League, LeagueDto>(league);
+            var playerDto = Mapper.Map<Player, PlayerDto>(player);
 
-            return Ok(leagueDto);
+            return Ok(playerDto);
         }
     }
 }

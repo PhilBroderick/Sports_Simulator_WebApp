@@ -198,3 +198,9 @@ C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Syste
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.ValueTuple.xml
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.Web.Http.xml
 C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\System.Web.Http.WebHost.xml
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\obj\Debug\SportsSimulatorWebApp.csprojAssemblyReference.cache
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Glimpse.Ado.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Glimpse.Core.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Glimpse.EF6.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Glimpse.AspNet.dll
+C:\Users\Phil\source\repos\SportsSimulatorWebApp\SportsSimulatorWebApp\bin\Glimpse.Mvc5.dll
