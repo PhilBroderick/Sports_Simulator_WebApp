@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using System.Web.Mvc;
 
 namespace SportsSimulatorWebApp.Controllers.Api
 {
@@ -29,18 +30,23 @@ namespace SportsSimulatorWebApp.Controllers.Api
             return Ok(teamDtos);
         }
 
-        public IHttpActionResult GetTeam(int id)
+        public JsonResult GetTeam(int id)
         {
             var team = _context.Teams.SingleOrDefault(t => t.id == id);
 
-            if(team == null)
-            {
-                return NotFound();
-            }
+            //if(team == null)
+            //{
+            //    return NotFound();
+            //}
 
             var teamDto = Mapper.Map<Team,TeamDto>(team);
 
-            return Ok(teamDto);
+            //return Ok(teamDto);
+            return new JsonResult()
+            {
+                Data = teamDto,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
     }
 }

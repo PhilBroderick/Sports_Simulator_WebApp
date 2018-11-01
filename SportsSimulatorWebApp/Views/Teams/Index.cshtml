@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table" id="teams">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.TeamName)
@@ -29,9 +29,30 @@
             @Html.DisplayFor(modelItem => item.TeamRating)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.id })
+            <button data-team-id="@item.id" class="btn-link js-details">Details</button>
         </td>
     </tr>
 }
 
 </table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#teams .js-details').on("click", function () {
+                $.ajax({
+                    url: "/api/teams/" + $(this).attr("data-team-id"),
+                    contentType: 'application/json; charset=utf-8',
+                    method: "GET",
+                    dataType: 'json',
+                    processData: false,
+                    success: function (html) {
+                        alert(html);
+                    }
+                });
+            });
+        });
+
+    </script>
+}
