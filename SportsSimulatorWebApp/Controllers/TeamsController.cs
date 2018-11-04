@@ -13,12 +13,13 @@ namespace SportsSimulatorWebApp.Controllers
 {
     public class TeamsController : Controller
     {
-        private SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
+        private SportsSimulatorDBEntities _db = new SportsSimulatorDBEntities();
 
         // GET: Teams
         public ActionResult Index()
         {
-            return View(db.Teams.ToList());
+            //return View(db.Teams.ToList());
+            return View();
         }
 
         // GET: Teams/Details/5
@@ -30,7 +31,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
+            Team team = _db.Teams.Find(id);
             
             if (team == null)
             {
@@ -41,7 +42,7 @@ namespace SportsSimulatorWebApp.Controllers
 
         public ActionResult AddTeamMembers(int? id)
         {
-            Team team = db.Teams.Find(id);
+            Team team = _db.Teams.Find(id);
             TeamLogic addMembers = new TeamLogic();
 
             //Return a list of players from TeamMembers call
@@ -62,8 +63,8 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
-                db.SaveChanges();
+                _db.Teams.Add(team);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -77,7 +78,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
+            Team team = _db.Teams.Find(id);
             if (team == null)
             {
                 return HttpNotFound();
@@ -94,8 +95,8 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(team).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(team);
@@ -108,7 +109,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
+            Team team = _db.Teams.Find(id);
             if (team == null)
             {
                 return HttpNotFound();
@@ -121,9 +122,9 @@ namespace SportsSimulatorWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Teams.Find(id);
-            db.Teams.Remove(team);
-            db.SaveChanges();
+            Team team = _db.Teams.Find(id);
+            _db.Teams.Remove(team);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -131,7 +132,7 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -11,7 +11,7 @@ namespace SportsSimulatorWebApp.Dtos
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string LeagueName { get; set; }
 
         public int Active { get; set; }
 

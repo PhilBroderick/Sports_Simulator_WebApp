@@ -13,12 +13,12 @@ namespace SportsSimulatorWebApp.Controllers
 {
     public class LeaguesController : Controller
     {
-        private SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
+        private SportsSimulatorDBEntities _db = new SportsSimulatorDBEntities();
 
         // GET: Leagues
         public ActionResult Index()
         {
-            return View(db.Leagues.ToList());
+            return View();
         }
 
         // GET: Leagues/Details/5
@@ -31,7 +31,7 @@ namespace SportsSimulatorWebApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            League league = db.Leagues.Find(id);
+            League league = _db.Leagues.Find(id);
             if (league == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace SportsSimulatorWebApp.Controllers
         }
         public ActionResult CreateMatchups(int? id)
         {
-            League league = db.Leagues.Find(id);
+            League league = _db.Leagues.Find(id);
             LeagueLogic createLeague = new LeagueLogic();
 
             //TODO - Selection on the league page to add teams - tick box or something
@@ -63,7 +63,7 @@ namespace SportsSimulatorWebApp.Controllers
 
         public ActionResult SimulateRound(int? id)
         {
-            League league = db.Leagues.Find(id);
+            League league = _db.Leagues.Find(id);
             int currentRound = league.CurrentRound;
             Round round = (from r in league.Rounds.OfType<Round>() where r.RoundNumber == currentRound select r).FirstOrDefault();
 
@@ -100,8 +100,8 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Leagues.Add(league);
-                db.SaveChanges();
+                _db.Leagues.Add(league);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -115,7 +115,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            League league = db.Leagues.Find(id);
+            League league = _db.Leagues.Find(id);
             if (league == null)
             {
                 return HttpNotFound();
@@ -132,8 +132,8 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(league).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(league).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(league);
@@ -146,7 +146,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            League league = db.Leagues.Find(id);
+            League league = _db.Leagues.Find(id);
             if (league == null)
             {
                 return HttpNotFound();
@@ -159,9 +159,9 @@ namespace SportsSimulatorWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            League league = db.Leagues.Find(id);
-            db.Leagues.Remove(league);
-            db.SaveChanges();
+            League league = _db.Leagues.Find(id);
+            _db.Leagues.Remove(league);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -169,7 +169,7 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
