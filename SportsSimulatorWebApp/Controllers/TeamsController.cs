@@ -18,7 +18,8 @@ namespace SportsSimulatorWebApp.Controllers
         // GET: Teams
         public ActionResult Index()
         {
-            return View(db.Teams.ToList());
+            //return View(db.Teams.ToList());
+            return View();
         }
 
         // GET: Teams/Details/5
