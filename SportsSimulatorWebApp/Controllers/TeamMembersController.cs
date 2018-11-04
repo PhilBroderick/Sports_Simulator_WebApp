@@ -13,12 +13,12 @@ namespace SportsSimulatorWebApp.Controllers
 {
     public class TeamMembersController : Controller
     {
-        private SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
+        private SportsSimulatorDBEntities _db = new SportsSimulatorDBEntities();
 
         // GET: TeamMembers
         public ActionResult Index()
         {
-            var teamMembers = db.TeamMembers.Include(t => t.Player).Include(t => t.Team);
+            var teamMembers = _db.TeamMembers.Include(t => t.Player).Include(t => t.Team);
             return View(teamMembers.ToList());
         }
 
@@ -29,7 +29,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TeamMember teamMember = db.TeamMembers.Find(id);
+            TeamMember teamMember = _db.TeamMembers.Find(id);
             if (teamMember == null)
             {
                 return HttpNotFound();
@@ -77,12 +77,12 @@ namespace SportsSimulatorWebApp.Controllers
             }
             else
             {
-                model.Team = db.Teams.Find(id);
+                model.Team = _db.Teams.Find(id);
 
                 foreach (var playerId in model.PlayerId)
                 {
                     var idOFPlayer = int.Parse(playerId);
-                    model.Players.Add((from p in db.Players where p.id == idOFPlayer select p).First());
+                    model.Players.Add((from p in _db.Players where p.id == idOFPlayer select p).First());
                 }
             }
 
@@ -108,8 +108,8 @@ namespace SportsSimulatorWebApp.Controllers
         // GET: TeamMembers/Create
         public ActionResult Create()
         {
-            ViewBag.PlayerId = new SelectList(db.Players, "id", "FirstName");
-            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName");
+            ViewBag.PlayerId = new SelectList(_db.Players, "id", "FirstName");
+            ViewBag.TeamId = new SelectList(_db.Teams, "id", "TeamName");
             return View();
         }
 
@@ -122,13 +122,13 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.TeamMembers.Add(teamMember);
-                db.SaveChanges();
+                _db.TeamMembers.Add(teamMember);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PlayerId = new SelectList(db.Players, "id", "FirstName", teamMember.PlayerId);
-            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName", teamMember.TeamId);
+            ViewBag.PlayerId = new SelectList(_db.Players, "id", "FirstName", teamMember.PlayerId);
+            ViewBag.TeamId = new SelectList(_db.Teams, "id", "TeamName", teamMember.TeamId);
             return View(teamMember);
         }
 
@@ -139,13 +139,13 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TeamMember teamMember = db.TeamMembers.Find(id);
+            TeamMember teamMember = _db.TeamMembers.Find(id);
             if (teamMember == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PlayerId = new SelectList(db.Players, "id", "FirstName", teamMember.PlayerId);
-            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName", teamMember.TeamId);
+            ViewBag.PlayerId = new SelectList(_db.Players, "id", "FirstName", teamMember.PlayerId);
+            ViewBag.TeamId = new SelectList(_db.Teams, "id", "TeamName", teamMember.TeamId);
             return View(teamMember);
         }
 
@@ -158,12 +158,12 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(teamMember).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(teamMember).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PlayerId = new SelectList(db.Players, "id", "FirstName", teamMember.PlayerId);
-            ViewBag.TeamId = new SelectList(db.Teams, "id", "TeamName", teamMember.TeamId);
+            ViewBag.PlayerId = new SelectList(_db.Players, "id", "FirstName", teamMember.PlayerId);
+            ViewBag.TeamId = new SelectList(_db.Teams, "id", "TeamName", teamMember.TeamId);
             return View(teamMember);
         }
 
@@ -174,7 +174,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TeamMember teamMember = db.TeamMembers.Find(id);
+            TeamMember teamMember = _db.TeamMembers.Find(id);
             if (teamMember == null)
             {
                 return HttpNotFound();
@@ -187,9 +187,9 @@ namespace SportsSimulatorWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TeamMember teamMember = db.TeamMembers.Find(id);
-            db.TeamMembers.Remove(teamMember);
-            db.SaveChanges();
+            TeamMember teamMember = _db.TeamMembers.Find(id);
+            _db.TeamMembers.Remove(teamMember);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -197,7 +197,7 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

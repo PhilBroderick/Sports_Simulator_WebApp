@@ -12,12 +12,12 @@ namespace SportsSimulatorWebApp.Controllers
 {
     public class PlayersController : Controller
     {
-        private SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
+        private SportsSimulatorDBEntities _db = new SportsSimulatorDBEntities();
 
         // GET: Players
         public ActionResult Index()
         {
-            return View(db.Players.ToList());
+            return View(_db.Players.ToList());
         }
 
         // GET: Players/Details/5
@@ -27,7 +27,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Player player = db.Players.Find(id);
+            Player player = _db.Players.Find(id);
             if (player == null)
             {
                 return HttpNotFound();
@@ -50,8 +50,8 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Players.Add(player);
-                db.SaveChanges();
+                _db.Players.Add(player);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +65,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Player player = db.Players.Find(id);
+            Player player = _db.Players.Find(id);
             if (player == null)
             {
                 return HttpNotFound();
@@ -82,8 +82,8 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(player).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(player).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(player);
@@ -96,7 +96,7 @@ namespace SportsSimulatorWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Player player = db.Players.Find(id);
+            Player player = _db.Players.Find(id);
             if (player == null)
             {
                 return HttpNotFound();
@@ -109,9 +109,9 @@ namespace SportsSimulatorWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Player player = db.Players.Find(id);
-            db.Players.Remove(player);
-            db.SaveChanges();
+            Player player = _db.Players.Find(id);
+            _db.Players.Remove(player);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +119,7 @@ namespace SportsSimulatorWebApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

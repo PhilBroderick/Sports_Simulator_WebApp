@@ -11,7 +11,7 @@ namespace SportsSimulatorWebApp.Controllers
 {
     public class MatchupsController : Controller
     {
-        private SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
+        private SportsSimulatorDBEntities _db = new SportsSimulatorDBEntities();
         // GET: Matchups
         public ActionResult Index()
         {
@@ -26,7 +26,7 @@ namespace SportsSimulatorWebApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Matchup matchup = db.Matchups.Find(id); 
+            Matchup matchup = _db.Matchups.Find(id); 
             if(matchup == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace SportsSimulatorWebApp.Controllers
 
         public ActionResult LeagueCurrentRoundMatchups(int id)
         {
-            League league = db.Leagues.Find(id);
+            League league = _db.Leagues.Find(id);
 
 
             if (league == null)
@@ -54,7 +54,7 @@ namespace SportsSimulatorWebApp.Controllers
                 return HttpNotFound();
             }
             
-            var round = db.Rounds
+            var round = _db.Rounds
                         .Where(r => r.RoundNumber == league.CurrentRound)
                         .FirstOrDefault();
 
