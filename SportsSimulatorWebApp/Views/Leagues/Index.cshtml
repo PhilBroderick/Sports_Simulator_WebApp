@@ -15,33 +15,78 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <div class="League-Table">
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayName("League Name")
-            </th>
-            <th>
-                @Html.DisplayName("Current Round")
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    <table class="table" id="leagues">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LeagueName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CurrentRound)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                </td>
+                <th>
+                    League Name
+                </th>
+                <th>
+                    Current Round
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
             </tr>
-        }
-
+        </thead>
+        <tbody>
+        </tbody>
     </table>
 </div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#leagues").DataTable({
+                ajax: {
+                    url: "/api/leagues",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "Name",
+                        render: function (data, type, league) {
+                            return "<a href='/leagues/details/" + league.Id + "'>" + league.LeagueName + "</a>"
+                        }
+                    },
+                    {
+                        data: "CurrentRound"
+                    },
+                    {
+                        data: "Id",
+                        render: function (data) {
+                            return "<a href='leagues/edit/" + data + "'>Edit</a>"
+                        }
+                    },
+                    {
+                        data: "Id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-league-id=" + data + ">Delete</button>"
+                        }
+                    }
+                ]
+            })
+            $('#leagues').on("click", ".js-delete", function () {
+
+                bootbox.confirm("Are you sure you want to delete this league?", function (result) {
+                    if (result) {
+
+                    }
+                });
+                //$.ajax({
+                //    url: "/api/teams/" + $(this).attr("data-team-id"),
+                //    contentType: 'application/json; charset=utf-8',
+                //    method: "GET",
+                //    dataType: 'json',
+                //    processData: false,
+                //    success: function (html) {
+                //        alert(html);
+                //    }
+                //});
+            });
+        });
+        
+    </script>    
+}
