@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SportsSimulatorWebApp.Models;
+using SportsSimulatorWebApp.Models.ViewModels;
 using SportsSimulatorWebApp.SportsSimulatorBLL.TeamLogic;
 
 namespace SportsSimulatorWebApp.Controllers
@@ -37,13 +38,33 @@ namespace SportsSimulatorWebApp.Controllers
             return View(teamMember);
         }
 
+        //GET:TeamMembers/MakeBidding/4
+        public ActionResult MakeBidding(int id)
+        {
+            Team team = _db.Teams.Find(id);
+            List<Player> availablePlayers = _db.spPlayers_NotInATeam().ToList();
+
+            var availablePlayersVM = new AvailablePlayersForBiddingWithTeamViewModel
+            {
+                Team = team,
+                Players = availablePlayers
+            };
+
+            return View("AvailablePlayers", availablePlayersVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MakeBidding()
+        {
+            return View();
+        }
+
         //GET: TeamMembers/AddTeamMembers/4
         public ActionResult AddTeamMembers(int id)
         {
-            SportsSimulatorDBEntities db = new SportsSimulatorDBEntities();
-
-            Team team = db.Teams.Find(id);
-            List<Player> players = db.spPlayers_NotInATeam().ToList();
+            Team team = _db.Teams.Find(id);
+            List<Player> players = _db.spPlayers_NotInATeam().ToList();
 
             List<SelectListItem> items = new List<SelectListItem>();
 

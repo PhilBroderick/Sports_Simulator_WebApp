@@ -68,6 +68,9 @@
           <Property Name="Position" Type="nvarchar" MaxLength="50" />
           <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
           <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PointScored" Type="float" />
+          <Property Name="NegotiationPrice" Type="money" />
+          <Property Name="BuyoutPrice" Type="money" />
         </EntityType>
         <EntityType Name="Rounds">
           <Key>
@@ -118,6 +121,8 @@
           <Property Name="Points" Type="float" />
           <Property Name="TryBonusPoints" Type="float" />
           <Property Name="LosingBonusPoints" Type="float" />
+          <Property Name="TotalBudget" Type="money" />
+          <Property Name="SpentBudget" Type="money" />
         </EntityType>
         <Association Name="FK_EventTimings_Event">
           <End Role="Events" Type="Self.Events" Multiplicity="1" />
@@ -494,6 +499,9 @@
           <NavigationProperty Name="TeamMembers" Relationship="Self.FK_TeamMembers_Players" FromRole="Players" ToRole="TeamMembers" />
           <Property Name="AttackRating" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="DefenseRating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PointScored" Type="Double" />
+          <Property Name="NegotiationPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BuyoutPrice" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -894,6 +902,8 @@
           <Property Name="Points" Type="Double" />
           <Property Name="TryBonusPoints" Type="Double" />
           <Property Name="LosingBonusPoints" Type="Double" />
+          <Property Name="TotalBudget" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SpentBudget" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="FK_League_Teams">
           <End Type="SportsSimulatorDBModel.Team" Role="Team" Multiplicity="1" />
@@ -1067,6 +1077,9 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Player">
               <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="BuyoutPrice" ColumnName="BuyoutPrice" />
+                <ScalarProperty Name="NegotiationPrice" ColumnName="NegotiationPrice" />
+                <ScalarProperty Name="PointScored" ColumnName="PointScored" />
                 <ScalarProperty Name="DefenseRating" ColumnName="DefenseRating" />
                 <ScalarProperty Name="AttackRating" ColumnName="AttackRating" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -1214,6 +1227,8 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="SpentBudget" ColumnName="SpentBudget" />
+                <ScalarProperty Name="TotalBudget" ColumnName="TotalBudget" />
                 <ScalarProperty Name="LosingBonusPoints" ColumnName="LosingBonusPoints" />
                 <ScalarProperty Name="TryBonusPoints" ColumnName="TryBonusPoints" />
                 <ScalarProperty Name="Points" ColumnName="Points" />

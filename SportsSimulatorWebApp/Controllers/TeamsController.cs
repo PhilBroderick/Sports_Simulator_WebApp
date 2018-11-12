@@ -102,6 +102,22 @@ namespace SportsSimulatorWebApp.Controllers
             return View(team);
         }
 
+        public ActionResult TeamLogoUpload(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TeamLogoUpload([Bind(Include ="file")] Team team)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            return View();
+        }
+
         // GET: Teams/Delete/5
         public ActionResult Delete(int? id)
         {
