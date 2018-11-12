@@ -42,6 +42,8 @@ namespace SportsSimulatorWebApp.Models
         public Nullable<double> Points { get; set; }
         public Nullable<double> TryBonusPoints { get; set; }
         public Nullable<double> LosingBonusPoints { get; set; }
+        public Nullable<decimal> TotalBudget { get; set; }
+        public Nullable<decimal> SpentBudget { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueEntry> LeagueEntries { get; set; }

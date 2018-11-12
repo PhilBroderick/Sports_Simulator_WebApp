@@ -42,5 +42,14 @@ namespace SportsSimulatorWebApp.Controllers.Api
 
             return Ok(playerDto);
         }
+
+        public IHttpActionResult GetPlayers(string available)
+        {
+            var availableplayerDtos = _context.spPlayers_NotInATeam().AsQueryable()
+                .ProjectTo<PlayerDto>()
+                .ToList();
+
+            return Ok(availableplayerDtos);
+        }
     }
 }

@@ -243,6 +243,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LeagueModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\AvailablePlayersForBiddingWithTeamViewModel.cs" />
     <Compile Include="Models\ViewModels\MatchupEventTimingViewModel.cs" />
     <Compile Include="Models\ViewModels\LeagueTeamViewModel.cs" />
     <Compile Include="Models\Matchup.cs">
@@ -316,7 +317,12 @@
     <Compile Include="SportsSimulatorBLL\Events\ScrumEvent.cs" />
     <Compile Include="SportsSimulatorBLL\Events\TryAwayEvent .cs" />
     <Compile Include="SportsSimulatorBLL\Events\TryHomeEvent.cs" />
+    <Compile Include="SportsSimulatorBLL\IPlayerRepository.cs" />
+    <Compile Include="SportsSimulatorBLL\ITeamRepository.cs" />
     <Compile Include="SportsSimulatorBLL\LeagueLogic.cs" />
+    <Compile Include="SportsSimulatorBLL\PlayerBidding.cs" />
+    <Compile Include="SportsSimulatorBLL\PlayerBiddingStatuses.cs" />
+    <Compile Include="SportsSimulatorBLL\PlayerRepository.cs" />
     <Compile Include="SportsSimulatorBLL\RatingSystemLogic.cs" />
     <Compile Include="SportsSimulatorBLL\SimulationLogic.cs" />
     <Compile Include="SportsSimulatorBLL\Events\TeamEvent.cs" />
@@ -336,6 +342,7 @@
     <Compile Include="SportsSimulatorBLL\TeamLogicClasses\ICalculateNewRatings.cs" />
     <Compile Include="SportsSimulatorBLL\TeamLogicClasses\TeamLogic.cs" />
     <Compile Include="SportsSimulatorBLL\TeamLogicClasses\WriteTeamRatingsToDB.cs" />
+    <Compile Include="SportsSimulatorBLL\TeamRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-darkly.css" />
@@ -607,6 +614,8 @@
     <Content Include="Views\Rounds\ViewAllRounds.cshtml" />
     <Content Include="Views\Rounds\Details.cshtml" />
     <Content Include="Views\TeamMembers\TooManyPlayersSelected.cshtml" />
+    <Content Include="Views\Teams\TeamLogoUpload.cshtml" />
+    <Content Include="Views\TeamMembers\AvailablePlayers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

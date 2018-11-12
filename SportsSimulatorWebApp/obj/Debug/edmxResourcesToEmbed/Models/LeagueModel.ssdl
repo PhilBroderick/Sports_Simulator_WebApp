@@ -63,6 +63,9 @@
     <Property Name="Position" Type="nvarchar" MaxLength="50" />
     <Property Name="AttackRating" Type="decimal" Precision="18" Scale="0" />
     <Property Name="DefenseRating" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="PointScored" Type="float" />
+    <Property Name="NegotiationPrice" Type="money" />
+    <Property Name="BuyoutPrice" Type="money" />
   </EntityType>
   <EntityType Name="Rounds">
     <Key>
@@ -113,6 +116,8 @@
     <Property Name="Points" Type="float" />
     <Property Name="TryBonusPoints" Type="float" />
     <Property Name="LosingBonusPoints" Type="float" />
+    <Property Name="TotalBudget" Type="money" />
+    <Property Name="SpentBudget" Type="money" />
   </EntityType>
   <Association Name="FK_EventTimings_Event">
     <End Role="Events" Type="Self.Events" Multiplicity="1" />

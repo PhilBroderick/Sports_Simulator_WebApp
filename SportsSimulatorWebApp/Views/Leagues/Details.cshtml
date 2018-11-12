@@ -46,7 +46,7 @@
             @foreach (var team in teamList)
             {
         <tr>
-            <td>@team.TeamName</td>
+            <td>@Html.ActionLink(team.TeamName, "Details", "Teams", new { team.id }, null)</td>
             <td>@team.Wins</td>
             <td>@team.Losses</td>
             <td>@team.Draws</td>
