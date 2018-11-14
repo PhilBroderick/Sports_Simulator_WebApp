@@ -1,0 +1,73 @@
+﻿@model SportsSimulatorWebApp.Models.ViewModels.AvailablePlayersForBiddingWithTeamViewModel
+
+@{
+    ViewBag.Title = "BidOnAvailablePlayersList";
+}
+
+<h2>BidOnAvailablePlayersList</h2>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Available Players")
+            </th>
+            <th>
+                @Html.DisplayName("Negotiation Price")
+            </th>
+            <th>
+                @Html.DisplayName("Buyout Price")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @{ var modelList = Model.Players;}
+            @foreach (var player in modelList)
+            {
+                <td>@player.FirstName @player.LastName</td>
+                <td>£@player.NegotiationPrice</td>
+                <td>£@player.BuyoutPrice</td>
+                <td>
+                    <button class="bid" data-player-id="@player.id">Make Bid</button>
+                    @*<a href="@Url.Action("MakeBidOnPlayer","Bidding", new { id = player.id, teamId = Model.Team.id })">Make Bid &raquo;</a>*@
+                </td>
+            }
+        </tr>
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $('.bid').on("click", function (e) {
+                var bid = prompt("How much would you like to bid?");
+
+                var teamId = @Model.Team.id;
+                var playerId = this.getAttribute('data-player-id');
+
+                $.ajax({
+                    url: '@Url.Action("MakeBidOnPlayer", "Bidding")', /*"/Bidding/MakeBidOnPlayer/" + playerId + "/" + teamId,*/
+                    type: "POST",
+                    data:
+                    {
+                        'id': playerId,
+                        'teamId': teamId,
+                        'bid': bid
+                    },
+                    success: function (result) {
+                        alert("You bidding was " + result);
+                    },
+                    error: function (result) {
+
+                    }
+                });
+                e.preventDefault();
+            });
+        })
+    </script>
+}
+
+
