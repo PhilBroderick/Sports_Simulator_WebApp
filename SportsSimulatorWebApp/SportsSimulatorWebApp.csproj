@@ -190,6 +190,7 @@
     <Compile Include="Controllers\Api\LeaguesController.cs" />
     <Compile Include="Controllers\Api\PlayersController.cs" />
     <Compile Include="Controllers\Api\TeamsController.cs" />
+    <Compile Include="Controllers\BiddingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeagueEntriesController.cs" />
     <Compile Include="Controllers\LeaguesController.cs" />
@@ -616,6 +617,8 @@
     <Content Include="Views\TeamMembers\TooManyPlayersSelected.cshtml" />
     <Content Include="Views\Teams\TeamLogoUpload.cshtml" />
     <Content Include="Views\TeamMembers\AvailablePlayers.cshtml" />
+    <Content Include="Views\Bidding\Index.cshtml" />
+    <Content Include="Views\Bidding\BidOnAvailablePlayersList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
