@@ -172,6 +172,7 @@
     <EntitySetMapping Name="Teams">
       <EntityTypeMapping TypeName="SportsSimulatorDBModel.Team">
         <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="AvailableBudget" ColumnName="AvailableBudget" />
           <ScalarProperty Name="SpentBudget" ColumnName="SpentBudget" />
           <ScalarProperty Name="TotalBudget" ColumnName="TotalBudget" />
           <ScalarProperty Name="LosingBonusPoints" ColumnName="LosingBonusPoints" />
@@ -249,5 +250,16 @@
     <FunctionImportMapping FunctionImportName="spTeams_UpdatePoints" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdatePoints" />
     <FunctionImportMapping FunctionImportName="spPlayers_NotInATeam" FunctionName="SportsSimulatorDBModel.Store.spPlayers_NotInATeam" />
     <FunctionImportMapping FunctionImportName="spTeams_UpdateAllRatings" FunctionName="SportsSimulatorDBModel.Store.spTeams_UpdateAllRatings" />
+    <EntitySetMapping Name="Biddings">
+      <EntityTypeMapping TypeName="SportsSimulatorDBModel.Bidding">
+        <MappingFragment StoreEntitySet="Bidding">
+          <ScalarProperty Name="BiddingStatus" ColumnName="BiddingStatus" />
+          <ScalarProperty Name="TeamBid" ColumnName="TeamBid" />
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -40,7 +40,7 @@ namespace SportsSimulatorWebAppTests
         [TestCase]
         public void InitialBiddingStatus_AskingPriceIsTooLow_FirstOfferRejected()
         {
-            var result = _bidding.InitialBiddingStatus(teamId: 1, teamOffer: 150000, playerId: 2);
+            var result = _bidding.BiddingStatus(teamId: 1, teamOffer: 150000, playerId: 2);
 
             Assert.AreEqual(result, PlayerBiddingStatuses.Rejected);
         }
@@ -48,7 +48,7 @@ namespace SportsSimulatorWebAppTests
         [TestCase]
         public void MakeBidToPlayer_AskingPriceIsAboveBuyoutPrice_ReturnsTrue()
         {
-            var result = _bidding.InitialBiddingStatus(teamId: 1, teamOffer: 300001, playerId: 2);
+            var result = _bidding.BiddingStatus(teamId: 1, teamOffer: 300001, playerId: 2);
 
             Assert.AreEqual(result, PlayerBiddingStatuses.BiddingAccepted);
         }
@@ -56,7 +56,7 @@ namespace SportsSimulatorWebAppTests
         [TestCase]
         public void MakeBidToPlayer_AskingPriceIsWithinNegotiationPrice_NextStageOfNegotiationsOccur()
         {
-            var result = _bidding.InitialBiddingStatus(teamId: 1, teamOffer: 200001, playerId: 2);
+            var result = _bidding.BiddingStatus(teamId: 1, teamOffer: 200001, playerId: 2);
 
             Assert.AreEqual(result, PlayerBiddingStatuses.NextStageOfBidding);
         }

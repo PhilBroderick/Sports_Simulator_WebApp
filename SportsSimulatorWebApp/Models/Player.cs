@@ -18,6 +18,7 @@ namespace SportsSimulatorWebApp.Models
         public Player()
         {
             this.TeamMembers = new HashSet<TeamMember>();
+            this.Biddings = new HashSet<Bidding>();
         }
     
         public int id { get; set; }
@@ -33,5 +34,7 @@ namespace SportsSimulatorWebApp.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeamMember> TeamMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bidding> Biddings { get; set; }
     }
 }

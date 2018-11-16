@@ -38,6 +38,7 @@ namespace SportsSimulatorWebApp.Models
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<EventTiming> EventTimings { get; set; }
         public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<Bidding> Biddings { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d47cf12fde504155b6a3af8b1b02ac33" Name="Diagram1">
+      <Diagram DiagramId="d47cf12fde504155b6a3af8b1b02ac33" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="SportsSimulatorDBModel.League" Width="1.5" PointX="6.375" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.LeagueEntry" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SportsSimulatorDBModel.Player" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SportsSimulatorDBModel.Player" Width="1.5" PointX="2.125" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsSimulatorDBModel.TeamMember" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_League_LeagueEntries" ManuallyRouted="false" />
@@ -28,6 +28,9 @@
         <EntityTypeShape EntityType="SportsSimulatorDBModel.Event" Width="1.5" PointX="10.375" PointY="4.125" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_EventTimings_Event" />
         <AssociationConnector Association="SportsSimulatorDBModel.FK_EventTimings_Event1" />
+        <EntityTypeShape EntityType="SportsSimulatorDBModel.Bidding" Width="1.5" PointX="4.75" PointY="11.75" />
+        <AssociationConnector Association="SportsSimulatorDBModel.FK_Bidding_Players" />
+        <AssociationConnector Association="SportsSimulatorDBModel.FK_Bidding_Teams" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
