@@ -4,7 +4,13 @@
     ViewBag.Title = "BidOnAvailablePlayersList";
 }
 
-<h2>BidOnAvailablePlayersList</h2>
+<h2>Bidding</h2>
+
+<div>
+    <p>You are bidding as @Model.Team.TeamName</p>
+    <p>Total budget: £@Model.Team.TotalBudget</p>
+    <p>Budget Available: £@Model.Team.AvailableBudget</p>
+</div>
 
 <table class="table table-bordered table-hover table-striped">
     <thead>
@@ -25,6 +31,7 @@
             @{ var modelList = Model.Players;}
             @foreach (var player in modelList)
             {
+            <tr>
                 <td>@player.FirstName @player.LastName</td>
                 <td>£@player.NegotiationPrice</td>
                 <td>£@player.BuyoutPrice</td>
@@ -32,9 +39,10 @@
                     <button class="bid" data-player-id="@player.id">Make Bid</button>
                     @*<a href="@Url.Action("MakeBidOnPlayer","Bidding", new { id = player.id, teamId = Model.Team.id })">Make Bid &raquo;</a>*@
                 </td>
-            }
-        </tr>
-    </tbody>
+            </tr>
+                }
+            </tr>
+        </tbody>
 </table>
 
 @section scripts
@@ -45,11 +53,16 @@
             $('.bid').on("click", function (e) {
                 var bid = prompt("How much would you like to bid?");
 
+                while (bid > @Model.Team.AvailableBudget) {
+                    alert("You bid: £" + bid + " but you only have an available of: £" + @Model.Team.AvailableBudget);
+                    bid = prompt("How much would you like to bid?");
+                }
+
                 var teamId = @Model.Team.id;
                 var playerId = this.getAttribute('data-player-id');
 
                 $.ajax({
-                    url: '@Url.Action("MakeBidOnPlayer", "Bidding")', /*"/Bidding/MakeBidOnPlayer/" + playerId + "/" + teamId,*/
+                    url: '@Url.Action("MakeBidOnPlayer", "Bidding")', 
                     type: "POST",
                     data:
                     {
@@ -57,8 +70,8 @@
                         'teamId': teamId,
                         'bid': bid
                     },
-                    success: function (result) {
-                        alert("You bidding was " + result);
+                    success: function (response) {
+                        window.location.href = response.Url;
                     },
                     error: function (result) {
 

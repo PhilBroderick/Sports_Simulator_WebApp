@@ -1,6 +1,7 @@
 ﻿using SportsSimulatorWebApp.Models;
 using SportsSimulatorWebApp.Models.ViewModels;
 using SportsSimulatorWebApp.SportsSimulatorBLL;
+using SportsSimulatorWebApp.SportsSimulatorBLL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,14 @@ namespace SportsSimulatorWebApp.Controllers
         private SportsSimulatorDBEntities _db;
         private PlayerRepository _playerRepository;
         private TeamRepository _teamRepository;
+        private BiddingRepository _biddingRespoitory;
 
         public BiddingController()
         {
             _db = new SportsSimulatorDBEntities();
             _playerRepository = new PlayerRepository();
             _teamRepository = new TeamRepository();
+            _biddingRespoitory = new BiddingRepository();
         }
         // GET: Bidding
         public ActionResult Index()
@@ -27,7 +30,7 @@ namespace SportsSimulatorWebApp.Controllers
             return View();
         }
 
-        public ActionResult BidOnAvailablePlayers(int id)
+        public ActionResult BidOnAvailablePlayers(int? id)
         {
             Team team = _db.Teams.Find(id);
             List<Player> availablePlayers = _db.spPlayers_NotInATeam().ToList();
@@ -44,13 +47,38 @@ namespace SportsSimulatorWebApp.Controllers
         [HttpPost]
         public ActionResult MakeBidOnPlayer(int id, int teamId, decimal bid)
         {
-            var bidding = new PlayerBidding(_playerRepository, _teamRepository);
+            var bidding = new PlayerBidding(_playerRepository, _teamRepository, _biddingRespoitory);
 
-            var biddingStatus = bidding.InitialBiddingStatus(teamId, bid, id);
+            var biddingStatus = bidding.BiddingStatus(teamId, bid, id);
 
-            return Content(biddingStatus.ToString());
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("NextStageOfBidding", new { id, teamId, bid });
+            return Json(new { Url = redirectUrl, BiddingStatus = biddingStatus });
+
+            //return RedirectToAction("NextStageOfBidding", new {id, teamId, bid});
         }
 
+        public ActionResult NextStageOfBidding(int id, int teamId, decimal bid)
+        {
+            var bids = _db.Biddings.Where(b => b.TeamId == teamId
+                                            && b.PlayerId == id).ToList();
+
+            var playerBid = new PlayerBidByTeamViewModel()
+            {
+                playerId = id,
+                teamId = teamId,
+                Bids = bids,
+                Player = _db.Players.Find(id),
+                Team = _db.Teams.Find(teamId)
+            };
+
+            return View("BiddingWindow", playerBid);
+        }
+
+        [HttpPost]
+        public ActionResult ConsequentBidOnPlayer(int id, int teamId, decimal bid)
+        {
+            return null;
+        }
 
         protected override void Dispose(bool disposing)
         {

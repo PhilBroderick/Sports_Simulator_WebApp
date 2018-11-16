@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SportsSimulatorDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bidding">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PlayerId" Type="int" />
+    <Property Name="TeamId" Type="int" />
+    <Property Name="TeamBid" Type="money" />
+    <Property Name="BiddingStatus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="Events">
     <Key>
       <PropertyRef Name="id" />
@@ -118,7 +128,32 @@
     <Property Name="LosingBonusPoints" Type="float" />
     <Property Name="TotalBudget" Type="money" />
     <Property Name="SpentBudget" Type="money" />
+    <Property Name="AvailableBudget" Type="money" StoreGeneratedPattern="Computed" />
   </EntityType>
+  <Association Name="FK_Bidding_Players">
+    <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+    <End Role="Bidding" Type="Self.Bidding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Bidding">
+        <PropertyRef Name="PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bidding_Teams">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+    <End Role="Bidding" Type="Self.Bidding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Bidding">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_EventTimings_Event">
     <End Role="Events" Type="Self.Events" Multiplicity="1" />
     <End Role="EventTimings" Type="Self.EventTimings" Multiplicity="*" />
@@ -401,6 +436,7 @@
     <Parameter Name="TeamId" Type="int" Mode="In" />
   </Function>
   <EntityContainer Name="SportsSimulatorDBModelStoreContainer">
+    <EntitySet Name="Bidding" EntityType="Self.Bidding" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EventTimings" EntityType="Self.EventTimings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
@@ -412,6 +448,14 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TeamMembers" EntityType="Self.TeamMembers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Bidding_Players" Association="Self.FK_Bidding_Players">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Bidding" EntitySet="Bidding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bidding_Teams" Association="Self.FK_Bidding_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Bidding" EntitySet="Bidding" />
+    </AssociationSet>
     <AssociationSet Name="FK_EventTimings_Event" Association="Self.FK_EventTimings_Event">
       <End Role="Events" EntitySet="Events" />
       <End Role="EventTimings" EntitySet="EventTimings" />

@@ -1,0 +1,61 @@
+﻿@model SportsSimulatorWebApp.Models.ViewModels.PlayerBidByTeamViewModel
+
+@{
+    ViewBag.Title = "BiddingWindow";
+}
+
+<h2>Bidding Window</h2>
+<div>
+    <p>@Model.Player.FirstName @Model.Player.LastName has considered your bid!</p>
+    <p>Would you like to make a further offer..?</p>
+</div>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Bid</th>
+            <th>Player Response</th>
+        </tr>
+    </thead>
+    <tbody>
+           @{  var bids = Model.Bids;}
+           @foreach(var bid in bids)
+           {
+               <tr>
+                   <td>@bid.TeamBid</td>
+                   <td>@bid.BiddingStatus</td>
+               </tr>
+           }
+    </tbody>
+</table>
+<button class="button">Click Me!</button>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".button").click(function (event) {
+                event.preventDefault();
+                $('<div title="Confirm Box"></div>').dialog({
+                    open: function (event, ui) {
+                        $(this).html("Yes or No question?");
+                    },
+                    close: function () {
+                        $(this).remove();
+                    },
+                    resizable: false,
+                    height: 140,
+                    buttons: {
+                        'Yes': function () {
+                            $(this).dialog('close');
+                        },
+                        'No': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+            });
+        });
+    </script>    
+}
+
